@@ -1,19 +1,19 @@
-/* Liftly - Marketing Site Styles */
+/* Liftly - Marketing Site Styles (White/Black base) */
 :root {
-  --color-bg: #0f0f12;
-  --color-bg-card: #1a1a1f;
-  --color-bg-elevated: #242429;
-  --color-text: #f5f5f7;
-  --color-text-muted: #a1a1a6;
-  --color-accent: #34c759;
-  --color-accent-hover: #30d158;
-  --color-accent-muted: rgba(52, 199, 89, 0.15);
-  --color-border: rgba(255, 255, 255, 0.08);
+  --color-bg: #ffffff;
+  --color-bg-card: #fafafa;
+  --color-bg-elevated: #f5f5f5;
+  --color-text: #0a0a0a;
+  --color-text-muted: #525252;
+  --color-accent: #0a0a0a;
+  --color-accent-hover: #262626;
+  --color-accent-muted: rgba(0, 0, 0, 0.06);
+  --color-border: rgba(0, 0, 0, 0.08);
   --font-sans: "Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --radius: 16px;
   --radius-sm: 12px;
-  --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
-  --gradient-hero: linear-gradient(135deg, #0f0f12 0%, #1a2f1a 50%, #0f0f12 100%);
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  --shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 * {
@@ -47,11 +47,11 @@ h3 { font-size: 1.25rem; margin-bottom: 0.75rem; }
 p { color: var(--color-text-muted); margin-bottom: 1rem; }
 
 a {
-  color: var(--color-accent);
+  color: var(--color-text);
   text-decoration: none;
   transition: color 0.2s;
 }
-a:hover { color: var(--color-accent-hover); }
+a:hover { color: var(--color-text-muted); }
 
 /* Layout */
 .container {
@@ -76,20 +76,9 @@ section {
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: var(--gradient-hero);
+  background: var(--color-bg);
   position: relative;
   overflow: hidden;
-}
-
-.hero::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(52, 199, 89, 0.15), transparent);
-  pointer-events: none;
 }
 
 .hero-content {
@@ -100,7 +89,7 @@ section {
 .hero-badge {
   display: inline-block;
   background: var(--color-accent-muted);
-  color: var(--color-accent);
+  color: var(--color-text);
   font-size: 0.875rem;
   font-weight: 500;
   padding: 6px 14px;
@@ -111,18 +100,16 @@ section {
 
 .hero h1 {
   margin-bottom: 1rem;
-  background: linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.85) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--color-text);
 }
 
 .hero-tagline {
   font-size: clamp(1.125rem, 2.5vw, 1.375rem);
   color: var(--color-text-muted);
-  max-width: 480px;
+  max-width: 42ch;
   margin: 0 auto 2.5rem;
-  line-height: 1.7;
+  line-height: 1.75;
+  letter-spacing: 0.01em;
 }
 
 /* App Store Buttons */
@@ -138,24 +125,25 @@ section {
   align-items: center;
   gap: 10px;
   padding: 14px 24px;
-  background: var(--color-bg-elevated);
-  border: 1px solid var(--color-border);
+  background: var(--color-text);
+  border: 1px solid var(--color-text);
   border-radius: var(--radius-sm);
-  color: var(--color-text);
+  color: var(--color-bg);
   font-size: 1rem;
   font-weight: 500;
   transition: all 0.2s;
 }
 
 .store-btn:hover {
-  background: var(--color-bg-card);
-  border-color: var(--color-accent);
-  color: var(--color-accent);
+  background: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+  color: var(--color-bg);
 }
 
 .store-btn svg {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
 }
 
 /* Section Headers */
@@ -166,8 +154,9 @@ section {
 
 .section-header p {
   font-size: 1.125rem;
-  max-width: 560px;
+  max-width: 36em;
   margin: 0 auto;
+  line-height: 1.65;
 }
 
 /* Feature Cards */
@@ -187,20 +176,27 @@ section {
 
 .feature-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(52, 199, 89, 0.3);
-  box-shadow: var(--shadow);
+  border-color: var(--color-border);
+  box-shadow: var(--shadow-hover);
 }
 
 .feature-icon {
-  width: 48px;
-  height: 48px;
-  background: var(--color-accent-muted);
-  border-radius: var(--radius-sm);
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 1.25rem;
-  font-size: 1.5rem;
+}
+
+.feature-icon svg {
+  width: 22px;
+  height: 22px;
+  stroke: var(--color-text);
+  stroke-width: 1.5;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .feature-card h3 {
@@ -211,6 +207,7 @@ section {
 .feature-card p {
   font-size: 0.9375rem;
   margin: 0;
+  line-height: 1.65;
 }
 
 /* How-to Steps */
@@ -236,7 +233,7 @@ section {
   flex-shrink: 0;
   width: 44px;
   height: 44px;
-  background: var(--color-accent);
+  background: var(--color-text);
   color: var(--color-bg);
   font-weight: 700;
   font-size: 1.125rem;
@@ -253,6 +250,7 @@ section {
 .howto-step p {
   margin: 0;
   font-size: 0.9375rem;
+  line-height: 1.65;
 }
 
 /* Legal / Privacy */
@@ -260,7 +258,11 @@ section {
   background: var(--color-bg-card);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
-  padding: 40px;
+  padding: 2.5rem 2.25rem;
+}
+
+.legal-section p {
+  line-height: 1.7;
 }
 
 .legal-section h2 {
@@ -279,8 +281,8 @@ section {
 .contact-cta {
   text-align: center;
   padding: 48px 24px;
-  background: var(--color-accent-muted);
-  border: 1px solid rgba(52, 199, 89, 0.2);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius);
 }
 
@@ -298,7 +300,7 @@ section {
   align-items: center;
   gap: 8px;
   padding: 14px 28px;
-  background: var(--color-accent);
+  background: var(--color-text);
   color: var(--color-bg);
   font-weight: 600;
   font-size: 1rem;
@@ -341,7 +343,7 @@ section {
 }
 
 .footer-links a:hover {
-  color: var(--color-accent);
+  color: var(--color-text);
 }
 
 .footer-copy {
@@ -357,8 +359,9 @@ section {
   right: 0;
   z-index: 100;
   padding: 16px 24px;
-  background: rgba(15, 15, 18, 0.8);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -395,8 +398,17 @@ section {
 /* Spacer for fixed nav */
 body { padding-top: 72px; }
 
+/* Refinements */
+.contact-cta p {
+  max-width: 28em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 @media (max-width: 640px) {
   .nav-links { display: none; }
   section { padding: 48px 0; }
   .hero { min-height: 60vh; }
+  .hero-tagline { max-width: 100%; }
+  .store-btn { width: 100%; justify-content: center; }
 }
