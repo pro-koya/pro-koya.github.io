@@ -1,6 +1,6 @@
 # GitHub Pages 用（app-ads.txt 設置）
 
-このフォルダの内容を GitHub Pages で公開し、AdMob の app-ads.txt 検証に使います。
+このフォルダの内容を GitHub Pages で公開し、AdMob の app-ads.txt 検証に使います
 
 ## 1. 事前にやること
 
@@ -20,15 +20,15 @@ google.com, pub-1234567890123456, DIRECT, f08c47fec0942fa0
 
 ### 方法A: このリポジトリの `/docs` で公開する場合
 
-1. この `for_githubPages` フォルダの中身（`app-ads.txt` と `index.html`）を、リポジトリ直下の **`docs`** フォルダにコピーする  
+1. この `for_githubPages` フォルダの中身（`app-ads.txt` と `index.html`）を、リポジトリ直下の **`docs`** フォルダにコピーする
    - 例: `docs/app-ads.txt`, `docs/index.html`
 2. GitHub のリポジトリページで **Settings** → **Pages**
 3. **Source** で「Deploy from a branch」を選び、**Branch** で `main`、**Folder** で **/docs** を選択して Save
-4. 数分後、`https://<あなたのユーザー名>.github.io/<リポジトリ名>/` で公開される  
+4. 数分後、`https://<あなたのユーザー名>.github.io/<リポジトリ名>/` で公開される
    - app-ads.txt の URL は `https://<あなたのユーザー名>.github.io/<リポジトリ名>/app-ads.txt`
 
-**注意**: Play Store / App Store の「開発者ウェブサイト」には、  
-`https://<あなたのユーザー名>.github.io/<リポジトリ名>` を指定する（末尾のスラッシュはあってもなくても可）。  
+**注意**: Play Store / App Store の「開発者ウェブサイト」には、
+`https://<あなたのユーザー名>.github.io/<リポジトリ名>` を指定する（末尾のスラッシュはあってもなくても可）。
 AdMob はこのドメインから `https://.../<リポジトリ名>/app-ads.txt` を取得します。
 
 ---
@@ -36,7 +36,7 @@ AdMob はこのドメインから `https://.../<リポジトリ名>/app-ads.txt`
 ### 方法B: 専用リポジトリで公開する場合（ルートに app-ads.txt を置きたいとき）
 
 1. GitHub で **新しいリポジトリ** を作成（例: `yourname.github.io` または `app-website`）
-2. そのリポジトリに、このフォルダの **中身だけ** をプッシュする  
+2. そのリポジトリに、このフォルダの **中身だけ** をプッシュする
    - リポジトリの**ルート**に `app-ads.txt` と `index.html` がある状態にする
 3. そのリポジトリの **Settings** → **Pages** で、**Source** を「Deploy from a branch」、**Branch** を `main`、**Folder** を **/ (root)** にして Save
 4. 公開 URL の例:
