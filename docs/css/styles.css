@@ -131,6 +131,23 @@ section {
   letter-spacing: 0.01em;
 }
 
+/* Hero プロモーション動画 */
+.hero-video-wrap {
+  margin: 0 auto 2.5rem;
+  max-width: 320px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow);
+}
+
+.hero-video {
+  display: block;
+  width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
 /* App Store Buttons */
 .store-buttons {
   display: flex;
