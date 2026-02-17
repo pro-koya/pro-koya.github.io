@@ -15,7 +15,7 @@
       'nav.privacy': 'プライバシー',
       'nav.contact': 'お問い合わせ',
       'hero.badge': '筋トレ記録アプリ',
-      'hero.tagline': 'シンプルで美しい。続けたくなるトレーニングログ。重量・回数・種目別の成長を、一つにまとめて。',
+      'hero.tagline': 'シンプルで美しい。続けたくなるトレーニングログ。\n重量・回数・種目別の成長を、一つにまとめて。',
       'hero.videoTitle': 'Liftlyアプリのプロモーション動画',
       'hero.watchYoutube': 'YouTube で見る',
       'hero.appStore': 'App Store でダウンロード',
@@ -43,7 +43,7 @@
       'howto.s3.desc': '種目一覧から任意の種目をタップすると、成長グラフを表示。重量・回数・ボリュームの推移を期間（1M〜5Y）で切り替えて確認できます。',
       'privacy.title': 'プライバシーポリシー',
       'privacy.p1': '本アプリは個人情報を収集しません。トレーニングデータは端末内にのみ保存され、外部に送信されることはありません。',
-      'privacy.p2': 'アプリ内課金、広告表示に関わる処理について、各サービス提供者のポリシーが適用されます。詳しくはアプリ内の利用規約・プライバシーポリシーをご確認ください。',
+      'privacy.p2': 'アプリ内課金、広告表示に関わる処理について、各サービス提供者のポリシーが適用されます。\n詳しくはアプリ内の利用規約・プライバシーポリシーをご確認ください。',
       'contact.title': 'お問い合わせ',
       'contact.desc': 'ご質問・ご要望は以下のフォームよりお送りください。',
       'contact.btn': 'お問い合わせフォームを開く',
@@ -70,7 +70,7 @@
       'nav.privacy': 'Privacy',
       'nav.contact': 'Contact',
       'hero.badge': 'Workout Log App',
-      'hero.tagline': 'Simple and clear. A training log you’ll want to keep. Track weight, reps, and progress by exercise in one place.',
+      'hero.tagline': 'Simple and clear. A training log you’ll want to keep.\nTrack weight, reps, and progress by exercise in one place.',
       'hero.videoTitle': 'Liftly app promotion video',
       'hero.watchYoutube': 'Watch on YouTube',
       'hero.appStore': 'Download on the App Store',
@@ -98,7 +98,7 @@
       'howto.s3.desc': 'Tap any exercise in the list to open its progress graph. Switch between 1M and 5Y to view weight, reps, and volume over time.',
       'privacy.title': 'Privacy Policy',
       'privacy.p1': 'This app does not collect personal information. Training data is stored only on your device and is not sent to external servers.',
-      'privacy.p2': 'In-app purchases and ads are subject to the respective service providers’ policies. See the in-app terms and privacy policy for details.',
+      'privacy.p2': 'In-app purchases and ads are subject to the respective service providers’ policies.\nSee the in-app terms and privacy policy for details.',
       'contact.title': 'Contact',
       'contact.desc': 'Send questions or feedback using the form below.',
       'contact.btn': 'Open contact form',
@@ -145,12 +145,23 @@
     document.documentElement.lang = lang;
   }
 
+  function escapeHtml(s) {
+    var div = document.createElement('div');
+    div.textContent = s;
+    return div.innerHTML;
+  }
+
   function applyText(lang) {
     var t = translations[lang];
     document.querySelectorAll('[data-i18n]').forEach(function (el) {
       var key = el.getAttribute('data-i18n');
       var val = t[key];
-      if (val != null) el.textContent = val;
+      if (val == null) return;
+      if (val.indexOf('\n') >= 0) {
+        el.innerHTML = val.split('\n').map(escapeHtml).join('<br>');
+      } else {
+        el.textContent = val;
+      }
     });
   }
 
