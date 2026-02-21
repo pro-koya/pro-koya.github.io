@@ -808,6 +808,55 @@ body {
   stroke: var(--color-text-muted);
 }
 
+.auth-reset-form-wrap {
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.auth-reset-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.auth-reset-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.auth-reset-input {
+  padding: 12px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+}
+
+.auth-reset-input:focus {
+  outline: 2px solid var(--color-text);
+  outline-offset: 1px;
+}
+
+.auth-reset-form-error {
+  font-size: 0.875rem;
+  color: #b91c1c;
+  margin: 0;
+}
+
+.auth-reset-submit {
+  margin-top: 0.25rem;
+}
+
+.auth-reset-success {
+  margin-bottom: 1rem;
+}
+
+.auth-reset-success p {
+  margin: 0;
+  color: var(--color-text);
+}
+
 @media (max-width: 640px) {
   .auth-reset-section {
     padding: 80px 0 48px;

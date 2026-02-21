@@ -184,8 +184,10 @@
     (function() {
       var q = window.location.search || '';
       var h = window.location.hash || '';
-      if ((q.indexOf('error=access_denied') >= 0 || q.indexOf('error_code=otp_expired') >= 0) ||
-          (h.indexOf('error=access_denied') >= 0 || h.indexOf('error_code=otp_expired') >= 0)) {
+      var hasError = (q.indexOf('error=access_denied') >= 0 || q.indexOf('error_code=otp_expired') >= 0) ||
+          (h.indexOf('error=access_denied') >= 0 || h.indexOf('error_code=otp_expired') >= 0);
+      var hasCode = q.indexOf('code=') >= 0 || h.indexOf('code=') >= 0;
+      if (hasError || hasCode) {
         window.location.replace('./auth/reset-complete.html' + q + h);
         return;
       }

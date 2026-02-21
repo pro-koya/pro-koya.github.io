@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
   <nav class="nav" id="nav">
@@ -56,6 +57,23 @@
           <div id="auth-reset-error" class="auth-reset-error" hidden>
             <p class="auth-reset-desc" data-i18n="reset.expired">このリンクは有効期限が切れています。Liftly アプリの 設定 → 同期 で「パスワードを忘れた」から、再度リセット用メールを送信してください。</p>
           </div>
+          <div id="auth-reset-with-code" class="auth-reset-error" hidden>
+            <p class="auth-reset-desc" data-i18n="reset.withCode">パスワードリセットのリンクを開きました。新しいパスワードの設定は、この端末で Liftly アプリを開き、設定 → 同期 の「パスワードを忘れた」から再度リセット用メールを送信し、届いた新しいリンクを同じ端末のブラウザで開いてください。</p>
+          </div>
+          <div id="auth-reset-form-wrap" class="auth-reset-form-wrap" hidden>
+            <p class="auth-reset-desc" id="auth-reset-form-lead" data-i18n="reset.formLead">新しいパスワードを入力してください。</p>
+            <form id="auth-reset-form" class="auth-reset-form">
+              <label for="auth-reset-pw" class="auth-reset-label" data-i18n="reset.newPassword">新しいパスワード</label>
+              <input type="password" id="auth-reset-pw" class="auth-reset-input" minlength="6" required autocomplete="new-password">
+              <label for="auth-reset-pw-confirm" class="auth-reset-label" data-i18n="reset.confirmPassword">パスワード（確認）</label>
+              <input type="password" id="auth-reset-pw-confirm" class="auth-reset-input" minlength="6" required autocomplete="new-password">
+              <p id="auth-reset-form-error" class="auth-reset-form-error" hidden></p>
+              <button type="submit" class="btn-primary auth-reset-submit" id="auth-reset-submit" data-i18n="reset.submit">パスワードを更新</button>
+            </form>
+          </div>
+          <div id="auth-reset-success" class="auth-reset-success" hidden>
+            <p class="auth-reset-desc" data-i18n="reset.success">パスワードを更新しました。Liftly アプリを開き、設定 → 同期 からログインしてください。</p>
+          </div>
           <a href="../index.html" class="btn-primary auth-reset-btn" data-i18n="reset.back">トップページへ戻る</a>
         </div>
       </div>
@@ -84,8 +102,16 @@
           'reset.lead': 'メールのリンクからこのページにアクセスしました。',
           'reset.desc': '新しいパスワードの設定が完了したら、Liftly アプリを開き、設定 → 同期 からログインしてください。このページは閉じてかまいません。',
           'reset.expired': 'このリンクは有効期限が切れています。Liftly アプリの 設定 → 同期 で「パスワードを忘れた」から、再度リセット用メールを送信してください。',
+          'reset.withCode': 'パスワードリセットのリンクを開きました。新しいパスワードの設定は、この端末で Liftly アプリを開き、設定 → 同期 の「パスワードを忘れた」から再度リセット用メールを送信し、届いた新しいリンクを同じ端末のブラウザで開いてください。',
           'reset.titleExpired': 'リンクの有効期限が切れました',
+          'reset.formLead': '新しいパスワードを入力してください。',
+          'reset.newPassword': '新しいパスワード',
+          'reset.confirmPassword': 'パスワード（確認）',
+          'reset.submit': 'パスワードを更新',
+          'reset.success': 'パスワードを更新しました。Liftly アプリを開き、設定 → 同期 からログインしてください。',
           'reset.back': 'トップページへ戻る',
+          'reset.formErrorMatch': 'パスワードが一致しません。',
+          'reset.formErrorShort': '6文字以上で入力してください。',
           'nav.features': '機能',
           'nav.howto': '使い方',
           'nav.privacy': 'プライバシー',
@@ -105,8 +131,16 @@
           'reset.lead': 'You opened this page from the link in your email.',
           'reset.desc': 'After setting your new password, open the Liftly app and sign in from Settings → Sync. You can close this page.',
           'reset.expired': 'This link has expired. In the Liftly app, go to Settings → Sync, tap "Forgot password?", and request a new reset email.',
+          'reset.withCode': 'You opened the password reset link. To set a new password, open the Liftly app on this device, go to Settings → Sync, tap "Forgot password?" and send a new reset email, then open the new link in the browser on this same device.',
           'reset.titleExpired': 'Link expired',
+          'reset.formLead': 'Enter your new password below.',
+          'reset.newPassword': 'New password',
+          'reset.confirmPassword': 'Confirm password',
+          'reset.submit': 'Update password',
+          'reset.success': 'Password updated. Open the Liftly app and sign in from Settings → Sync.',
           'reset.back': 'Back to top',
+          'reset.formErrorMatch': 'Passwords do not match.',
+          'reset.formErrorShort': 'Please enter at least 6 characters.',
           'nav.features': 'Features',
           'nav.howto': 'How to',
           'nav.privacy': 'Privacy',
@@ -163,17 +197,20 @@
       }
       var errorCode = getParam('error_code') || getParam('error');
       var isExpired = (errorCode === 'otp_expired' || (getParam('error_description') || '').indexOf('expired') >= 0);
+      var hasCode = getParam('code') !== '';
+      var card = document.getElementById('auth-reset-card');
+      var title = card && card.querySelector('.auth-reset-title');
+      var lead = card && card.querySelector('.auth-reset-lead');
+      var desc = card && card.querySelector('.auth-reset-desc');
+      var errBlock = document.getElementById('auth-reset-error');
+      var withCodeBlock = document.getElementById('auth-reset-with-code');
+      var iconSuccess = card && card.querySelector('.auth-reset-icon-success');
+      var iconError = card && card.querySelector('.auth-reset-icon-error');
+      var currentLang = document.documentElement.lang || 'ja';
+      var t = translations[currentLang] || translations.ja;
+
       if (isExpired || getParam('error') === 'access_denied') {
-        var card = document.getElementById('auth-reset-card');
-        var title = card && card.querySelector('.auth-reset-title');
-        var lead = card && card.querySelector('.auth-reset-lead');
-        var desc = card && card.querySelector('.auth-reset-desc');
-        var errBlock = document.getElementById('auth-reset-error');
-        var iconSuccess = card && card.querySelector('.auth-reset-icon-success');
-        var iconError = card && card.querySelector('.auth-reset-icon-error');
         if (title && errBlock && iconSuccess && iconError) {
-          var currentLang = document.documentElement.lang || 'ja';
-          var t = translations[currentLang] || translations.ja;
           title.textContent = t['reset.titleExpired'] || 'リンクの有効期限が切れました';
           if (lead) lead.style.display = 'none';
           if (desc) desc.style.display = 'none';
@@ -181,7 +218,116 @@
           iconSuccess.hidden = true;
           iconError.hidden = false;
         }
+      } else if (hasCode && title && lead && desc && withCodeBlock) {
+        if (lead) lead.style.display = 'none';
+        if (desc) desc.style.display = 'none';
+        withCodeBlock.hidden = false;
+        var withCodeP = withCodeBlock.querySelector('p');
+        if (withCodeP) withCodeP.textContent = t['reset.withCode'];
       }
+    })();
+  </script>
+  <script>
+    (function() {
+      var SUPABASE_URL = 'https://lybgdrxsojuaylnvdmwb.supabase.co';
+      var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5Ymdkcnhzb2p1YXlsbnZkbXdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE2MTIyMDAsImV4cCI6MjA4NzE4ODIwMH0.v9mvcsp2zdIHtiOzWJKjHFf2Zi1OjJvXte51JOcifDc';
+
+      function getParam(name) {
+        var q = window.location.search.slice(1).split('&');
+        var h = (window.location.hash || '').replace(/^#/, '').split('&');
+        for (var i = 0; i < q.length; i++) {
+          var p = q[i].split('=');
+          if (decodeURIComponent(p[0]) === name) return p[1] ? decodeURIComponent(p[1].replace(/\+/g, ' ')) : '';
+        }
+        for (var j = 0; j < h.length; j++) {
+          var p2 = h[j].split('=');
+          if (decodeURIComponent(p2[0]) === name) return p2[1] ? decodeURIComponent(p2[1].replace(/\+/g, ' ')) : '';
+        }
+        return '';
+      }
+
+      if (typeof supabase === 'undefined') return;
+      var code = getParam('code');
+      var hashToken = getParam('access_token');
+      var hashType = getParam('type');
+      if (!code && !hashToken) return;
+
+      var card = document.getElementById('auth-reset-card');
+      var lead = card && card.querySelector('.auth-reset-lead');
+      var desc = card && card.querySelector('.auth-reset-desc');
+      var errBlock = document.getElementById('auth-reset-error');
+      var withCodeBlock = document.getElementById('auth-reset-with-code');
+      var formWrap = document.getElementById('auth-reset-form-wrap');
+      var successBlock = document.getElementById('auth-reset-success');
+      if (!formWrap || !card) return;
+
+      var supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+      function showPasswordForm() {
+        if (lead) lead.style.display = 'none';
+        if (desc) desc.style.display = 'none';
+        if (errBlock) errBlock.hidden = true;
+        if (withCodeBlock) withCodeBlock.hidden = true;
+        formWrap.hidden = false;
+        var form = document.getElementById('auth-reset-form');
+        var pwInput = document.getElementById('auth-reset-pw');
+        var pwConfirmInput = document.getElementById('auth-reset-pw-confirm');
+        var formError = document.getElementById('auth-reset-form-error');
+        var submitBtn = document.getElementById('auth-reset-submit');
+        var isJa = document.documentElement.lang === 'ja';
+        var t = { match: isJa ? 'パスワードが一致しません。' : 'Passwords do not match.', short: isJa ? '6文字以上で入力してください。' : 'Please enter at least 6 characters.' };
+        form.onsubmit = function(e) {
+          e.preventDefault();
+          var pw = pwInput.value;
+          var pwConfirm = pwConfirmInput.value;
+          formError.hidden = true;
+          if (pw.length < 6) { formError.textContent = t.short; formError.hidden = false; return; }
+          if (pw !== pwConfirm) { formError.textContent = t.match; formError.hidden = false; return; }
+          submitBtn.disabled = true;
+          submitBtn.textContent = isJa ? '更新中...' : 'Updating...';
+          supabaseClient.auth.updateUser({ password: pw }).then(function(updateResult) {
+            if (updateResult.error) {
+              formError.textContent = updateResult.error.message;
+              formError.hidden = false;
+              submitBtn.disabled = false;
+              submitBtn.textContent = isJa ? 'パスワードを更新' : 'Update password';
+              return;
+            }
+            formWrap.hidden = true;
+            if (successBlock) successBlock.hidden = false;
+            submitBtn.disabled = false;
+            submitBtn.textContent = isJa ? 'パスワードを更新' : 'Update password';
+            history.replaceState(null, '', window.location.pathname + (window.location.search || ''));
+          });
+        };
+      }
+
+      function showFallbackMessage() {
+        if (lead) lead.style.display = 'none';
+        if (desc) desc.style.display = 'none';
+        if (withCodeBlock) {
+          withCodeBlock.hidden = false;
+          var p = withCodeBlock.querySelector('p');
+          if (p) p.textContent = document.documentElement.lang === 'en' ? 'You opened the password reset link. To set a new password, open the Liftly app on this device, go to Settings → Sync, tap "Forgot password?" and send a new reset email, then open the new link in the browser on this same device.' : 'パスワードリセットのリンクを開きました。新しいパスワードの設定は、この端末で Liftly アプリを開き、設定 → 同期 の「パスワードを忘れた」から再度リセット用メールを送信し、届いた新しいリンクを同じ端末のブラウザで開いてください。';
+        }
+      }
+
+      if (hashToken && hashType === 'recovery') {
+        supabaseClient.auth.getSession().then(function(sessionResult) {
+          if (sessionResult.data && sessionResult.data.session) { showPasswordForm(); return; }
+          showFallbackMessage();
+        });
+        return;
+      }
+
+      if (!code) return;
+      supabaseClient.auth.exchangeCodeForSession(code).then(function(result) {
+        if (result.error) {
+          showFallbackMessage();
+          return;
+        }
+        showPasswordForm();
+      });
     })();
   </script>
   <script>
