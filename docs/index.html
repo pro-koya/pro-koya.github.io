@@ -182,6 +182,17 @@
   <script src="./js/i18n.js"></script>
   <script>
     (function() {
+      var q = window.location.search || '';
+      var h = window.location.hash || '';
+      if ((q.indexOf('error=access_denied') >= 0 || q.indexOf('error_code=otp_expired') >= 0) ||
+          (h.indexOf('error=access_denied') >= 0 || h.indexOf('error_code=otp_expired') >= 0)) {
+        window.location.replace('./auth/reset-complete.html' + q + h);
+        return;
+      }
+    })();
+  </script>
+  <script>
+    (function() {
       var nav = document.getElementById('nav');
       var toggle = document.getElementById('nav-toggle');
       var menu = document.getElementById('nav-menu');

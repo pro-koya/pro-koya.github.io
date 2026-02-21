@@ -39,15 +39,23 @@
   <main>
     <section class="auth-reset-section">
       <div class="container">
-        <div class="auth-reset-card">
-          <div class="auth-reset-icon" aria-hidden="true">
+        <div class="auth-reset-card" id="auth-reset-card">
+          <div class="auth-reset-icon auth-reset-icon-success" aria-hidden="true">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <div class="auth-reset-icon auth-reset-icon-error" aria-hidden="true" hidden>
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
             </svg>
           </div>
           <h1 class="auth-reset-title" data-i18n="reset.title">パスワードリセット</h1>
           <p class="auth-reset-lead" data-i18n="reset.lead">メールのリンクからこのページにアクセスしました。</p>
           <p class="auth-reset-desc" data-i18n="reset.desc">新しいパスワードの設定が完了したら、Liftly アプリを開き、設定 → 同期 からログインしてください。このページは閉じてかまいません。</p>
+          <div id="auth-reset-error" class="auth-reset-error" hidden>
+            <p class="auth-reset-desc" data-i18n="reset.expired">このリンクは有効期限が切れています。Liftly アプリの 設定 → 同期 で「パスワードを忘れた」から、再度リセット用メールを送信してください。</p>
+          </div>
           <a href="../index.html" class="btn-primary auth-reset-btn" data-i18n="reset.back">トップページへ戻る</a>
         </div>
       </div>
@@ -75,6 +83,8 @@
           'reset.title': 'パスワードリセット',
           'reset.lead': 'メールのリンクからこのページにアクセスしました。',
           'reset.desc': '新しいパスワードの設定が完了したら、Liftly アプリを開き、設定 → 同期 からログインしてください。このページは閉じてかまいません。',
+          'reset.expired': 'このリンクは有効期限が切れています。Liftly アプリの 設定 → 同期 で「パスワードを忘れた」から、再度リセット用メールを送信してください。',
+          'reset.titleExpired': 'リンクの有効期限が切れました',
           'reset.back': 'トップページへ戻る',
           'nav.features': '機能',
           'nav.howto': '使い方',
@@ -94,6 +104,8 @@
           'reset.title': 'Password Reset',
           'reset.lead': 'You opened this page from the link in your email.',
           'reset.desc': 'After setting your new password, open the Liftly app and sign in from Settings → Sync. You can close this page.',
+          'reset.expired': 'This link has expired. In the Liftly app, go to Settings → Sync, tap "Forgot password?", and request a new reset email.',
+          'reset.titleExpired': 'Link expired',
           'reset.back': 'Back to top',
           'nav.features': 'Features',
           'nav.howto': 'How to',
@@ -137,6 +149,39 @@
         });
       }
       apply(getLang());
+
+      // URL の ? または # に error が含まれる場合は「リンク期限切れ」表示
+      function getParam(name) {
+        var q = window.location.search.slice(1).split('&');
+        var h = (window.location.hash || '').replace(/^#/, '').split('&');
+        var all = q.concat(h);
+        for (var i = 0; i < all.length; i++) {
+          var p = all[i].split('=');
+          if (decodeURIComponent(p[0]) === name) return p[1] ? decodeURIComponent(p[1].replace(/\+/g, ' ')) : '';
+        }
+        return '';
+      }
+      var errorCode = getParam('error_code') || getParam('error');
+      var isExpired = (errorCode === 'otp_expired' || (getParam('error_description') || '').indexOf('expired') >= 0);
+      if (isExpired || getParam('error') === 'access_denied') {
+        var card = document.getElementById('auth-reset-card');
+        var title = card && card.querySelector('.auth-reset-title');
+        var lead = card && card.querySelector('.auth-reset-lead');
+        var desc = card && card.querySelector('.auth-reset-desc');
+        var errBlock = document.getElementById('auth-reset-error');
+        var iconSuccess = card && card.querySelector('.auth-reset-icon-success');
+        var iconError = card && card.querySelector('.auth-reset-icon-error');
+        if (title && errBlock && iconSuccess && iconError) {
+          var currentLang = document.documentElement.lang || 'ja';
+          var t = translations[currentLang] || translations.ja;
+          title.textContent = t['reset.titleExpired'] || 'リンクの有効期限が切れました';
+          if (lead) lead.style.display = 'none';
+          if (desc) desc.style.display = 'none';
+          errBlock.hidden = false;
+          iconSuccess.hidden = true;
+          iconError.hidden = false;
+        }
+      }
     })();
   </script>
   <script>
