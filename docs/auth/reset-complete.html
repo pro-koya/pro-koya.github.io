@@ -218,12 +218,8 @@
           iconSuccess.hidden = true;
           iconError.hidden = false;
         }
-      } else if (hasCode && title && lead && desc && withCodeBlock) {
-        if (lead) lead.style.display = 'none';
-        if (desc) desc.style.display = 'none';
-        withCodeBlock.hidden = false;
-        var withCodeP = withCodeBlock.querySelector('p');
-        if (withCodeP) withCodeP.textContent = t['reset.withCode'];
+      } else if (hasCode) {
+        // code がある場合は次のスクリプトで exchange 後にフォーム or フォールバックを表示するため、ここでは withCode を出さない（表示競合を防ぐ）
       }
     })();
   </script>
@@ -268,6 +264,9 @@
         if (desc) desc.style.display = 'none';
         if (errBlock) errBlock.hidden = true;
         if (withCodeBlock) withCodeBlock.hidden = true;
+        formWrap.removeAttribute('hidden');
+        formWrap.style.display = '';
+        formWrap.style.visibility = '';
         formWrap.hidden = false;
         var form = document.getElementById('auth-reset-form');
         var pwInput = document.getElementById('auth-reset-pw');
@@ -281,24 +280,37 @@
           var pw = pwInput.value;
           var pwConfirm = pwConfirmInput.value;
           formError.hidden = true;
-          if (pw.length < 6) { formError.textContent = t.short; formError.hidden = false; return; }
-          if (pw !== pwConfirm) { formError.textContent = t.match; formError.hidden = false; return; }
+          formError.textContent = '';
+          formError.style.display = '';
+          if (pw.length < 6) { formError.textContent = t.short; formError.removeAttribute('hidden'); formError.style.display = 'block'; formError.hidden = false; return; }
+          if (pw !== pwConfirm) { formError.textContent = t.match; formError.removeAttribute('hidden'); formError.style.display = 'block'; formError.hidden = false; return; }
           submitBtn.disabled = true;
           submitBtn.textContent = isJa ? '更新中...' : 'Updating...';
-          supabaseClient.auth.updateUser({ password: pw }).then(function(updateResult) {
-            if (updateResult.error) {
-              formError.textContent = updateResult.error.message;
+          supabaseClient.auth.updateUser({ password: pw })
+            .then(function(updateResult) {
+              if (updateResult.error) {
+                formError.textContent = updateResult.error.message || (isJa ? '更新に失敗しました。' : 'Update failed.');
+                formError.removeAttribute('hidden');
+                formError.style.display = 'block';
+                formError.hidden = false;
+                submitBtn.disabled = false;
+                submitBtn.textContent = isJa ? 'パスワードを更新' : 'Update password';
+                return;
+              }
+              formWrap.hidden = true;
+              if (successBlock) successBlock.hidden = false;
+              submitBtn.disabled = false;
+              submitBtn.textContent = isJa ? 'パスワードを更新' : 'Update password';
+              history.replaceState(null, '', window.location.pathname + (window.location.search || ''));
+            })
+            .catch(function(err) {
+              formError.textContent = (err && err.message) ? err.message : (isJa ? '更新に失敗しました。' : 'Update failed.');
+              formError.removeAttribute('hidden');
+              formError.style.display = 'block';
               formError.hidden = false;
               submitBtn.disabled = false;
               submitBtn.textContent = isJa ? 'パスワードを更新' : 'Update password';
-              return;
-            }
-            formWrap.hidden = true;
-            if (successBlock) successBlock.hidden = false;
-            submitBtn.disabled = false;
-            submitBtn.textContent = isJa ? 'パスワードを更新' : 'Update password';
-            history.replaceState(null, '', window.location.pathname + (window.location.search || ''));
-          });
+            });
         };
       }
 
@@ -321,13 +333,25 @@
       }
 
       if (!code) return;
-      supabaseClient.auth.exchangeCodeForSession(code).then(function(result) {
-        if (result.error) {
+      supabaseClient.auth.exchangeCodeForSession(code)
+        .then(function(result) {
+          if (result.error) {
+            showFallbackMessage();
+            return;
+          }
+          showPasswordForm();
+        })
+        .catch(function(err) {
           showFallbackMessage();
-          return;
-        }
-        showPasswordForm();
-      });
+          var withCodeBlock = document.getElementById('auth-reset-with-code');
+          if (withCodeBlock) {
+            var p = withCodeBlock.querySelector('p');
+            var extra = (err && err.message) ? ' (' + err.message + ')' : '';
+            if (p) p.textContent = (document.documentElement.lang === 'en'
+              ? 'Could not verify the link.'
+              : 'リンクの確認に失敗しました。') + extra;
+          }
+        });
     })();
   </script>
   <script>
