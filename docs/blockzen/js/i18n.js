@@ -1,5 +1,5 @@
 /**
- * Block Zen マーケティングサイト - 日英切り替え
+ * Calm Blokku マーケティングサイト - 日英切り替え
  * URL パラメータ: ?lang=ja | ?lang=en（未指定時は ja）
  */
 (function () {
@@ -7,8 +7,8 @@
 
   var translations = {
     ja: {
-      'meta.title': 'Block Zen - 毎日届く、大人のブロックパズル',
-      'meta.description': 'Block Zen - 落ち着いた配色の禅パズル。毎日届くデイリーパズルで頭のストレッチ。',
+      'meta.title': 'Calm Blokku - 毎日届く、大人のブロックパズル',
+      'meta.description': 'Calm Blokku - 落ち着いた配色の禅パズル。毎日届くデイリーパズルで頭のストレッチ。',
       'nav.features': '特長',
       'nav.howto': '遊び方',
       'nav.privacy': 'プライバシー',
@@ -39,7 +39,7 @@
       'privacy.title': 'プライバシーポリシー',
       'privacy.updated': '最終更新日: 2026年3月25日',
       'privacy.overview.title': '概要',
-      'privacy.overview.p1': 'Block Zen（以下「本アプリ」）は、お客様のプライバシーを尊重し、個人情報の保護に努めます。本ポリシーでは、本アプリにおけるデータの取り扱いについて説明します。',
+      'privacy.overview.p1': 'Calm Blokku（以下「本アプリ」）は、お客様のプライバシーを尊重し、個人情報の保護に努めます。本ポリシーでは、本アプリにおけるデータの取り扱いについて説明します。',
       'privacy.local.title': 'ローカルデータの保存',
       'privacy.local.p1': '本アプリは以下のデータを端末内（AsyncStorage）にのみ保存します。これらのデータは外部サーバーに送信されることはありません。',
       'privacy.local.items': 'ゲームの進捗状況（スコア、クリア履歴）|連続プレイ日数（ストリーク）|アプリ設定（バイブレーション・効果音のON/OFF）|エンドレスモードのスコア履歴',
@@ -62,7 +62,7 @@
       'footer.howto': '遊び方',
       'footer.privacy': 'プライバシー',
       'footer.contact': 'お問い合わせ',
-      'footer.copyright': '© Block Zen',
+      'footer.copyright': '© Calm Blokku',
       'lang.ja': '日本語',
       'lang.en': 'English',
       urls: {
@@ -71,8 +71,8 @@
       }
     },
     en: {
-      'meta.title': 'Block Zen - A Daily Block Puzzle for Adults',
-      'meta.description': 'Block Zen - A calm, zen-themed block puzzle. Stretch your mind with daily puzzles.',
+      'meta.title': 'Calm Blokku - A Daily Block Puzzle for Adults',
+      'meta.description': 'Calm Blokku - A calm, zen-themed block puzzle. Stretch your mind with daily puzzles.',
       'nav.features': 'Features',
       'nav.howto': 'How to Play',
       'nav.privacy': 'Privacy',
@@ -103,7 +103,7 @@
       'privacy.title': 'Privacy Policy',
       'privacy.updated': 'Last updated: March 25, 2026',
       'privacy.overview.title': 'Overview',
-      'privacy.overview.p1': 'Block Zen ("the App") respects your privacy and is committed to protecting your personal information. This policy explains how data is handled within the App.',
+      'privacy.overview.p1': 'Calm Blokku ("the App") respects your privacy and is committed to protecting your personal information. This policy explains how data is handled within the App.',
       'privacy.local.title': 'Local Data Storage',
       'privacy.local.p1': 'The App stores the following data only on your device (AsyncStorage). This data is never transmitted to external servers.',
       'privacy.local.items': 'Game progress (scores, completion history)|Consecutive play days (streak)|App settings (vibration and sound on/off)|Endless mode score history',
@@ -126,7 +126,7 @@
       'footer.howto': 'How to Play',
       'footer.privacy': 'Privacy',
       'footer.contact': 'Contact',
-      'footer.copyright': '© Block Zen',
+      'footer.copyright': '© Calm Blokku',
       'lang.ja': '日本語',
       'lang.en': 'English',
       urls: {
