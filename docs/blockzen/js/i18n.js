@@ -66,7 +66,7 @@
       'lang.ja': '日本語',
       'lang.en': 'English',
       urls: {
-        appStore: '#',
+        appStore: 'https://apps.apple.com/us/app/calm-blokku/id6761009357',
         contactForm: 'https://forms.gle/kwtwF2FkEDE12ZcX8'
       }
     },
@@ -130,7 +130,7 @@
       'lang.ja': '日本語',
       'lang.en': 'English',
       urls: {
-        appStore: '#',
+        appStore: 'https://apps.apple.com/us/app/calm-blokku/id6761009357',
         contactForm: 'https://forms.gle/kwtwF2FkEDE12ZcX8'
       }
     }
