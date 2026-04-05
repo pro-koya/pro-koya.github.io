@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Webアプリ開発・業務システム開発のカテゴリページ。運用前提のプロダクト開発として、現在掲載している実績を一覧で整理しています。">
+  <meta name="theme-color" content="#111111">
+  <title>Webアプリ開発・業務システム開発 | koya portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Noto+Serif+JP:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/site.css">
+</head>
+<body class="page-category page-category-web" data-site-root="../../">
+  <div class="page-shell">
+    <header class="site-header" data-site-header>
+      <div class="site-header__inner">
+        <a class="site-brand" href="../../">
+          <span class="site-brand__text">
+            <span class="site-brand__label">Portfolio</span>
+            <span class="site-brand__name">Miyabayashi koya</span>
+          </span>
+        </a>
+        <nav class="site-nav" aria-label="サイトナビゲーション">
+          <div class="site-nav__links">
+            <a href="../../">Top</a>
+            <a href="./">Web</a>
+            <a href="../ios-apps/">iOS</a>
+            <a href="#contact">Contact</a>
+          </div>
+          <!-- <div class="site-nav__extras">
+            <a class="nav-cta" href="#contact">問い合わせる</a>
+          </div> -->
+        </nav>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-label="メニューを開く" data-nav-toggle>
+          <span class="nav-toggle__bars" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero hero--category">
+        <div class="hero__shell reveal is-visible">
+          <div class="category-hero">
+            <div class="category-hero__label">Category / Web Apps</div>
+            <div class="category-hero__grid">
+              <h1 class="hero-title hero-title--category">
+                <span class="title-line">Webアプリ</span>
+                <span class="title-line">開発・業務</span>
+                <span class="title-line hero-title__accent">システム開発</span>
+              </h1>
+              <div class="category-hero__text">
+                <p class="hero-lead">
+                  会員機能、管理画面、認証、決済、権限設計など、
+                  運用前提のWebアプリとして整理した実績をまとめています。
+                </p>
+                <p class="category-hero__note">
+                  既存業務のWeb化、複数ロール設計、決済や承認フローを含む案件と特に相性があります。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--works">
+        <div class="container">
+          <div class="section-heading section-heading--editorial reveal">
+            <div>
+              <span class="eyebrow">Works In This Category</span>
+              <h2 class="section-title">掲載している実績</h2>
+            </div>
+            <p class="section-note">
+              個別の実績詳細では、どこまで作っているかをもう少し具体的に見られるようにしています。
+            </p>
+          </div>
+
+          <div class="works-feed" data-category-works="web"></div>
+        </div>
+      </section>
+
+      <section class="section section--contact" id="contact">
+        <div class="container">
+          <div class="contact-editorial reveal">
+            <div class="contact-layout">
+              <div class="contact-copy">
+                <span class="eyebrow">Contact</span>
+                <h2 class="section-title">
+                  <span class="title-line">このカテゴリに近い相談なら、</span>
+                  <span class="title-line">そのまま送ってください。</span>
+                </h2>
+                <p class="section-lead">
+                  要件整理から入りたい案件や、運用前提で設計したいWebアプリ開発と特に相性が良いです。
+                  まだ構想段階でも問題ありません。
+                </p>
+              </div>
+
+              <div class="contact-panel">
+                <form class="contact-form" data-contact-form data-contact-context="web-category" novalidate>
+                  <div class="form-grid">
+                    <div class="form-field">
+                      <label class="form-label" for="web-contact-name">お名前</label>
+                      <input class="form-input" id="web-contact-name" name="name" type="text" autocomplete="name" required placeholder="山田 太郎">
+                    </div>
+                    <div class="form-field">
+                      <label class="form-label" for="web-contact-email">メールアドレス</label>
+                      <input class="form-input" id="web-contact-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
+                    </div>
+                    <div class="form-field">
+                      <label class="form-label" for="web-contact-company">会社名・屋号</label>
+                      <input class="form-input" id="web-contact-company" name="company" type="text" autocomplete="organization" placeholder="任意">
+                    </div>
+                    <div class="form-field">
+                      <label class="form-label" for="web-contact-type">相談種別</label>
+                      <select class="form-select" id="web-contact-type" name="inquiryType">
+                        <option value="">選択してください</option>
+                        <option value="Webアプリ開発">Webアプリ開発</option>
+                        <option value="業務システム改善">業務システム改善</option>
+                        <option value="管理画面・認証・決済">管理画面・認証・決済</option>
+                        <option value="要件整理・壁打ち">要件整理・壁打ち</option>
+                        <option value="その他">その他</option>
+                      </select>
+                    </div>
+                    <div class="form-field form-field--full">
+                      <label class="form-label" for="web-contact-message">相談内容</label>
+                      <textarea class="form-textarea" id="web-contact-message" name="message" required placeholder="やりたいこと、現状の課題、想定している導線などを書いてください。"></textarea>
+                    </div>
+                  </div>
+                  <input type="hidden" name="startedAt" value="">
+                  <input class="contact-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+                  <div class="form-actions">
+                    <div class="form-meta">
+                      <p class="contact-hint">通常2営業日以内を目安に返信します。<br>送信後、自動返信メールをお送りします。</p>
+                      <p class="contact-status" data-form-status aria-live="polite"></p>
+                    </div>
+                    <button class="button button--primary" type="submit">送信</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__inner">
+        <div class="footer__links">
+          <a href="../../">Top</a>
+          <a href="./">Web</a>
+          <a href="../ios-apps/">iOS</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div class="footer__copy">© <span data-year></span> koya portfolio</div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../../data/works.js"></script>
+  <script src="../../assets/site-config.js"></script>
+  <script src="../../assets/site.js"></script>
+</body>
+</html>

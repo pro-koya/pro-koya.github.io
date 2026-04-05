@@ -3,489 +3,283 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="description" content="個人開発アプリのポートフォリオ。Liftly（筋トレ記録）、Calm Blokku（デイリーブロックパズル）を公開中。">
-  <meta name="theme-color" content="#0a0a0a">
-  <title>Apps by koya</title>
+  <meta name="description" content="要件整理から設計・実装・改善まで一貫して伴走するWebエンジニアのポートフォリオ。実績と現在の対応領域を、静かな余白のある構成で整理しています。">
+  <meta name="theme-color" content="#111111">
+  <title>koya | Webアプリ開発・業務自動化のポートフォリオ</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --color-bg: #0a0a0a;
-      --color-bg-light: #fafafa;
-      --color-surface: #141414;
-      --color-surface-hover: #1a1a1a;
-      --color-text: #f5f5f5;
-      --color-text-muted: #888;
-      --color-text-dark: #0a0a0a;
-      --color-text-dark-muted: #525252;
-      --color-border: rgba(255, 255, 255, 0.08);
-      --color-border-light: rgba(0, 0, 0, 0.08);
-      --color-liftly: #f5f5f5;
-      --color-blockzen: #6B8FAB;
-      --font-sans: "Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", sans-serif;
-      --radius: 20px;
-      --radius-sm: 14px;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: var(--font-sans); background: var(--color-bg); color: var(--color-text);
-      line-height: 1.6; min-height: 100vh; overflow-x: hidden;
-    }
-    a { color: inherit; text-decoration: none; }
-
-    /* ─── Grain overlay ─── */
-    body::after {
-      content: ""; position: fixed; inset: 0; z-index: 9999; pointer-events: none;
-      opacity: 0.03;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      background-repeat: repeat; background-size: 256px 256px;
-    }
-
-    .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
-
-    /* ─── Scroll reveal ─── */
-    .reveal {
-      opacity: 0; transform: translateY(32px);
-      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .reveal.is-visible { opacity: 1; transform: translateY(0); }
-    .reveal-d1 { transition-delay: 0.1s; }
-    .reveal-d2 { transition-delay: 0.2s; }
-    .reveal-d3 { transition-delay: 0.3s; }
-    .reveal-d4 { transition-delay: 0.4s; }
-
-    /* ─── Lang switch ─── */
-    .lang-bar {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; justify-content: flex-end; padding: 16px 24px;
-      padding-top: calc(16px + env(safe-area-inset-top, 0px));
-    }
-    .lang-switch {
-      display: inline-flex; align-items: center; font-size: 0.8125rem;
-      background: rgba(255, 255, 255, 0.06); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      border-radius: 100px; padding: 3px 3px 3px 10px; border: 1px solid var(--color-border);
-    }
-    .lang-link {
-      color: var(--color-text-muted); padding: 5px 10px; border-radius: 100px;
-      transition: color 0.2s, background 0.2s;
-    }
-    .lang-link:hover { color: var(--color-text); }
-    .lang-link.is-active { color: var(--color-bg); background: var(--color-text); font-weight: 600; pointer-events: none; }
-    .lang-sep { color: rgba(255,255,255,0.15); margin: 0 2px; user-select: none; }
-
-    /* ─── Hero (dark) ─── */
-    .hero {
-      min-height: 100vh; display: flex; align-items: center; justify-content: center;
-      text-align: center; position: relative; overflow: hidden;
-      padding: 4rem 0;
-    }
-    .hero::before {
-      content: ""; position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse 60% 50% at 20% 80%, rgba(107, 143, 171, 0.08) 0%, transparent 70%),
-        radial-gradient(ellipse 50% 40% at 80% 20%, rgba(255, 255, 255, 0.04) 0%, transparent 60%);
-    }
-    .hero-content { position: relative; z-index: 1; }
-    .hero-greeting {
-      font-size: clamp(0.875rem, 1.5vw, 1rem); font-weight: 400;
-      color: var(--color-text-muted); letter-spacing: 0.15em; text-transform: uppercase;
-      margin-bottom: 1.5rem;
-    }
-    .hero h1 {
-      font-size: clamp(3rem, 8vw, 5.5rem); font-weight: 800; letter-spacing: -0.04em;
-      line-height: 1.05; margin-bottom: 1.5rem;
-    }
-    .hero h1 .gradient-text {
-      background: linear-gradient(135deg, #f5f5f5 0%, #6B8FAB 50%, #f5f5f5 100%);
-      background-size: 200% auto;
-      -webkit-background-clip: text; background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: shimmer 6s ease-in-out infinite;
-    }
-    @keyframes shimmer {
-      0%, 100% { background-position: 0% center; }
-      50% { background-position: 200% center; }
-    }
-    .hero-philosophy {
-      font-size: clamp(1rem, 2vw, 1.25rem); font-weight: 300;
-      color: var(--color-text-muted); max-width: 44ch; margin: 0 auto 2.5rem;
-      line-height: 1.8; letter-spacing: 0.01em;
-    }
-    .hero-stats {
-      display: flex; gap: 48px; justify-content: center; margin-top: 3rem;
-    }
-    .stat { text-align: center; }
-    .stat-num {
-      font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; letter-spacing: -0.02em;
-      color: var(--color-text);
-    }
-    .stat-label {
-      font-size: 0.8125rem; color: var(--color-text-muted); margin-top: 0.25rem;
-      letter-spacing: 0.03em;
-    }
-    .hero-scroll {
-      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: 8px;
-    }
-    .hero-scroll-text { font-size: 0.75rem; color: var(--color-text-muted); letter-spacing: 0.1em; }
-    .hero-scroll-line {
-      width: 1px; height: 40px; background: linear-gradient(to bottom, var(--color-text-muted), transparent);
-      animation: scroll-pulse 2s ease-in-out infinite;
-    }
-    @keyframes scroll-pulse {
-      0%, 100% { opacity: 0.3; transform: scaleY(1); }
-      50% { opacity: 1; transform: scaleY(1.2); }
-    }
-
-    /* ─── Apps section (light) ─── */
-    .apps-section {
-      background: var(--color-bg-light); color: var(--color-text-dark);
-      padding: 6rem 0; position: relative;
-    }
-    .apps-section::before {
-      content: ""; position: absolute; top: -80px; left: 0; right: 0; height: 80px;
-      background: linear-gradient(to bottom, var(--color-bg), var(--color-bg-light));
-    }
-    .section-label {
-      font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
-      color: var(--color-text-dark-muted); margin-bottom: 1rem;
-    }
-    .section-title {
-      font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; letter-spacing: -0.03em;
-      margin-bottom: 3rem; line-height: 1.2;
-    }
-
-    /* App cards */
-    .apps-grid { display: flex; flex-direction: column; gap: 20px; }
-    .app-card {
-      display: grid; grid-template-columns: auto 1fr auto; gap: 24px; align-items: center;
-      padding: 32px; background: #fff;
-      border: 1px solid var(--color-border-light); border-radius: var(--radius);
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      text-decoration: none; color: var(--color-text-dark);
-      position: relative; overflow: hidden;
-    }
-    .app-card::before {
-      content: ""; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
-      border-radius: 4px 0 0 4px; transition: width 0.3s ease;
-    }
-    .app-card--liftly::before { background: var(--color-text-dark); }
-    .app-card--blockzen::before { background: var(--color-blockzen); }
-    .app-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 0, 0, 0.04);
-    }
-    .app-card:hover::before { width: 6px; }
-
-    .app-icon {
-      width: 64px; height: 64px; border-radius: 16px; flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.5rem; font-weight: 800; color: #fff;
-      position: relative; z-index: 1;
-    }
-    .app-icon--liftly { background: #0a0a0a; }
-    .app-icon--blockzen {
-      background: linear-gradient(135deg, #6B8FAB, #7BA99C);
-    }
-
-    .app-info { min-width: 0; }
-    .app-name {
-      font-size: 1.375rem; font-weight: 700; letter-spacing: -0.02em;
-      margin-bottom: 0.25rem;
-    }
-    .app-tagline {
-      font-size: 0.9375rem; color: var(--color-text-dark-muted);
-      margin: 0; line-height: 1.5;
-    }
-    .app-meta {
-      display: flex; gap: 8px; margin-top: 0.75rem; align-items: center; flex-wrap: wrap;
-    }
-    .app-badge {
-      display: inline-flex; align-items: center; gap: 4px;
-      font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.04em;
-      padding: 4px 10px; border-radius: 100px; text-transform: uppercase;
-    }
-    .app-badge--platform { background: #f0f0f0; color: #666; }
-    .app-badge--status { background: #e8f5e9; color: #2e7d32; }
-    .app-badge--coming { background: #fff3e0; color: #e65100; }
-
-    .app-arrow-wrap {
-      width: 40px; height: 40px; border-radius: 50%;
-      background: #f5f5f5; display: flex; align-items: center; justify-content: center;
-      transition: all 0.3s; flex-shrink: 0;
-    }
-    .app-card:hover .app-arrow-wrap { background: var(--color-text-dark); }
-    .app-arrow {
-      font-size: 1rem; color: #999; transition: all 0.3s;
-    }
-    .app-card:hover .app-arrow { color: #fff; transform: translateX(2px); }
-
-    /* ─── Philosophy section ─── */
-    .philosophy {
-      padding: 6rem 0; text-align: center; position: relative;
-    }
-    .philosophy-text {
-      font-size: clamp(1.125rem, 2.5vw, 1.5rem); font-weight: 300;
-      color: var(--color-text-muted); max-width: 48ch; margin: 0 auto;
-      line-height: 1.9; letter-spacing: 0.01em;
-    }
-    .philosophy-text em {
-      font-style: normal; color: var(--color-text); font-weight: 500;
-    }
-    .philosophy-divider {
-      width: 40px; height: 1px; background: rgba(255,255,255,0.15);
-      margin: 2rem auto 0;
-    }
-
-    /* ─── Footer ─── */
-    .footer {
-      padding: 48px 24px 32px; text-align: center;
-      border-top: 1px solid var(--color-border);
-    }
-    .footer-copy {
-      color: var(--color-text-muted); font-size: 0.8125rem; letter-spacing: 0.05em;
-    }
-
-    /* ─── Mobile ─── */
-    @media (max-width: 640px) {
-      .hero { min-height: 90vh; padding: 3rem 0; }
-      .hero-stats { gap: 32px; }
-      .apps-section { padding: 4rem 0; }
-      .app-card {
-        grid-template-columns: auto 1fr; gap: 16px; padding: 20px;
-      }
-      .app-arrow-wrap { display: none; }
-      .philosophy { padding: 4rem 0; }
-      .hero-scroll { display: none; }
-    }
-    @media (max-width: 380px) {
-      .hero h1 { font-size: 2.5rem; }
-      .hero-stats { flex-direction: column; gap: 16px; }
-      .app-icon { width: 52px; height: 52px; font-size: 1.25rem; border-radius: 14px; }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Noto+Serif+JP:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./assets/site.css">
 </head>
-<body>
-  <!-- Lang -->
-  <div class="lang-bar">
-    <span class="lang-switch">
-      <a href="?lang=ja" class="lang-link" data-lang-link="ja">日本語</a>
-      <span class="lang-sep" aria-hidden="true">|</span>
-      <a href="?lang=en" class="lang-link" data-lang-link="en">English</a>
-    </span>
+<body class="page-home" data-site-root="./">
+  <script>
+    (function() {
+      var q = window.location.search || "";
+      var h = window.location.hash || "";
+      var hasError = (q.indexOf("error=access_denied") >= 0 || q.indexOf("error_code=otp_expired") >= 0) ||
+        (h.indexOf("error=access_denied") >= 0 || h.indexOf("error_code=otp_expired") >= 0);
+      var hasCode = q.indexOf("code=") >= 0 || h.indexOf("code=") >= 0;
+      if (hasError || hasCode) {
+        window.location.replace("./auth/reset-complete.html" + q + h);
+      }
+    })();
+  </script>
+
+  <div class="page-shell">
+    <header class="site-header" data-site-header>
+      <div class="site-header__inner">
+        <a class="site-brand" href="./">
+          <span class="site-brand__text">
+            <span class="site-brand__label">Portfolio</span>
+            <span class="site-brand__name">Miyabayashi koya</span>
+          </span>
+        </a>
+
+        <nav class="site-nav" aria-label="サイトナビゲーション">
+          <div class="site-nav__links">
+            <a href="#works">Works</a>
+            <a href="#capabilities">Capabilities</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+          </div>
+          <!-- <div class="site-nav__extras">
+            <a class="nav-cta" href="#contact">問い合わせる</a>
+          </div> -->
+        </nav>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-label="メニューを開く" data-nav-toggle>
+          <span class="nav-toggle__bars" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero hero--home">
+        <div class="hero__shell reveal is-visible">
+          <div class="hero-home">
+            <div class="hero-home__aside">
+              <p class="hero-home__aside-label">Portfolio / 2026</p>
+              <p class="hero-home__aside-text">
+                つくること自体よりも、
+                何をどう整理すると前に進めるかを一緒に考える進め方を大切にしています。
+              </p>
+            </div>
+
+            <div class="hero-home__main">
+              <span class="eyebrow">Web App Engineer</span>
+              <h1 class="hero-title hero-title--home">
+                <span class="title-line">作る前から、</span>
+                <span class="title-line hero-title__accent">整えていく。</span>
+              </h1>
+              <p class="hero-lead">
+                要件整理から設計、実装、改善まで一貫して伴走。
+                業務システムやWebアプリを中心に、長く使える構成をつくっています。
+              </p>
+              <div class="hero__actions">
+                <a class="button button--primary" href="#works">実績を見る</a>
+                <a class="button button--ghost" href="#contact">問い合わせる</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-home__notes reveal reveal-delay-1">
+            <div class="hero-note">
+              <span class="hero-note__label">Now working with</span>
+              <p>Next.js / React / Node.js / PostgreSQL / Supabase</p>
+            </div>
+            <div class="hero-note">
+              <span class="hero-note__label">Good for</span>
+              <p>要件整理 / 管理画面 / 認証 / 決済 / 業務導線 / 改善設計</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--works" id="works">
+        <div class="container">
+          <div class="section-heading section-heading--editorial reveal">
+            <div>
+              <span class="eyebrow">Selected Works</span>
+              <h2 class="section-title">まず見てほしい実績</h2>
+            </div>
+            <p class="section-note">
+              現在掲載している中から、対応領域と進め方が伝わりやすいものを先に置いています。
+            </p>
+          </div>
+
+          <div class="featured-works-grid" data-featured-works></div>
+
+          <div class="category-links reveal reveal-delay-2">
+            <a class="category-link" href="./categories/web-apps/">
+              <span class="category-link__label">Category</span>
+              <span class="category-link__title">Web Apps</span>
+            </a>
+            <a class="category-link" href="./categories/ios-apps/">
+              <span class="category-link__label">Category</span>
+              <span class="category-link__title">iOS Apps</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="capabilities">
+        <div class="container">
+          <div class="section-heading section-heading--editorial reveal">
+            <div>
+              <span class="eyebrow">Capabilities</span>
+              <h2 class="section-title">現在の主な対応領域</h2>
+            </div>
+            <p class="section-note">
+              広く何でもではなく、今しっかり責任を持って扱える領域だけを残しています。
+            </p>
+          </div>
+
+          <div class="editorial-list">
+            <article class="editorial-item reveal">
+              <div class="editorial-item__number">01</div>
+              <div class="editorial-item__body">
+                <h3>要件整理から始める</h3>
+                <p>曖昧な相談を、画面、データ、運用フローへ分解して、着手できる形まで整理します。</p>
+              </div>
+            </article>
+            <article class="editorial-item reveal reveal-delay-1">
+              <div class="editorial-item__number">02</div>
+              <div class="editorial-item__body">
+                <h3>運用前提でWebアプリを組み立てる</h3>
+                <p>会員機能、管理画面、注文導線、権限設計など、日々使われる前提の構成までまとめて設計・実装します。</p>
+              </div>
+            </article>
+            <article class="editorial-item reveal reveal-delay-2">
+              <div class="editorial-item__number">03</div>
+              <div class="editorial-item__body">
+                <h3>改善しやすい状態まで整える</h3>
+                <p>作って終わりではなく、あとで機能追加や引き継ぎがしやすい状態まで意識して仕上げます。</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--soft" id="about">
+        <div class="container">
+          <div class="about-editorial">
+            <div class="about-editorial__quote reveal">
+              <span class="eyebrow">About</span>
+              <h2 class="section-title section-title--about">
+                <span class="title-line">実装だけでなく、</span>
+                <span class="title-line section-title__accent">進み方ごと整える</span>
+                <span class="title-line">仕事がしたい。</span>
+              </h2>
+            </div>
+
+            <div class="about-editorial__body reveal reveal-delay-1">
+              <p class="about-editorial__lead">
+                最小コストで成果を出すために、作る前の言語化と構造整理から入ることを大切にしています。
+                AIを活用して初速を上げつつ、運用で崩れにくい設計へ整えるのが、今の主なスタイルです。
+              </p>
+              <ul class="note-list">
+                <li>要件が固まりきっていない段階から相談できる</li>
+                <li>速さと品質のバランスを見ながら進められる</li>
+                <li>作った後の改善や拡張まで視野に入れて設計する</li>
+              </ul>
+              <p class="about-editorial__subnote">
+                週末は土に触れる（農業に触れる）時間も好きで、少しずつ整えていく感覚をものづくりにも持ち込んでいます。
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--contact" id="contact">
+        <div class="container">
+          <div class="contact-editorial reveal">
+            <div class="contact-layout">
+              <div class="contact-copy">
+                <span class="eyebrow">Contact</span>
+                <h2 class="section-title">
+                  <span class="title-line">要件がまだ曖昧でも、</span>
+                  <span class="title-line">まずは相談してください。</span>
+                </h2>
+                <p class="section-lead">
+                  フォームから概要だけ送ってもらえれば、こちらで整理しながら返信します。
+                  Webアプリ開発、既存改善、要件整理の壁打ちなど、初期段階の相談も歓迎です。
+                </p>
+                <ul class="contact-points">
+                  <li>やりたいことがまだ言語化しきれていなくても大丈夫です</li>
+                  <li>現在の困りごとや、作りたいものの概要だけでも受け付けています</li>
+                  <li>送信後は自動返信メールをお送りし、その後あらためて個別に返信します</li>
+                </ul>
+              </div>
+
+              <div class="contact-panel">
+                <form class="contact-form" data-contact-form data-contact-context="portfolio-home" novalidate>
+                  <div class="form-grid">
+                    <div class="form-field">
+                      <label class="form-label" for="contact-name">お名前</label>
+                      <input class="form-input" id="contact-name" name="name" type="text" autocomplete="name" required placeholder="山田 太郎">
+                    </div>
+                    <div class="form-field">
+                      <label class="form-label" for="contact-email">メールアドレス</label>
+                      <input class="form-input" id="contact-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
+                    </div>
+                    <div class="form-field">
+                      <label class="form-label" for="contact-company">会社名・屋号</label>
+                      <input class="form-input" id="contact-company" name="company" type="text" autocomplete="organization" placeholder="任意">
+                    </div>
+                    <div class="form-field">
+                      <label class="form-label" for="contact-type">相談種別</label>
+                      <select class="form-select" id="contact-type" name="inquiryType">
+                        <option value="">選択してください</option>
+                        <option value="Webアプリ開発">Webアプリ開発</option>
+                        <option value="iOSアプリ">iOSアプリ</option>
+                        <option value="既存サービス改善">既存サービス改善</option>
+                        <option value="要件整理・壁打ち">要件整理・壁打ち</option>
+                        <option value="その他">その他</option>
+                      </select>
+                    </div>
+                    <div class="form-field form-field--full">
+                      <label class="form-label" for="contact-message">相談内容</label>
+                      <textarea class="form-textarea" id="contact-message" name="message" required placeholder="現状の課題、作りたいもの、相談したいことなどを自由に書いてください。"></textarea>
+                    </div>
+                  </div>
+                  <input type="hidden" name="startedAt" value="">
+                  <input class="contact-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+                  <div class="form-actions">
+                    <div class="form-meta">
+                      <p class="contact-hint">通常2営業日以内を目安に返信します。<br>送信後、自動返信メールをお送りします。</p>
+                      <p class="contact-status" data-form-status aria-live="polite"></p>
+                    </div>
+                    <button class="button button--primary" type="submit">送信</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__inner">
+        <div class="footer__links">
+          <a href="#works">Works</a>
+          <a href="#capabilities">Capabilities</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+          <a href="./categories/web-apps/">Web</a>
+          <a href="./categories/ios-apps/">iOS</a>
+        </div>
+        <div class="footer__copy">© <span data-year></span> koya portfolio</div>
+      </div>
+    </footer>
   </div>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-content container">
-      <p class="hero-greeting reveal" data-i18n="hero.greeting">indie developer</p>
-      <h1 class="reveal reveal-d1"><span class="gradient-text" data-i18n="hero.title">koya</span></h1>
-      <p class="hero-philosophy reveal reveal-d2" data-i18n="hero.philosophy">
-        使う人の時間を大切にする。<br>シンプルで、静かで、手触りのいいアプリを。
-      </p>
-      <div class="hero-stats reveal reveal-d3">
-        <div class="stat">
-          <div class="stat-num" data-i18n="stat.apps">2</div>
-          <div class="stat-label" data-i18n="stat.apps.label">Apps</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num" data-i18n="stat.platform">iOS</div>
-          <div class="stat-label" data-i18n="stat.platform.label">Platform</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num" data-i18n="stat.price">Free</div>
-          <div class="stat-label" data-i18n="stat.price.label">Price</div>
-        </div>
-      </div>
-    </div>
-    <div class="hero-scroll" aria-hidden="true">
-      <span class="hero-scroll-text">scroll</span>
-      <span class="hero-scroll-line"></span>
-    </div>
-  </section>
-
-  <!-- Apps -->
-  <section class="apps-section">
-    <div class="container">
-      <p class="section-label reveal" data-i18n="apps.label">Works</p>
-      <h2 class="section-title reveal reveal-d1" data-i18n="apps.title">つくったもの</h2>
-      <div class="apps-grid">
-        <a href="./liftly/" class="app-card app-card--liftly reveal reveal-d2" data-app-link="liftly">
-          <div class="app-icon app-icon--liftly">L</div>
-          <div class="app-info">
-            <h3 class="app-name">Liftly</h3>
-            <p class="app-tagline" data-i18n="liftly.tagline">シンプルで続く、筋トレ記録アプリ</p>
-            <div class="app-meta">
-              <span class="app-badge app-badge--platform">iOS</span>
-              <span class="app-badge app-badge--status" data-i18n="badge.released">Released</span>
-            </div>
-          </div>
-          <div class="app-arrow-wrap">
-            <span class="app-arrow" aria-hidden="true">&#8594;</span>
-          </div>
-        </a>
-
-        <a href="./blockzen/" class="app-card app-card--blockzen reveal reveal-d3" data-app-link="blockzen">
-          <div class="app-icon app-icon--blockzen">B</div>
-          <div class="app-info">
-            <h3 class="app-name">Calm Blokku</h3>
-            <p class="app-tagline" data-i18n="blockzen.tagline">毎日届く、大人のブロックパズル</p>
-            <div class="app-meta">
-              <span class="app-badge app-badge--platform">iOS</span>
-              <span class="app-badge app-badge--coming" data-i18n="badge.coming">Coming Soon</span>
-            </div>
-          </div>
-          <div class="app-arrow-wrap">
-            <span class="app-arrow" aria-hidden="true">&#8594;</span>
-          </div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Philosophy -->
-  <section class="philosophy">
-    <div class="container">
-      <p class="philosophy-text reveal" data-i18n="philosophy.text">
-        いいアプリは、<em>余計なものがない</em>こと。<br>
-        使う人が迷わず、心地よく、<br>
-        毎日そっと寄り添えるものを。
-      </p>
-      <div class="philosophy-divider reveal reveal-d1"></div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <span class="footer-copy" data-i18n="footer.copyright">© koya</span>
-  </footer>
-
-  <!-- Auth redirect (Liftly password reset fallback) -->
-  <script>
-    (function() {
-      var q = window.location.search || '';
-      var h = window.location.hash || '';
-      var hasError = (q.indexOf('error=access_denied') >= 0 || q.indexOf('error_code=otp_expired') >= 0) ||
-          (h.indexOf('error=access_denied') >= 0 || h.indexOf('error_code=otp_expired') >= 0);
-      var hasCode = q.indexOf('code=') >= 0 || h.indexOf('code=') >= 0;
-      if (hasError || hasCode) {
-        window.location.replace('./auth/reset-complete.html' + q + h);
-        return;
-      }
-    })();
-  </script>
-
-  <!-- Scroll reveal -->
-  <script>
-    (function() {
-      var els = document.querySelectorAll('.reveal');
-      if (!('IntersectionObserver' in window)) {
-        els.forEach(function(el) { el.classList.add('is-visible'); });
-        return;
-      }
-      var observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-      els.forEach(function(el) { observer.observe(el); });
-    })();
-  </script>
-
-  <!-- i18n -->
-  <script>
-    (function() {
-      var translations = {
-        ja: {
-          'hero.greeting': 'indie developer',
-          'hero.title': 'koya',
-          'hero.philosophy': '使う人の時間を大切にする。\nシンプルで、静かで、手触りのいいアプリを。',
-          'stat.apps': '2', 'stat.apps.label': 'Apps',
-          'stat.platform': 'iOS', 'stat.platform.label': 'Platform',
-          'stat.price': 'Free', 'stat.price.label': 'Price',
-          'apps.label': 'Works',
-          'apps.title': 'つくったもの',
-          'liftly.tagline': 'シンプルで続く、筋トレ記録アプリ',
-          'blockzen.tagline': '毎日届く、大人のブロックパズル',
-          'badge.released': 'Released',
-          'badge.coming': 'Coming Soon',
-          'philosophy.text': 'いいアプリは、<em>余計なものがない</em>こと。\n使う人が迷わず、心地よく、\n毎日そっと寄り添えるものを。',
-          'footer.copyright': '© koya'
-        },
-        en: {
-          'hero.greeting': 'indie developer',
-          'hero.title': 'koya',
-          'hero.philosophy': 'Respecting the user\'s time.\nSimple, quiet, and well-crafted apps.',
-          'stat.apps': '2', 'stat.apps.label': 'Apps',
-          'stat.platform': 'iOS', 'stat.platform.label': 'Platform',
-          'stat.price': 'Free', 'stat.price.label': 'Price',
-          'apps.label': 'Works',
-          'apps.title': 'What I\'ve built',
-          'liftly.tagline': 'A simple workout log that sticks',
-          'blockzen.tagline': 'A calm daily block puzzle for adults',
-          'badge.released': 'Released',
-          'badge.coming': 'Coming Soon',
-          'philosophy.text': 'A good app is one with <em>nothing unnecessary</em>.\nIntuitive, comfortable,\nquietly there for you every day.',
-          'footer.copyright': '© koya'
-        }
-      };
-      var supportedLangs = ['ja', 'en'];
-      var defaultLang = 'ja';
-
-      function getLang() {
-        var p = new URLSearchParams(window.location.search);
-        var lang = (p.get('lang') || '').toLowerCase();
-        return supportedLangs.indexOf(lang) >= 0 ? lang : defaultLang;
-      }
-      function getLangUrl(lang) {
-        var u = new URL(window.location.href);
-        u.searchParams.set('lang', lang);
-        return u.pathname + u.search;
-      }
-      function escapeHtml(s) {
-        return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-      }
-      function renderText(val) {
-        // Preserve <em> tags, escape everything else, convert \n to <br>
-        return val.replace(/\n/g, '<br>');
-      }
-      function apply(lang) {
-        var t = translations[lang];
-        document.documentElement.lang = lang;
-        document.querySelectorAll('[data-i18n]').forEach(function(el) {
-          var key = el.getAttribute('data-i18n');
-          var val = t[key];
-          if (val == null) return;
-          if (val.indexOf('<em>') >= 0 || val.indexOf('\n') >= 0) {
-            el.innerHTML = renderText(val);
-          } else {
-            el.textContent = val;
-          }
-        });
-        document.querySelectorAll('[data-app-link]').forEach(function(el) {
-          var base = el.getAttribute('href').split('?')[0];
-          el.setAttribute('href', base + '?lang=' + lang);
-        });
-        document.querySelectorAll('[data-lang-link]').forEach(function(el) {
-          var linkLang = el.getAttribute('data-lang-link');
-          el.setAttribute('href', getLangUrl(linkLang));
-          el.classList.toggle('is-active', linkLang === lang);
-        });
-        var descs = {
-          ja: '個人開発アプリのポートフォリオ。Liftly、Calm Blokkuを公開中。',
-          en: 'Indie app portfolio by koya. Liftly and Calm Blokku available now.'
-        };
-        document.title = 'koya — Apps';
-        var meta = document.querySelector('meta[name="description"]');
-        if (meta) meta.setAttribute('content', descs[lang]);
-      }
-      apply(getLang());
-    })();
-  </script>
+  <script src="./data/works.js"></script>
+  <script src="./assets/site-config.js"></script>
+  <script src="./assets/site.js"></script>
 </body>
 </html>

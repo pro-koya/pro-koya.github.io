@@ -1,5 +1,7 @@
 # GitHub Pages 用（app-ads.txt 設置）
 
+ポートフォリオの問い合わせフォーム設定は [contact-form-setup.md](/Users/koya1104/Desktop/app-pages/contact-form-setup.md) を参照してください。
+
 このフォルダの内容を GitHub Pages で公開し、AdMob の app-ads.txt 検証に使います
 
 ## 1. 事前にやること
