@@ -1753,10 +1753,6 @@ button {
     width: 100%;
   }
 
-  .case-article-hero__title .title-line {
-    white-space: normal;
-  }
-
   .case-article-facts,
   .case-article__subgrid,
   .case-article__closing {
