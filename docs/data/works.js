@@ -28,5 +28,20 @@ window.PORTFOLIO_WORKS = [
     featured: true,
     featuredOrder: 2,
     categoryOrder: 1
+  },
+  {
+    slug: "kusahachi-corporate-site",
+    title: "草八興業株式会社",
+    category: "web",
+    categoryLabel: "Web Site",
+    focusLabel: "企業サイト / CMS / 情報整理",
+    summary: "WordPressで構築した製造業コーポレートサイト",
+    excerpt: "事業内容、商品一覧、お知らせ、問い合わせ導線までを、更新しやすい形で整理した企業サイトです。",
+    tags: ["WordPress", "カスタムテーマ", "Contact Form 7", "投稿運用"],
+    thumbnail: "assets/media/kouban-home.png",
+    detailPath: "case-studies/kusahachi-corporate-site/",
+    featured: true,
+    featuredOrder: 3,
+    categoryOrder: 2
   }
 ];
