@@ -426,12 +426,56 @@
     });
   }
 
+  function initHeroLandscape() {
+    var svg = document.querySelector('.hero-landscape');
+    if (!svg) return;
+
+    var ns = 'http://www.w3.org/2000/svg';
+    var groups = svg.querySelectorAll('.hl-stalks');
+    var baseY = 330;
+
+    // 3 sway groups: each offset slightly in x and phase
+    var configs = [
+      { startX: 5,  step: 18, count: 18, dy: 0  },
+      { startX: 14, step: 18, count: 18, dy: -1 },
+      { startX: 22, step: 54, count: 6,  dy: -4 }
+    ];
+
+    groups.forEach(function (group, gi) {
+      var cfg = configs[gi] || configs[0];
+      for (var i = 0; i < cfg.count; i++) {
+        var x = cfg.startX + i * cfg.step + (Math.random() * 3.5 - 1.75);
+        var h = 16 + Math.random() * 8;
+        var tilt = (Math.random() - 0.5) * 3.5;
+        var droop = 3 + Math.random() * 4;
+        var base = baseY + cfg.dy;
+        var path = document.createElementNS(ns, 'path');
+        path.setAttribute('d',
+          'M' + x.toFixed(1) + ',' + base +
+          ' L' + (x + tilt).toFixed(1) + ',' + (base - h).toFixed(1) +
+          ' Q' + (x + tilt + droop).toFixed(1) + ',' + (base - h - 3).toFixed(1) +
+          ' ' + (x + tilt + droop - 1).toFixed(1) + ',' + (base - h - 7).toFixed(1)
+        );
+        path.setAttribute('class', 'hl-stalk');
+        group.appendChild(path);
+      }
+    });
+
+    // Fade in landscape
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        svg.classList.add('is-visible');
+      });
+    });
+  }
+
   function init() {
     renderWorks();
     initHeader();
     initReveal();
     initYear();
     initContactForms();
+    initHeroLandscape();
   }
 
   if (document.readyState === "loading") {

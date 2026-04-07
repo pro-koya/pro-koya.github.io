@@ -60,24 +60,79 @@
     <main>
       <section class="hero hero--home">
         <div class="hero__shell reveal is-visible">
+          <div class="hero-home__abstract" aria-hidden="true">
+            <svg class="hero-landscape" viewBox="0 0 560 400"
+                 role="presentation" focusable="false" aria-hidden="true">
+              <defs>
+                <linearGradient id="hl-sky" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#d8c9b5"/>
+                  <stop offset="42%" stop-color="#e9dfd4"/>
+                  <stop offset="100%" stop-color="#f6f2ee"/>
+                </linearGradient>
+                <radialGradient id="hl-glow" cx="480" cy="72" r="140" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#f8c840" stop-opacity="0.52"/>
+                  <stop offset="55%" stop-color="#f0a030" stop-opacity="0.14"/>
+                  <stop offset="100%" stop-color="#f0a030" stop-opacity="0"/>
+                </radialGradient>
+                <linearGradient id="hl-water" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#a4bdd0" stop-opacity="0.68"/>
+                  <stop offset="100%" stop-color="#86a8be" stop-opacity="0.38"/>
+                </linearGradient>
+              </defs>
+              <!-- Sky -->
+              <rect width="560" height="400" fill="url(#hl-sky)"/>
+              <!-- Sun glow -->
+              <circle cx="480" cy="72" r="140" fill="url(#hl-glow)"/>
+              <!-- Sun -->
+              <circle class="hl-sun" cx="480" cy="72" r="20" fill="#f2b535" opacity="0.80"/>
+              <!-- Far mountains -->
+              <path d="M0,222 Q88,165 172,185 Q244,160 324,176 Q394,156 460,170 Q510,152 560,165 L560,272 L0,272 Z"
+                    fill="rgba(140,150,172,0.22)"/>
+              <!-- Mid mountains -->
+              <path d="M0,255 Q52,210 124,228 Q200,208 276,222 Q348,204 420,220 Q484,206 560,224 L560,305 L0,305 Z"
+                    fill="rgba(102,116,138,0.34)"/>
+              <!-- Near hills -->
+              <path d="M0,290 Q40,260 100,276 Q176,255 250,270 Q322,254 392,270 Q460,254 536,268 L560,274 L560,330 L0,330 Z"
+                    fill="rgba(70,86,105,0.47)"/>
+              <!-- Ground strip -->
+              <rect x="0" y="328" width="560" height="9" fill="rgba(82,98,78,0.42)"/>
+              <!-- Paddy water bands -->
+              <rect x="0" y="337" width="560" height="11" fill="url(#hl-water)" opacity="0.92"/>
+              <line x1="0" y1="348" x2="560" y2="348" stroke="rgba(112,142,165,0.44)" stroke-width="0.8"/>
+              <rect x="0" y="352" width="560" height="10" fill="url(#hl-water)" opacity="0.74"/>
+              <line x1="0" y1="362" x2="560" y2="362" stroke="rgba(112,142,165,0.36)" stroke-width="0.7"/>
+              <rect x="0" y="366" width="560" height="9" fill="url(#hl-water)" opacity="0.57"/>
+              <line x1="0" y1="375" x2="560" y2="375" stroke="rgba(112,142,165,0.28)" stroke-width="0.6"/>
+              <rect x="0" y="379" width="560" height="8" fill="url(#hl-water)" opacity="0.42"/>
+              <rect x="0" y="390" width="560" height="10" fill="url(#hl-water)" opacity="0.28"/>
+              <!-- Rice stalks (populated by JS) -->
+              <g class="hl-stalks hl-stalks--a"></g>
+              <g class="hl-stalks hl-stalks--b"></g>
+              <g class="hl-stalks hl-stalks--c"></g>
+            </svg>
+          </div>
+
           <div class="hero-home">
             <div class="hero-home__aside">
-              <p class="hero-home__aside-label">Portfolio / 2026</p>
+              <p class="hero-home__aside-label">かたちを、問う。</p>
               <p class="hero-home__aside-text">
-                つくること自体よりも、
-                何をどう整理すると前に進めるかを一緒に考える進め方を大切にしています。
+                完成した瞬間に閉じるものではなく、人や現場の営みの中に自然に溶け込み、使われながら育っていくこと。
+                それが、私にとっての「息をする形」と考えています。
               </p>
             </div>
 
             <div class="hero-home__main">
               <span class="eyebrow">Web App Engineer</span>
               <h1 class="hero-title hero-title--home">
-                <span class="title-line">作る前から、</span>
-                <span class="title-line hero-title__accent">整えていく。</span>
+                <span class="title-line">営みの中で、</span>
+                <span class="title-line hero-title__accent">息をするものを。</span>
               </h1>
               <p class="hero-lead">
-                要件整理から設計、実装、改善まで一貫して伴走。
-                業務システムやWebアプリを中心に、長く使える構成をつくっています。
+                機能をつくること以上に、人や仕事の流れの中で自然に使われ続ける形を大切にしています。
+              </p>
+              <p class="hero-subcopy">
+                人と人のあいだで生まれる価値が、
+                ちゃんと前に進む形になるように。
               </p>
               <div class="hero__actions">
                 <a class="button button--primary" href="#works">実績を見る</a>
@@ -104,7 +159,7 @@
           <div class="section-heading section-heading--editorial reveal">
             <div>
               <span class="eyebrow">Selected Works</span>
-              <h2 class="section-title">まず見てほしい実績</h2>
+              <h2 class="section-title">実績</h2>
             </div>
             <p class="section-note">
               現在掲載している中から、対応領域と進め方が伝わりやすいものを先に置いています。
@@ -134,36 +189,36 @@
               <h2 class="section-title">現在の主な対応領域</h2>
             </div>
             <p class="section-note">
-              広く何でもではなく、今しっかり責任を持って扱える領域だけを残しています。
+              広く何でもではなく、人や現場の流れの中で、今しっかり責任を持って扱える領域に絞っています。
             </p>
           </div>
-
+      
           <div class="editorial-list">
             <article class="editorial-item reveal">
               <div class="editorial-item__number">01</div>
               <div class="editorial-item__body">
-                <h3>要件整理から始める</h3>
-                <p>曖昧な相談を、画面、データ、運用フローへ分解して、着手できる形まで整理します。</p>
+                <h3>曖昧な相談を、進められる形へ整える</h3>
+                <p>まだ言葉になりきっていない課題を、画面、データ、運用フローへ分解し、着手できる形まで整理します。</p>
               </div>
             </article>
             <article class="editorial-item reveal reveal-delay-1">
               <div class="editorial-item__number">02</div>
               <div class="editorial-item__body">
-                <h3>運用前提でWebアプリを組み立てる</h3>
-                <p>会員機能、管理画面、注文導線、権限設計など、日々使われる前提の構成までまとめて設計・実装します。</p>
+                <h3>日々の営みの中で使われるWebアプリを組み立てる</h3>
+                <p>会員機能、管理画面、注文導線、権限設計など、ただ動くだけでなく、日々の流れの中で無理なく使われる前提で設計・実装します。</p>
               </div>
             </article>
             <article class="editorial-item reveal reveal-delay-2">
               <div class="editorial-item__number">03</div>
               <div class="editorial-item__body">
-                <h3>改善しやすい状態まで整える</h3>
-                <p>作って終わりではなく、あとで機能追加や引き継ぎがしやすい状態まで意識して仕上げます。</p>
+                <h3>作って終わりではなく、育てていける状態まで整える</h3>
+                <p>その場で完成することよりも、あとから機能追加や改善、引き継ぎがしやすく、少しずつ育てていける状態まで意識して仕上げます。</p>
               </div>
             </article>
           </div>
         </div>
       </section>
-
+      
       <section class="section section--soft" id="about">
         <div class="container">
           <div class="about-editorial">
@@ -171,24 +226,218 @@
               <span class="eyebrow">About</span>
               <h2 class="section-title section-title--about">
                 <span class="title-line">実装だけでなく、</span>
-                <span class="title-line section-title__accent">進み方ごと整える</span>
-                <span class="title-line">仕事がしたい。</span>
+                <span class="title-line section-title__accent">営みの中で息をする形まで</span>
+                <span class="title-line">整える仕事がしたい。</span>
               </h2>
             </div>
-
+      
             <div class="about-editorial__body reveal reveal-delay-1">
               <p class="about-editorial__lead">
-                最小コストで成果を出すために、作る前の言語化と構造整理から入ることを大切にしています。
-                AIを活用して初速を上げつつ、運用で崩れにくい設計へ整えるのが、今の主なスタイルです。
+                最小コストで成果を出すことを大切にしながら、作る前の言語化と構造整理から入ることを重視しています。
+                AIを活用して初速を上げつつ、ただ機能をつくるのではなく、人や現場の流れの中で無理なく使われ続ける形へ整えるのが、今の主なスタイルです。<br>
               </p>
               <ul class="note-list">
-                <li>要件が固まりきっていない段階から相談できる</li>
-                <li>速さと品質のバランスを見ながら進められる</li>
-                <li>作った後の改善や拡張まで視野に入れて設計する</li>
+                <li>要件が固まりきっていない段階から相談可能</li>
+                <li>速さと品質のバランスを見ながら、前に進める形を共に整理</li>
+                <li>作った後の改善や拡張まで視野に入れ、使われ続ける前提で設計</li>
               </ul>
-              <p class="about-editorial__subnote">
-                週末は土に触れる（農業に触れる）時間も好きで、少しずつ整えていく感覚をものづくりにも持ち込んでいます。
-              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--philosophy" id="philosophy">
+        <div class="container">
+          <div class="philosophy-layout">
+            <div class="philosophy-editorial reveal">
+              <div class="philosophy-editorial__heading">
+                <span class="eyebrow">仕事観</span>
+                <h2 class="section-title section-title--philosophy">
+                  <span class="title-line">人と人のあいだに残るものを、</span>
+                  <span class="title-line">仕事にしたい。</span>
+                </h2>
+              </div>
+
+              <div class="philosophy-editorial__body">
+                <p>
+                  私は、単に便利なものや完成した機能をつくること以上に、
+                  人と人との関わりの中で意味を持ち、使われ続ける仕事に価値を感じています。
+                </p>
+                <p>
+                  農業や地域の営みに触れる中で、仕事は成果物を納めて終わるものではなく、
+                  関係や流れを整え、少しずつ根づいていくものだと感じるようになりました。
+                </p>
+                <p>
+                  だからこそ技術も、機能を増やすためだけでなく、
+                  誰かの手間を減らし、対話をしやすくし、営みを前に進めるためのものとして扱いたいと思っています。
+                </p>
+              </div>
+            </div>
+
+            <div class="farming-anim" aria-hidden="true">
+              <svg class="farming-svg" viewBox="0 0 260 300"
+                   role="presentation" focusable="false" aria-hidden="true">
+
+                <!-- Scene 1: 耕す (Tilling) -->
+                <g class="fs-scene fs-scene--1">
+                  <path d="M25,240 Q80,238 130,240 Q185,242 235,240"
+                        stroke="rgba(17,17,17,0.28)" stroke-width="1" fill="none" stroke-linecap="round"/>
+                  <line x1="50" y1="244" x2="66" y2="241" stroke="rgba(17,17,17,0.18)" stroke-width="0.8"/>
+                  <line x1="76" y1="245" x2="94" y2="242" stroke="rgba(17,17,17,0.18)" stroke-width="0.8"/>
+                  <line x1="104" y1="244" x2="120" y2="241" stroke="rgba(17,17,17,0.15)" stroke-width="0.8"/>
+                  <!-- Head -->
+                  <circle cx="138" cy="152" r="13" fill="none" stroke="rgba(17,17,17,0.72)" stroke-width="1.4"/>
+                  <!-- Body (slight forward lean) -->
+                  <line x1="138" y1="165" x2="133" y2="212"
+                        stroke="rgba(17,17,17,0.70)" stroke-width="1.4" stroke-linecap="round"/>
+                  <!-- Right arm (upper grip on hoe) -->
+                  <line x1="136" y1="182" x2="115" y2="165"
+                        stroke="rgba(17,17,17,0.70)" stroke-width="1.4" stroke-linecap="round"/>
+                  <!-- Left arm (lower grip on hoe) -->
+                  <line x1="134" y1="196" x2="108" y2="212"
+                        stroke="rgba(17,17,17,0.70)" stroke-width="1.4" stroke-linecap="round"/>
+                  <!-- Hoe handle -->
+                  <line x1="115" y1="163" x2="106" y2="240"
+                        stroke="rgba(17,17,17,0.58)" stroke-width="1.2" stroke-linecap="round"/>
+                  <!-- Hoe blade -->
+                  <path d="M97,238 L107,243 L116,237"
+                        fill="none" stroke="rgba(17,17,17,0.70)" stroke-width="1.4"
+                        stroke-linecap="round" stroke-linejoin="round"/>
+                  <!-- Left leg -->
+                  <line x1="133" y1="212" x2="118" y2="240"
+                        stroke="rgba(17,17,17,0.70)" stroke-width="1.4" stroke-linecap="round"/>
+                  <!-- Right leg -->
+                  <line x1="133" y1="212" x2="146" y2="240"
+                        stroke="rgba(17,17,17,0.70)" stroke-width="1.4" stroke-linecap="round"/>
+                  <!-- Soil marks -->
+                  <circle cx="93" cy="237" r="1.8" fill="rgba(17,17,17,0.28)"/>
+                  <circle cx="101" cy="232" r="1.2" fill="rgba(17,17,17,0.22)"/>
+                  <circle cx="86" cy="240" r="1.4" fill="rgba(17,17,17,0.18)"/>
+                </g>
+
+                <!-- Scene 2: 植える (Planting) -->
+                <g class="fs-scene fs-scene--2">
+                  <path d="M25,240 Q80,238 130,240 Q185,242 235,240"
+                        stroke="rgba(17,17,17,0.28)" stroke-width="1" fill="none" stroke-linecap="round"/>
+                  <!-- Small planting hole -->
+                  <path d="M80,239 Q86,245 92,239"
+                        stroke="rgba(17,17,17,0.28)" stroke-width="1" fill="none" stroke-linecap="round"/>
+                  <!-- Head (bent forward) -->
+                  <circle cx="152" cy="154" r="13" fill="none" stroke="rgba(17,17,17,0.72)" stroke-width="1.4"/>
+                  <!-- Body (bent ~35° forward) -->
+                  <line x1="148" y1="167" x2="120" y2="206"
+                        stroke="rgba(17,17,17,0.70)" stroke-width="1.4" stroke-linecap="round"/>
+                  <!-- Left arm reaching to plant -->
+                  <line x1="132" y1="185" x2="86" y2="218"
+                        stroke="rgba(17,17,17,0.70)" stroke-width="1.4" stroke-linecap="round"/>
+                  <!-- Right arm bracing -->
+                  <line x1="132" y1="188" x2="108" y2="222"
+                        stroke="rgba(17,17,17,0.70)" stroke-width="1.4" stroke-linecap="round"/>
+                  <!-- Left leg -->
+                  <line x1="120" y1="206" x2="104" y2="240"
+                        stroke="rgba(17,17,17,0.70)" stroke-width="1.4" stroke-linecap="round"/>
+                  <!-- Right leg -->
+                  <line x1="120" y1="206" x2="132" y2="240"
+                        stroke="rgba(17,17,17,0.70)" stroke-width="1.4" stroke-linecap="round"/>
+                  <!-- Seedling stem -->
+                  <line x1="86" y1="226" x2="86" y2="205"
+                        stroke="rgba(17,17,17,0.52)" stroke-width="1.2" stroke-linecap="round"/>
+                  <!-- Left leaf -->
+                  <path d="M86,215 Q73,208 75,198"
+                        fill="none" stroke="rgba(17,17,17,0.52)" stroke-width="1.2" stroke-linecap="round"/>
+                  <!-- Right leaf -->
+                  <path d="M86,215 Q99,208 97,198"
+                        fill="none" stroke="rgba(17,17,17,0.52)" stroke-width="1.2" stroke-linecap="round"/>
+                  <!-- Root -->
+                  <line x1="86" y1="226" x2="86" y2="232"
+                        stroke="rgba(17,17,17,0.36)" stroke-width="1" stroke-linecap="round"/>
+                </g>
+
+                <!-- Scene 3: 収穫 (Harvesting) -->
+                <g class="fs-scene fs-scene--3">
+                  <path d="M25,240 Q80,238 130,240 Q185,242 235,240"
+                        stroke="rgba(17,17,17,0.28)" stroke-width="1" fill="none" stroke-linecap="round"/>
+                  <!-- Tomato vine -->
+                  <path d="M188,240 C190,215 184,196 192,178 C198,163 186,152 190,140"
+                        fill="none" stroke="rgba(17,17,17,0.42)" stroke-width="1.2" stroke-linecap="round"/>
+                  <!-- Side branch 1 -->
+                  <path d="M186,200 C174,196 166,190 160,186"
+                        fill="none" stroke="rgba(17,17,17,0.36)" stroke-width="1" stroke-linecap="round"/>
+                  <!-- Side branch 2 -->
+                  <path d="M190,172 C176,168 170,162 165,157"
+                        fill="none" stroke="rgba(17,17,17,0.36)" stroke-width="1" stroke-linecap="round"/>
+                  <!-- Tomatoes -->
+                  <circle cx="152" cy="185" r="8.5" fill="none" stroke="rgba(17,17,17,0.55)" stroke-width="1.3"/>
+                  <path d="M149,179 Q152,175 155,179" fill="none" stroke="rgba(17,17,17,0.42)" stroke-width="0.9"/>
+                  <circle cx="160" cy="154" r="7.5" fill="none" stroke="rgba(17,17,17,0.50)" stroke-width="1.2"/>
+                  <path d="M157,148 Q160,144 163,148" fill="none" stroke="rgba(17,17,17,0.38)" stroke-width="0.9"/>
+                  <circle cx="190" cy="140" r="7" fill="none" stroke="rgba(17,17,17,0.46)" stroke-width="1.1"/>
+                  <!-- Head -->
+                  <circle cx="90" cy="150" r="13" fill="none" stroke="rgba(17,17,17,0.72)" stroke-width="1.4"/>
+                  <!-- Body -->
+                  <line x1="90" y1="163" x2="90" y2="212"
+                        stroke="rgba(17,17,17,0.70)" stroke-width="1.4" stroke-linecap="round"/>
+                  <!-- Right arm (reaching for tomato) -->
+                  <line x1="90" y1="180" x2="146" y2="170"
+                        stroke="rgba(17,17,17,0.70)" stroke-width="1.4" stroke-linecap="round"/>
+                  <!-- Left arm (basket) -->
+                  <line x1="90" y1="180" x2="68" y2="206"
+                        stroke="rgba(17,17,17,0.70)" stroke-width="1.4" stroke-linecap="round"/>
+                  <!-- Basket -->
+                  <path d="M54,208 Q62,224 76,224 Q84,224 86,212"
+                        fill="none" stroke="rgba(17,17,17,0.52)" stroke-width="1.3" stroke-linecap="round"/>
+                  <!-- Left leg -->
+                  <line x1="90" y1="212" x2="76" y2="240"
+                        stroke="rgba(17,17,17,0.70)" stroke-width="1.4" stroke-linecap="round"/>
+                  <!-- Right leg -->
+                  <line x1="90" y1="212" x2="104" y2="240"
+                        stroke="rgba(17,17,17,0.70)" stroke-width="1.4" stroke-linecap="round"/>
+                </g>
+
+                <!-- Scene 4: 直売 (Selling at roadside stand) -->
+                <g class="fs-scene fs-scene--4">
+                  <path d="M25,240 Q80,238 130,240 Q185,242 235,240"
+                        stroke="rgba(17,17,17,0.28)" stroke-width="1" fill="none" stroke-linecap="round"/>
+                  <!-- Table top -->
+                  <rect x="102" y="210" width="56" height="9" rx="2"
+                        fill="none" stroke="rgba(17,17,17,0.44)" stroke-width="1.2"/>
+                  <!-- Table legs -->
+                  <line x1="108" y1="219" x2="108" y2="240"
+                        stroke="rgba(17,17,17,0.38)" stroke-width="1.1" stroke-linecap="round"/>
+                  <line x1="152" y1="219" x2="152" y2="240"
+                        stroke="rgba(17,17,17,0.38)" stroke-width="1.1" stroke-linecap="round"/>
+                  <!-- Tomatoes on table -->
+                  <circle cx="115" cy="206" r="5.5" fill="none" stroke="rgba(17,17,17,0.55)" stroke-width="1.2"/>
+                  <path d="M113,201 Q115,198 117,201" fill="none" stroke="rgba(17,17,17,0.40)" stroke-width="0.9"/>
+                  <circle cx="130" cy="205" r="5" fill="none" stroke="rgba(17,17,17,0.50)" stroke-width="1.1"/>
+                  <circle cx="144" cy="206" r="5.5" fill="none" stroke="rgba(17,17,17,0.55)" stroke-width="1.2"/>
+                  <path d="M142,201 Q144,198 146,201" fill="none" stroke="rgba(17,17,17,0.40)" stroke-width="0.9"/>
+                  <!-- Seller (left) -->
+                  <circle cx="76" cy="154" r="13" fill="none" stroke="rgba(17,17,17,0.72)" stroke-width="1.4"/>
+                  <line x1="76" y1="167" x2="76" y2="212"
+                        stroke="rgba(17,17,17,0.70)" stroke-width="1.4" stroke-linecap="round"/>
+                  <line x1="76" y1="185" x2="102" y2="198"
+                        stroke="rgba(17,17,17,0.70)" stroke-width="1.4" stroke-linecap="round"/>
+                  <line x1="76" y1="185" x2="58" y2="198"
+                        stroke="rgba(17,17,17,0.70)" stroke-width="1.4" stroke-linecap="round"/>
+                  <line x1="76" y1="212" x2="62" y2="240"
+                        stroke="rgba(17,17,17,0.70)" stroke-width="1.4" stroke-linecap="round"/>
+                  <line x1="76" y1="212" x2="88" y2="240"
+                        stroke="rgba(17,17,17,0.70)" stroke-width="1.4" stroke-linecap="round"/>
+                  <!-- Buyer (right) -->
+                  <circle cx="184" cy="154" r="13" fill="none" stroke="rgba(17,17,17,0.72)" stroke-width="1.4"/>
+                  <line x1="184" y1="167" x2="184" y2="212"
+                        stroke="rgba(17,17,17,0.70)" stroke-width="1.4" stroke-linecap="round"/>
+                  <line x1="184" y1="185" x2="158" y2="198"
+                        stroke="rgba(17,17,17,0.70)" stroke-width="1.4" stroke-linecap="round"/>
+                  <line x1="184" y1="185" x2="202" y2="198"
+                        stroke="rgba(17,17,17,0.70)" stroke-width="1.4" stroke-linecap="round"/>
+                  <line x1="184" y1="212" x2="172" y2="240"
+                        stroke="rgba(17,17,17,0.70)" stroke-width="1.4" stroke-linecap="round"/>
+                  <line x1="184" y1="212" x2="196" y2="240"
+                        stroke="rgba(17,17,17,0.70)" stroke-width="1.4" stroke-linecap="round"/>
+                </g>
+              </svg>
             </div>
           </div>
         </div>
@@ -278,6 +527,7 @@
     </footer>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="./data/works.js"></script>
   <script src="./assets/site-config.js"></script>
   <script src="./assets/site.js"></script>

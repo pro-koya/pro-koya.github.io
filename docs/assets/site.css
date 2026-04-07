@@ -432,6 +432,14 @@ button {
   line-height: 1.9;
 }
 
+.hero-subcopy {
+  margin: -4px 0 0;
+  max-width: 31rem;
+  color: var(--text-soft);
+  font-size: 0.96rem;
+  line-height: 1.9;
+}
+
 .section-note {
   margin: 0;
   color: var(--text-soft);
@@ -454,6 +462,122 @@ button {
   background: transparent;
   box-shadow: none;
 }
+
+.hero-home__abstract {
+  position: absolute;
+  top: 10px;
+  right: -12px;
+  width: min(37vw, 480px);
+  opacity: 0.82;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Hero Landscape ──────────────────────────────────────── */
+.hero-landscape {
+  display: block;
+  width: 100%;
+  height: auto;
+  opacity: 0;
+  transition: opacity 1.4s ease;
+}
+
+.hero-landscape.is-visible {
+  opacity: 1;
+}
+
+.hl-stalk {
+  fill: none;
+  stroke: rgba(58, 78, 56, 0.62);
+  stroke-width: 1.1;
+  stroke-linecap: round;
+}
+
+@keyframes hl-sway {
+  0%, 100% { transform: rotate(-2.2deg); }
+  50%       { transform: rotate(2.8deg); }
+}
+
+.hl-stalks {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: hl-sway var(--sway-dur, 4.2s) ease-in-out infinite;
+}
+
+.hl-stalks--a { --sway-dur: 4.2s; animation-delay: 0s; }
+.hl-stalks--b { --sway-dur: 3.7s; animation-delay: 0.55s; }
+.hl-stalks--c { --sway-dur: 4.8s; animation-delay: 1.15s; }
+
+@keyframes hl-sun-pulse {
+  0%, 100% { transform: scale(1);    opacity: 0.80; }
+  50%       { transform: scale(1.12); opacity: 0.65; }
+}
+
+.hl-sun {
+  transform-box: fill-box;
+  transform-origin: center center;
+  animation: hl-sun-pulse 5s ease-in-out infinite;
+}
+
+/* ── Philosophy Farming Animation ───────────────────────── */
+.philosophy-layout {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 72px;
+  align-items: center;
+}
+
+.farming-anim {
+  position: relative;
+  pointer-events: none;
+}
+
+.farming-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@keyframes fs-scene-1 {
+  0%   { opacity: 0; }
+  4%   { opacity: 1; }
+  21%  { opacity: 1; }
+  25%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+@keyframes fs-scene-2 {
+  0%   { opacity: 0; }
+  25%  { opacity: 0; }
+  29%  { opacity: 1; }
+  46%  { opacity: 1; }
+  50%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+@keyframes fs-scene-3 {
+  0%   { opacity: 0; }
+  50%  { opacity: 0; }
+  54%  { opacity: 1; }
+  71%  { opacity: 1; }
+  75%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+@keyframes fs-scene-4 {
+  0%   { opacity: 0; }
+  75%  { opacity: 0; }
+  79%  { opacity: 1; }
+  96%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.fs-scene { opacity: 0; }
+
+.fs-scene--1 { animation: fs-scene-1 24s linear infinite; }
+.fs-scene--2 { animation: fs-scene-2 24s linear infinite; }
+.fs-scene--3 { animation: fs-scene-3 24s linear infinite; }
+.fs-scene--4 { animation: fs-scene-4 24s linear infinite; }
 
 .hero__shell::before {
   display: none;
@@ -504,6 +628,7 @@ button {
   display: grid;
   gap: 18px;
   max-width: 760px;
+  min-width: 0;
 }
 
 .hero__actions {
@@ -787,6 +912,41 @@ button {
   padding-top: 8px;
   color: var(--text-soft);
   font-size: 0.94rem;
+}
+
+.section--philosophy {
+  padding-top: 88px;
+  padding-bottom: 88px;
+  overflow: hidden;
+}
+
+.philosophy-editorial {
+  display: grid;
+  gap: 34px;
+}
+
+.philosophy-editorial__heading,
+.philosophy-editorial__body {
+  display: grid;
+}
+
+.philosophy-editorial__heading {
+  gap: 16px;
+  max-width: 34rem;
+}
+
+.philosophy-editorial__body {
+  gap: 24px;
+  max-width: 40rem;
+  padding-left: 24px;
+  border-left: 1px solid rgba(17, 17, 17, 0.08);
+}
+
+.philosophy-editorial__body p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 1.02rem;
+  line-height: 2;
 }
 
 .note-list,
@@ -1480,6 +1640,18 @@ button {
 }
 
 @media (max-width: 1100px) {
+  .hero-home__abstract {
+    width: min(38vw, 360px);
+    right: -18px;
+    top: 76px;
+    opacity: 0.44;
+  }
+
+  .philosophy-layout {
+    grid-template-columns: 1fr 240px;
+    gap: 48px;
+  }
+
   .hero-home,
   .category-hero__grid,
   .about-editorial,
@@ -1613,6 +1785,10 @@ button {
 }
 
 @media (max-width: 640px) {
+  .hero-home__abstract {
+    display: none;
+  }
+
   body::before {
     background-size: 24px 24px;
   }
@@ -1702,16 +1878,20 @@ button {
 
   .hero-home__aside-text,
   .hero-lead,
+  .hero-subcopy,
   .section-lead,
   .section-note,
   .category-hero__note,
-  .about-editorial__lead {
+  .about-editorial__lead,
+  .philosophy-editorial__heading,
+  .philosophy-editorial__body {
     max-width: 100%;
   }
 
   .hero-home__main,
   .category-hero__text,
   .about-editorial__body,
+  .philosophy-editorial__body,
   .work-card__body,
   .works-entry__body {
     min-width: 0;
@@ -1815,6 +1995,32 @@ button {
 
   .contact-copy {
     gap: 18px;
+  }
+
+  .philosophy-layout {
+    grid-template-columns: 1fr;
+    position: relative;
+  }
+
+  .farming-anim {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 180px;
+    opacity: 0.12;
+    z-index: 0;
+  }
+
+  .philosophy-editorial {
+    position: relative;
+    z-index: 1;
+    gap: 26px;
+  }
+
+  .philosophy-editorial__body {
+    gap: 18px;
+    padding-left: 14px;
   }
 
   .contact-panel {
