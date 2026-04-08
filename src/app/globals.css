@@ -1,0 +1,257 @@
+/* 既存サイトのスタイルをそのまま引き継ぐ */
+@import './site.css';
+
+/* ─────────────────────────────────────────────────
+   reveal アニメーション（site.js の IntersectionObserver 連動）
+   ───────────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+.reveal-delay-1 { transition-delay: 0.12s; }
+.reveal-delay-2 { transition-delay: 0.24s; }
+
+/* ─────────────────────────────────────────────────
+   仕事観セクション（粒子アニメーション）新レイアウト
+   既存の .section--philosophy と .philosophy-layout を上書き
+   ───────────────────────────────────────────────── */
+
+/* PC: 通常セクション + 2カラムグリッド */
+@media (min-width: 768px) {
+  .section--philosophy {
+    padding: 96px 0 104px;
+    overflow: hidden;
+    background: #111111;
+  }
+
+  /* 2カラムグリッド */
+  .philosophy-pc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  /* 左カラム: テキスト */
+  .philosophy-text-panel {
+    width: auto;
+    padding: 0;
+    position: static;
+    display: block;
+  }
+
+  /* 右カラム: Canvas + シーン情報 */
+  .philosophy-canvas-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .philosophy-canvas-panel {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    position: relative;
+  }
+
+  /* シーン情報（Canvas下） */
+  .philosophy-pc-scene-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .philosophy-pc-scene-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .philosophy-pc-scene-title {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  /* PC向け: タイトルを大きく */
+  .philosophy-static-title {
+    font-size: clamp(2rem, 2.8vw, 3rem);
+  }
+}
+
+/* モバイル: 縦積み・タイマー再生 */
+@media (max-width: 767px) {
+  .section--philosophy {
+    padding: 0;
+    height: auto;
+    overflow: hidden;
+    background: #111111;
+  }
+
+  .philosophy-sticky {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .philosophy-text-panel {
+    padding: 3.5rem 1.5rem 2rem;
+  }
+
+  .philosophy-canvas-panel {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    position: relative;
+    flex-shrink: 0;
+  }
+}
+
+/* ── テキストパネル共通 ── */
+.philosophy-scene-text {
+  position: absolute;
+  inset: auto 0 auto 0;
+  padding: inherit;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  pointer-events: none;
+}
+.philosophy-scene-text.is-active {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.philosophy-eyebrow {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1rem;
+  font-family: var(--font-sans);
+}
+.philosophy-eyebrow::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.philosophy-scene-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.8rem, 4.5vw, 4.2rem);
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 1.5rem;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.philosophy-scene-desc {
+  font-family: var(--font-sans);
+  font-size: 0.97rem;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 2;
+  white-space: pre-line;
+  margin: 0;
+}
+
+/* ── 静的哲学テキスト（モバイル用） ── */
+.philosophy-static-heading {
+  margin-bottom: 0.5rem;
+}
+.philosophy-static-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-family: var(--font-sans);
+  margin-bottom: 1rem;
+}
+.philosophy-static-eyebrow::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.3);
+}
+.philosophy-static-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 1.5rem;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.philosophy-static-body p {
+  margin: 0 0 1rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.92rem;
+  line-height: 1.9;
+}
+
+/* ── シーンインジケーター ── */
+.philosophy-indicators {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: 2.5rem;
+}
+
+.philosophy-indicator {
+  height: 2px;
+  border-radius: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  transition: width 0.4s ease, background-color 0.4s ease;
+}
+.philosophy-indicator.is-active {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+/* ── モバイルシーンラベル ── */
+.philosophy-mobile-label {
+  text-align: center;
+  padding: 1.5rem 1.5rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+.philosophy-mobile-scene-num {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.3);
+  text-transform: uppercase;
+}
+.philosophy-mobile-scene-title {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.philosophy-mobile-scene-desc {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.45);
+  line-height: 1.8;
+  max-width: 28ch;
+  text-align: center;
+}

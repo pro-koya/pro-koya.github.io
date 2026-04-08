@@ -4,3 +4,9 @@
 # 大容量動画（GitHub は 100MB 制限のためリポジトリに含めない）
 docs/source/*.mov
 docs/source/*.mp4
+
+# Next.js
+.next/
+node_modules/
+out/
+npm-debug.log*
