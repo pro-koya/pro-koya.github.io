@@ -34,6 +34,7 @@ function validate(formData: FormData): FieldErrors {
   if (company.length > 160) errors.company = '会社名・屋号は160文字以内で入力してください。';
 
   if (!message) errors.message = '相談内容を入力してください。';
+  else if (message.length < 10) errors.message = '相談内容は10文字以上入力してください。';
   else if (message.length > MESSAGE_MAX) errors.message = `相談内容は${MESSAGE_MAX.toLocaleString()}文字以内で入力してください。`;
 
   return errors;
