@@ -1046,6 +1046,19 @@ button {
   grid-column: 1 / -1;
 }
 
+.form-field--error .form-input,
+.form-field--error .form-select,
+.form-field--error .form-textarea {
+  border-bottom-color: #c0392b;
+}
+
+.form-error {
+  color: #c0392b;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
 .form-label {
   color: var(--text-soft);
   font-size: 0.76rem;
