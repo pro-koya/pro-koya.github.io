@@ -1,13 +1,9 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 const GAS_ENDPOINT =
   'https://script.google.com/macros/s/AKfycbwNH3P0TNGcGSGEnp0wzkJws5ezGai6dOapJXPGmmMWp3-x2MmMq6l_VkuNNUEnCq4Wkg/exec';
-const TRUSTED_ORIGINS = [
-  'https://script.google.com',
-  'https://script.googleusercontent.com',
-];
 
 type Status = 'idle' | 'pending' | 'success' | 'error';
 
@@ -34,67 +30,40 @@ export function CategoryContactSection({
   messagePlaceholder,
 }: Props) {
   const formRef = useRef<HTMLFormElement>(null);
-  const iframeRef = useRef<HTMLIFrameElement>(null);
   const [status, setStatus] = useState<Status>('idle');
   const [statusMsg, setStatusMsg] = useState('');
   const [submitting, setSubmitting] = useState(false);
-  const pendingRef = useRef<{ requestId: string; timeoutId: ReturnType<typeof setTimeout> } | null>(null);
 
-  useEffect(() => {
-    const onMessage = (event: MessageEvent) => {
-      if (!TRUSTED_ORIGINS.includes(event.origin)) return;
-      const data = event.data;
-      if (!data || data.source !== 'portfolio-contact') return;
-      if (!pendingRef.current || data.requestId !== pendingRef.current.requestId) return;
-
-      clearTimeout(pendingRef.current.timeoutId);
-      pendingRef.current = null;
-      setSubmitting(false);
-
-      if (data.status === 'success') {
-        formRef.current?.reset();
-        setStatus('success');
-        setStatusMsg(data.message || '送信しました。内容を確認のうえ返信します。');
-      } else {
-        setStatus('error');
-        setStatusMsg(data.message || '送信に失敗しました。時間を置いてもう一度お試しください。');
-      }
-    };
-    window.addEventListener('message', onMessage);
-    return () => window.removeEventListener('message', onMessage);
-  }, []);
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = formRef.current;
-    const iframe = iframeRef.current;
-    if (!form || !iframe) return;
+    if (!form) return;
     if (!form.reportValidity()) return;
 
-    const requestId = `contact-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
     const formData = new FormData(form);
-    formData.set('requestId', requestId);
+    formData.set('requestId', `contact-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`);
     formData.set('pageContext', pageContext);
     formData.set('pageUrl', window.location.href);
-    formData.set('returnOrigin', window.location.origin);
-
-    form.method = 'POST';
-    form.action = GAS_ENDPOINT;
-    form.target = iframe.name;
 
     setStatus('pending');
     setStatusMsg('送信しています...');
     setSubmitting(true);
 
-    const timeoutId = setTimeout(() => {
-      pendingRef.current = null;
-      setSubmitting(false);
+    try {
+      await fetch(GAS_ENDPOINT, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: formData,
+      });
+      form.reset();
+      setStatus('success');
+      setStatusMsg('送信しました。内容を確認のうえ返信します。');
+    } catch {
       setStatus('error');
-      setStatusMsg('送信完了の応答を確認できませんでした。しばらくしてからもう一度お試しください。');
-    }, 30000);
-
-    pendingRef.current = { requestId, timeoutId };
-    form.submit();
+      setStatusMsg('送信に失敗しました。時間を置いてもう一度お試しください。');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const statusClass =
@@ -206,15 +175,6 @@ export function CategoryContactSection({
         </div>
       </div>
 
-      <iframe
-        ref={iframeRef}
-        name={`contact-transport-${pageContext}`}
-        className="contact-transport-frame"
-        hidden
-        tabIndex={-1}
-        aria-hidden="true"
-        title="contact transport"
-      />
     </section>
   );
 }
