@@ -2,9 +2,9 @@ import type { Metadata, Viewport } from 'next';
 import './toretabe.css';
 
 export const metadata: Metadata = {
-  title: 'とれたべ | 家庭菜園の収穫後を支える iOS アプリ',
+  title: 'とれたべ — 家庭菜園のための、収穫後アプリ',
   description:
-    '家庭菜園の「採れた」を「食べた」につなげる iOS アプリ「とれたべ」のランディングページ。栽培、収穫、在庫、献立、使い切りまでの流れを実際の画面で紹介します。',
+    '家庭菜園の「収穫したあと」を、やさしく助ける。育てた野菜に、ちゃんとおつきあいするための iOS アプリです。',
 };
 
 export const viewport: Viewport = {
