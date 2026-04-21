@@ -1,96 +1,62 @@
 import Image from 'next/image';
-import Link from 'next/link';
 
-const JOURNEY_STEPS = [
+const STEP_ITEMS = [
   {
-    title: '育てる',
-    body: '栽培中の野菜と収穫時期の見通しを、ホームと一覧で迷わず確認できます。',
-  },
-  {
-    title: '収穫する',
-    body: '数量は「個・本・束・袋・ふんわり」など感覚的な単位で記録でき、在庫へすぐ反映されます。',
-  },
-  {
-    title: '献立を決める',
-    body: '今ある野菜から献立を提案し、必要な買い足しや AI による再提案まで一つの画面で整理します。',
-  },
-  {
-    title: '使い切って学ぶ',
-    body: '料理実績と満足度を残すことで、次に育てる野菜の提案にもつながっていきます。',
-  },
-] as const;
-
-const FEATURE_SECTIONS = [
-  {
-    title: '未来・現在・行動を、ホームにひとまとめ。',
-    body:
-      '「もうすぐ収穫」「次に育てる野菜の提案」「今ある収穫物」「今日のおすすめ献立」を同じホームに置くことで、家庭菜園の次の一手が自然に決まる構成にしています。',
+    title: '育てている野菜を見守る',
+    body: 'ホームと栽培中一覧で、いま育てている野菜と収穫時期の見通しを把握できます。',
     image: '/assets/media/toretabe/home.png',
     alt: 'とれたべのホーム画面',
-    accent: 'green',
   },
   {
-    title: '収穫記録は、思い出すより先に入力できる軽さへ。',
-    body:
-      '収穫日は自動で入り、数量と単位を迷わず選べる構成にすることで、畑やベランダでの短いタイミングでもそのまま記録できます。',
+    title: '収穫したら、その場で記録する',
+    body: '数量や単位を感覚的に選べるので、畑やベランダでの短いタイミングでも入力しやすくしています。',
     image: '/assets/media/toretabe/harvest-input.png',
     alt: 'とれたべの収穫記録画面',
-    accent: 'amber',
   },
   {
-    title: '在庫は「保存」「一部使用」「使い切り」まで見渡せる。',
-    body:
-      '収穫物一覧では消費優先度と保存向きのヒントを先に見せることで、冷蔵庫の中で野菜を余らせにくい状態をつくります。',
-    image: '/assets/media/toretabe/inventory.png',
-    alt: 'とれたべの収穫物一覧画面',
-    accent: 'blue',
-  },
-  {
-    title: '今ある野菜から、献立を決めるところまで。',
-    body:
-      '通常提案だけでなく AI 提案にもつなげることで、「何を作ろう」で止まらず、買い足しの少ない献立候補まで踏み込んで支援します。',
+    title: '今ある野菜から献立を決める',
+    body: '収穫物と履歴をもとに、今日作る料理や買い足しの少ない候補を提案します。',
     image: '/assets/media/toretabe/meal-ai.png',
     alt: 'とれたべのAI献立提案画面',
-    accent: 'soil',
-  },
-  {
-    title: '料理実績が、そのまま次の栽培提案の材料になる。',
-    body:
-      '作った料理や満足度を記録し、よく使い切れた野菜や相性の良い献立を蓄積することで、「次に育てる野菜」の提案精度も高めていきます。',
-    image: '/assets/media/toretabe/crop-suggestions.png',
-    alt: 'とれたべの次に育てる野菜提案画面',
-    accent: 'green',
   },
 ] as const;
 
-const DETAIL_SCREENS = [
+const HOWTO_ITEMS = [
   {
-    name: '栽培中の野菜一覧',
-    description: '収穫時期と状態を一覧で把握し、そのまま詳細や収穫導線へつなげます。',
-    image: '/assets/media/toretabe/crops.png',
-    alt: 'とれたべの栽培中野菜一覧画面',
+    title: '1. ホームで今の状態を確認',
+    body: 'もうすぐ収穫できる野菜、今ある収穫物、次の候補までをひとつの流れで見渡せます。',
   },
   {
-    name: '献立提案',
-    description: '履歴と収穫物からおすすめを整理し、すぐに作る料理を決められます。',
-    image: '/assets/media/toretabe/meal-list.png',
-    alt: 'とれたべの献立提案画面',
+    title: '2. 収穫を記録して在庫化',
+    body: '収穫日や量を記録すると、そのまま収穫物一覧に反映され、保存や使い切りの管理につながります。',
   },
   {
-    name: '料理実績',
-    description: '作った料理の履歴と評価を振り返り、使いやすい野菜を見つけやすくします。',
-    image: '/assets/media/toretabe/cooking-records.png',
-    alt: 'とれたべの料理実績画面',
+    title: '3. 献立と料理実績へつなぐ',
+    body: '提案された献立から作った料理を記録し、次に育てる野菜の提案にも活かせます。',
   },
 ] as const;
 
-const TECH_TAGS = [
-  'iOS 17+',
-  'SwiftUI',
-  'SwiftData',
-  'AI提案',
-  '収穫後UX',
-  '家庭菜園アプリ',
+const FAQ_ITEMS = [
+  {
+    question: 'どんな人向けのアプリですか？',
+    answer:
+      '家庭菜園や市民農園で野菜を育てていて、収穫後の保存や使い切り、献立決めまで一緒に整理したい人向けです。',
+  },
+  {
+    question: '家庭菜園初心者でも使えますか？',
+    answer:
+      '使えます。栽培の状態確認、収穫記録、献立提案を分けすぎず、迷わず追えるように設計しています。',
+  },
+  {
+    question: 'AI提案は必須ですか？',
+    answer:
+      '必須ではありません。通常の献立提案でも使え、必要なときだけ AI に再提案してもらう使い方を想定しています。',
+  },
+  {
+    question: 'いまはダウンロードできますか？',
+    answer:
+      '現在は公開準備中です。このページでは、公開前のアプリ内容を紹介しています。',
+  },
 ] as const;
 
 export default function ToretabePage() {
@@ -115,10 +81,12 @@ export default function ToretabePage() {
 
           <nav className="toretabe-nav__links" aria-label="とれたべLPナビゲーション">
             <a href="#concept">コンセプト</a>
-            <a href="#screens">画面</a>
-            <a href="#story">実績</a>
-            <Link href="/case-studies/toretabe-app/">ケーススタディ</Link>
+            <a href="#steps">使い方</a>
+            <a href="#howto">はじめ方</a>
+            <a href="#faq">よくある質問</a>
           </nav>
+
+          <a className="toretabe-nav__download" href="#download">ダウンロード</a>
         </div>
       </header>
 
@@ -146,35 +114,17 @@ export default function ToretabePage() {
             </p>
 
             <div className="toretabe-hero__actions">
-              <a className="toretabe-button toretabe-button--primary" href="#screens">
-                実際の画面を見る
+              <a className="toretabe-button toretabe-button--primary" href="#download">
+                ダウンロード
               </a>
-              <Link className="toretabe-button toretabe-button--ghost" href="/case-studies/toretabe-app/">
-                実績記事を見る
-              </Link>
-              <Link className="toretabe-button toretabe-button--soft" href="/#contact">
-                制作相談はこちら
-              </Link>
+              <a className="toretabe-button toretabe-button--ghost" href="#steps">
+                使い方を見る
+              </a>
             </div>
 
             <p className="toretabe-hero__note">
-              App Store 公開準備中。現在はポートフォリオ掲載用の紹介ページとして先行公開しています。
+              現在は公開準備中です。App Store 公開後、このページからダウンロードできます。
             </p>
-
-            <dl className="toretabe-facts">
-              <div>
-                <dt>Focus</dt>
-                <dd>収穫後の意思決定</dd>
-              </div>
-              <div>
-                <dt>For</dt>
-                <dd>家庭菜園 / 市民農園</dd>
-              </div>
-              <div>
-                <dt>Flow</dt>
-                <dd>栽培 → 収穫 → 献立 → 実績</dd>
-              </div>
-            </dl>
           </div>
 
           <div className="toretabe-hero__visual">
@@ -210,16 +160,6 @@ export default function ToretabePage() {
                 priority
               />
             </div>
-
-            <div className="toretabe-floating-card toretabe-floating-card--top">
-              <span>収穫後導線</span>
-              <strong>在庫から献立へ</strong>
-            </div>
-
-            <div className="toretabe-floating-card toretabe-floating-card--bottom">
-              <span>体験の芯</span>
-              <strong>使い切るところまで支える</strong>
-            </div>
           </div>
         </div>
       </section>
@@ -229,118 +169,140 @@ export default function ToretabePage() {
           <div className="toretabe-section__heading">
             <div>
               <p className="toretabe-kicker">Concept</p>
-              <h2>「栽培記録アプリ」で終わらせない、収穫後のループ設計。</h2>
+              <h2>家庭菜園の「収穫後」を、ひとつの流れで支える。</h2>
             </div>
             <p>
-              とれたべの中心にあるのは、家庭菜園の楽しさを「育てる」だけで閉じず、
-              食卓につながるところまで自然に支えることです。アプリ全体も、その流れが崩れないように組み立てています。
+              とれたべが支えるのは、育てることだけではありません。
+              収穫したあとにどう保存し、何を作り、ちゃんと使い切れたかまでを自然につなげることで、
+              家庭菜園を毎日の食卓まで続く体験に変えていきます。
             </p>
           </div>
 
           <div className="toretabe-journey">
-            {JOURNEY_STEPS.map((step, index) => (
-              <article className="toretabe-journey__card" key={step.title}>
-                <div className="toretabe-journey__index">{String(index + 1).padStart(2, '0')}</div>
-                <h3>{step.title}</h3>
-                <p>{step.body}</p>
-              </article>
-            ))}
+            <article className="toretabe-journey__card">
+              <div className="toretabe-journey__index">01</div>
+              <h3>育てる</h3>
+              <p>栽培中の野菜と収穫時期を見ながら、次の変化を待てます。</p>
+            </article>
+            <article className="toretabe-journey__card">
+              <div className="toretabe-journey__index">02</div>
+              <h3>採れる</h3>
+              <p>収穫したらすぐ記録し、在庫や保存状態へつなげられます。</p>
+            </article>
+            <article className="toretabe-journey__card">
+              <div className="toretabe-journey__index">03</div>
+              <h3>食べる</h3>
+              <p>今ある野菜から献立を決め、料理実績として残せます。</p>
+            </article>
+            <article className="toretabe-journey__card">
+              <div className="toretabe-journey__index">04</div>
+              <h3>使い切る</h3>
+              <p>使いやすかった野菜や料理が、次に育てる提案にも活かされます。</p>
+            </article>
           </div>
         </div>
       </section>
 
-      <section className="toretabe-section toretabe-section--tinted" id="screens">
+      <section className="toretabe-section toretabe-section--tinted" id="steps">
         <div className="toretabe-shell">
           <div className="toretabe-section__heading">
             <div>
-              <p className="toretabe-kicker">Screens</p>
-              <h2>草案ではなく、実際のアプリ画面で価値が伝わるように。</h2>
+              <p className="toretabe-kicker">Steps</p>
+              <h2>使い方</h2>
             </div>
             <p>
-              LP には現在の実装に合わせた正しい UI を掲載しています。ホームで何が見えるか、
-              収穫で何を入力するか、献立や実績で何が返ってくるかが、スクロールしながらつかめる構成です。
+              アプリの流れは、ホームで状態を把握し、収穫を記録し、今ある野菜から献立を決めること。
+              その一連の動きが切れないように、画面同士のつながりを整理しています。
             </p>
           </div>
 
           <div className="toretabe-feature-stack">
-            {FEATURE_SECTIONS.map((section, index) => (
+            {STEP_ITEMS.map((item, index) => (
               <article
                 className={`toretabe-feature${index % 2 === 1 ? ' is-reverse' : ''}`}
-                key={section.title}
+                key={item.title}
               >
-                <div className={`toretabe-feature__copy is-${section.accent}`}>
-                  <p className="toretabe-feature__eyebrow">Feature {String(index + 1).padStart(2, '0')}</p>
-                  <h3>{section.title}</h3>
-                  <p>{section.body}</p>
+                <div className="toretabe-feature__copy is-green">
+                  <p className="toretabe-feature__eyebrow">Step {String(index + 1).padStart(2, '0')}</p>
+                  <h3>{item.title}</h3>
+                  <p>{item.body}</p>
                 </div>
                 <figure className="toretabe-screen-card">
                   <Image
-                    src={section.image}
-                    alt={section.alt}
+                    src={item.image}
+                    alt={item.alt}
                     width={1170}
                     height={2532}
                   />
                 </figure>
-              </article>
-            ))}
-          </div>
-
-          <div className="toretabe-detail-grid">
-            {DETAIL_SCREENS.map((screen) => (
-              <article className="toretabe-detail-card" key={screen.name}>
-                <figure className="toretabe-detail-card__visual">
-                  <Image
-                    src={screen.image}
-                    alt={screen.alt}
-                    width={1170}
-                    height={2532}
-                  />
-                </figure>
-                <div className="toretabe-detail-card__body">
-                  <h3>{screen.name}</h3>
-                  <p>{screen.description}</p>
-                </div>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="toretabe-section" id="story">
+      <section className="toretabe-section" id="howto">
         <div className="toretabe-shell">
-          <div className="toretabe-story">
-            <div className="toretabe-story__copy">
-              <p className="toretabe-kicker">Portfolio Story</p>
-              <h2>アプリの価値を、そのまま公開導線へ翻訳した実績です。</h2>
-              <p>
-                この LP は、実際の SwiftUI コードベースと最新画面を確認しながら、
-                アプリの価値を外部の人にも伝わる形へ整えたものです。ポートフォリオでは、
-                モバイル UI の設計だけでなく、公開ページの見せ方まで含めて一つの実績として扱っています。
-              </p>
-              <div className="toretabe-tag-list" aria-label="使用技術とテーマ">
-                {TECH_TAGS.map((tag) => (
-                  <span key={tag}>{tag}</span>
-                ))}
-              </div>
+          <div className="toretabe-section__heading">
+            <div>
+              <p className="toretabe-kicker">How To</p>
+              <h2>はじめ方</h2>
             </div>
+            <p>
+              はじめて使うときも、いま何ができるかが見渡せるようにしています。
+              栽培、収穫、献立、料理実績の順で使うほど、提案も自分向けに育っていきます。
+            </p>
+          </div>
 
-            <div className="toretabe-story__panel">
-              <div className="toretabe-story__panel-inner">
-                <p className="toretabe-story__label">Case Study Highlights</p>
-                <ul className="toretabe-story__points">
-                  <li>家庭菜園アプリの差別化軸を、収穫後 UX として整理</li>
-                  <li>草案と実装の差分を埋め、正しいアプリ画面に差し替え</li>
-                  <li>ポートフォリオの iOS 実績一覧と個別記事にも導線を追加</li>
-                </ul>
-                <div className="toretabe-story__actions">
-                  <Link className="toretabe-button toretabe-button--primary" href="/case-studies/toretabe-app/">
-                    ケーススタディへ
-                  </Link>
-                  <Link className="toretabe-button toretabe-button--ghost" href="/categories/ios-apps/">
-                    iOS 実績一覧へ
-                  </Link>
-                </div>
-              </div>
+          <div className="toretabe-howto-grid">
+            {HOWTO_ITEMS.map((item) => (
+              <article className="toretabe-howto-card" key={item.title}>
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="toretabe-section toretabe-section--tinted" id="faq">
+        <div className="toretabe-shell">
+          <div className="toretabe-section__heading">
+            <div>
+              <p className="toretabe-kicker">FAQ</p>
+              <h2>よくある質問</h2>
+            </div>
+            <p>
+              公開前によく聞かれる内容をまとめています。詳しい機能紹介は、今後 App Store 公開に合わせて順次追加していきます。
+            </p>
+          </div>
+
+          <div className="toretabe-faq-list">
+            {FAQ_ITEMS.map((item) => (
+              <article className="toretabe-faq-item" key={item.question}>
+                <h3>{item.question}</h3>
+                <p>{item.answer}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="toretabe-section" id="download">
+        <div className="toretabe-shell">
+          <div className="toretabe-download">
+            <div className="toretabe-download__copy">
+              <p className="toretabe-kicker">Download</p>
+              <h2>ダウンロード</h2>
+              <p>
+                とれたべは現在 App Store 公開準備中です。
+                公開後はこのページからすぐにダウンロードできるようになります。
+              </p>
+            </div>
+            <div className="toretabe-download__panel">
+              <div className="toretabe-download__badge">Coming Soon</div>
+              <p>App Store 公開準備中</p>
+              <span>公開後にダウンロードリンクを掲載します。</span>
             </div>
           </div>
         </div>
@@ -355,10 +317,11 @@ export default function ToretabePage() {
             </p>
           </div>
           <div className="toretabe-footer__links">
-            <a href="#top">Top</a>
-            <a href="#concept">Concept</a>
-            <a href="#screens">Screens</a>
-            <Link href="/case-studies/toretabe-app/">Case Study</Link>
+            <a href="#concept">コンセプト</a>
+            <a href="#steps">使い方</a>
+            <a href="#howto">はじめ方</a>
+            <a href="#faq">よくある質問</a>
+            <a href="#download">ダウンロード</a>
           </div>
         </div>
       </footer>

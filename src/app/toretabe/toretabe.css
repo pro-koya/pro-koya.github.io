@@ -118,6 +118,19 @@
   color: var(--toretabe-text);
 }
 
+.toretabe-nav__download {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: #1c1c1e;
+  color: #ffffff;
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
 .toretabe-hero {
   padding: 58px 0 92px;
   overflow: hidden;
@@ -506,6 +519,92 @@
   line-height: 1.16;
 }
 
+.toretabe-howto-grid,
+.toretabe-faq-list {
+  display: grid;
+  gap: 20px;
+}
+
+.toretabe-howto-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.toretabe-howto-card,
+.toretabe-faq-item,
+.toretabe-download__panel {
+  padding: 24px;
+  border-radius: 28px;
+  border: 1px solid var(--toretabe-line);
+  background: rgba(255, 255, 255, 0.74);
+  backdrop-filter: blur(12px);
+}
+
+.toretabe-howto-card h3,
+.toretabe-faq-item h3,
+.toretabe-download__copy h2 {
+  margin: 0 0 12px;
+  font-family: var(--font-noto-serif), "Hiragino Mincho ProN", "Yu Mincho", serif;
+  letter-spacing: -0.02em;
+}
+
+.toretabe-howto-card h3,
+.toretabe-faq-item h3 {
+  font-size: 1.32rem;
+  line-height: 1.35;
+}
+
+.toretabe-howto-card p,
+.toretabe-faq-item p,
+.toretabe-download__copy p,
+.toretabe-download__panel p,
+.toretabe-download__panel span {
+  margin: 0;
+  color: var(--toretabe-text-soft);
+  line-height: 1.85;
+}
+
+.toretabe-download {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.82fr);
+  gap: 28px;
+  align-items: stretch;
+}
+
+.toretabe-download__copy h2 {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1.12;
+}
+
+.toretabe-download__panel {
+  display: grid;
+  align-content: center;
+  gap: 10px;
+  background:
+    radial-gradient(circle at top right, rgba(235, 158, 46, 0.16), transparent 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(244, 248, 242, 0.92));
+}
+
+.toretabe-download__panel p {
+  color: var(--toretabe-text);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.toretabe-download__badge {
+  display: inline-flex;
+  width: fit-content;
+  min-height: 34px;
+  padding: 0 12px;
+  align-items: center;
+  border-radius: 999px;
+  background: rgba(235, 158, 46, 0.14);
+  color: #8c5b12;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
 .toretabe-screen-card,
 .toretabe-detail-card__visual {
   display: flex;
@@ -637,6 +736,18 @@
   font-size: 0.94rem;
 }
 
+.case-article__figure--phone {
+  justify-items: center;
+}
+
+.case-article__figure--phone img {
+  width: min(100%, 360px);
+}
+
+.case-article__figure--phone figcaption {
+  max-width: 32rem;
+}
+
 @media (max-width: 1120px) {
   .toretabe-hero__grid,
   .toretabe-section__heading,
@@ -652,6 +763,11 @@
   .toretabe-detail-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .toretabe-howto-grid,
+  .toretabe-download {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 860px) {
@@ -664,6 +780,10 @@
   }
 
   .toretabe-nav__links {
+    display: none;
+  }
+
+  .toretabe-nav__download {
     display: none;
   }
 
@@ -728,6 +848,10 @@
     grid-template-columns: 1fr;
   }
 
+  .toretabe-howto-grid {
+    grid-template-columns: 1fr;
+  }
+
   .toretabe-hero__visual {
     min-height: 760px;
   }
@@ -784,7 +908,10 @@
   .toretabe-feature__copy,
   .toretabe-journey__card,
   .toretabe-detail-card,
-  .toretabe-story__panel-inner {
+  .toretabe-story__panel-inner,
+  .toretabe-howto-card,
+  .toretabe-faq-item,
+  .toretabe-download__panel {
     padding: 20px;
     border-radius: 24px;
   }
@@ -799,5 +926,9 @@
   .toretabe-detail-card__visual img {
     width: min(100%, 238px);
     border-radius: 24px;
+  }
+
+  .case-article__figure--phone img {
+    width: min(100%, 280px);
   }
 }
