@@ -1,0 +1,305 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - link "とれたべの先頭へ移動" [ref=e6] [cursor=pointer]:
+        - /url: "#top"
+        - img [ref=e8]
+        - text: とれたべ
+      - navigation "とれたべLPナビゲーション" [ref=e11]:
+        - link "コンセプト" [ref=e12] [cursor=pointer]:
+          - /url: "#concept"
+        - link "使い方" [ref=e13] [cursor=pointer]:
+          - /url: "#steps"
+        - link "はじめ方" [ref=e14] [cursor=pointer]:
+          - /url: "#howto"
+        - link "よくある質問" [ref=e15] [cursor=pointer]:
+          - /url: "#faq"
+      - link "ダウンロード" [ref=e16] [cursor=pointer]:
+        - /url: "#download"
+  - main [ref=e17]:
+    - generic [ref=e18]:
+      - img
+      - img
+      - img
+      - generic [ref=e19]:
+        - generic [ref=e20]:
+          - generic [ref=e21]: 家庭菜園のためのアプリ
+          - heading "収穫したけど、 どうしよう。" [level=1] [ref=e22]:
+            - text: 収穫したけど、
+            - text: どうしよう。
+          - paragraph [ref=e23]:
+            - text: せっかく育てたのに、使い切れない。
+            - text: 冷蔵庫の奥で、しなびていく野菜たち。
+          - paragraph [ref=e24]:
+            - text: —— そんな「もったいない」、
+            - text: もう終わりにしませんか。
+          - generic [ref=e25]:
+            - link "Download on the App Store" [ref=e26] [cursor=pointer]:
+              - /url: "#download"
+              - img [ref=e27]
+              - generic [ref=e29]:
+                - generic [ref=e30]: Download on the
+                - text: App Store
+            - link "コンセプトを読む" [ref=e31] [cursor=pointer]:
+              - /url: "#concept"
+              - text: コンセプトを読む
+              - generic [ref=e32]: →
+          - generic "アプリ概要" [ref=e33]:
+            - generic [ref=e34]: iOS 16+
+            - generic [ref=e35]: 無料・買い切り機能あり
+            - generic [ref=e36]: 日本語
+        - generic "とれたべのアプリ画面" [ref=e37]:
+          - figure [ref=e38]:
+            - img "とれたべのホーム画面" [ref=e40]
+          - figure [ref=e41]:
+            - img "とれたべのホーム画面" [ref=e43]
+          - figure [ref=e44]:
+            - img "とれたべの収穫物画面" [ref=e46]
+      - generic [ref=e48]: Scroll
+    - generic [ref=e50]:
+      - img
+      - img
+      - generic [ref=e51]:
+        - generic [ref=e52]:
+          - generic [ref=e53]: Concept
+          - heading "育てる喜びと、 使い切る安心を、 ひとつに。" [level=2] [ref=e54]:
+            - text: 育てる喜びと、
+            - text: 使い切る安心を、
+            - text: ひとつに。
+        - generic [ref=e55]:
+          - paragraph [ref=e56]:
+            - generic [ref=e57]: 家
+            - text: 庭菜園のアプリは、たくさんあります。
+            - text: 種まきの時期を教えてくれたり、水やりを管理してくれたり。 でも、
+            - strong [ref=e58]: 「収穫したあと」を助けてくれるアプリ
+            - text: は、 ほとんど見かけませんでした。
+          - paragraph [ref=e59]: プランターで育てたミニトマト。ベランダのキュウリ。 待ちに待った収穫の日は、心が踊ります。 けれど、数日経つと——冷蔵庫の奥で、しんなりしていたり、 「これ、いつ採ったんだっけ」と首をかしげたり。
+          - paragraph [ref=e60]:
+            - text: せっかく時間をかけて育てたのに、使い切れない。 育てる楽しさの隣には、いつも
+            - emphasis [ref=e61]: 「もったいない」
+            - text: が顔を出す。 そんなモヤモヤを、そっと引き受けるアプリがあってもいいのでは——。 とれたべは、そこから始まりました。
+          - paragraph [ref=e62]:
+            - text: はかりで正確に量らなくていい。品種を細かく入れなくてもいい。
+            - strong [ref=e63]: ゆるく記録して、やさしく思い出させてくれる。
+            - text: 家庭菜園のスケールに、ちょうどいい道具を。
+        - blockquote [ref=e64]:
+          - paragraph [ref=e65]:
+            - text: 「育てる」と「食べる」の間には、
+            - text: 小さくて大切な、たくさんの判断がある。
+          - generic [ref=e66]: ——とれたべ 開発ノートより
+    - generic [ref=e67]:
+      - generic [ref=e68]:
+        - img
+        - generic [ref=e69]:
+          - generic [ref=e70]: How it works
+          - heading "5つのステップで、 「もったいない」を、 なくす。" [level=2] [ref=e71]:
+            - text: 5つのステップで、
+            - text: 「もったいない」を、
+            - text: なくす。
+          - paragraph [ref=e72]:
+            - text: 育てるところから、使い切り、振り返るところまで。
+            - text: 家庭菜園の一年に、そっと寄り添うアプリです。
+      - article [ref=e73]:
+        - img
+        - generic [ref=e74]:
+          - generic [ref=e75]:
+            - generic [ref=e76]:
+              - generic [ref=e77]: "01"
+              - generic [ref=e78]: STEP 01 · 育てる
+            - heading "次の収穫日が、 ひと目でわかる。" [level=3] [ref=e79]
+            - paragraph [ref=e80]: 植えた日付を入れるだけ。品種ごとに収穫のタイミングを、やさしくお知らせ。「そろそろ採りごろ」を逃しません。
+            - list [ref=e81]:
+              - listitem [ref=e82]: ✓ 植えた日の記録 + 写真メモ
+              - listitem [ref=e83]: ✓ 品種ごとの収穫目安
+              - listitem [ref=e84]: ✓ 水やりチェック（任意）
+          - figure [ref=e86]:
+            - img "とれたべの栽培中一覧画面" [ref=e88]
+      - article [ref=e89]:
+        - img
+        - generic [ref=e90]:
+          - generic [ref=e91]:
+            - generic [ref=e92]:
+              - generic [ref=e93]: "02"
+              - generic [ref=e94]: STEP 02 · 採る
+            - heading "はかりは、 いらない。" [level=3] [ref=e95]
+            - paragraph [ref=e96]: 「5個」「ふんわり1袋」でOK。家庭菜園のスケール感に合わせた、ざっくり単位で収穫を数秒で記録できます。
+            - list [ref=e97]:
+              - listitem [ref=e98]: ✓ 個数・束・袋・にぎりなど柔軟な単位
+              - listitem [ref=e99]: ✓ 写真1枚で記録完了
+              - listitem [ref=e100]: ✓ 家族と共有（オプション）
+          - figure [ref=e102]:
+            - img "とれたべの収穫記録画面" [ref=e104]
+      - article [ref=e105]:
+        - img
+        - generic [ref=e106]:
+          - generic [ref=e107]:
+            - generic [ref=e108]:
+              - generic [ref=e109]: "03"
+              - generic [ref=e110]: STEP 03 · 決める
+            - heading "在庫から、 今夜のごはん。" [level=3] [ref=e111]
+            - paragraph [ref=e112]: 冷蔵庫にある野菜をもとに、今日作れる献立を提案。迷いがちな「なに作ろう」を、毎日の小さな助けに。
+            - list [ref=e113]:
+              - listitem [ref=e114]: ✓ 在庫からレシピ提案
+              - listitem [ref=e115]: ✓ 時短・家族向け・副菜などで絞り込み
+              - listitem [ref=e116]: ✓ 使う分量を差し引いて在庫更新
+          - figure [ref=e118]:
+            - img "とれたべのAI献立提案画面" [ref=e120]
+      - article [ref=e121]:
+        - img
+        - generic [ref=e122]:
+          - generic [ref=e123]:
+            - generic [ref=e124]:
+              - generic [ref=e125]: "04"
+              - generic [ref=e126]: STEP 04 · 使い切る
+            - heading "しなびる前に、 ちゃんと気づく。" [level=3] [ref=e127]
+            - paragraph [ref=e128]: 収穫からの経過日数を色で可視化。急ぎで使いたいものが、ひと目でわかります。冷蔵庫の奥で忘れられる野菜を、もう生みません。
+            - list [ref=e129]:
+              - listitem [ref=e130]: ✓ 経過日数の信号機カラー表示
+              - listitem [ref=e131]: ✓ 使い切り通知
+              - listitem [ref=e132]: ✓ 保存方法のミニ知識
+          - figure [ref=e134]:
+            - img "とれたべの収穫物一覧画面" [ref=e136]
+      - article [ref=e137]:
+        - img
+        - generic [ref=e138]:
+          - generic [ref=e139]:
+            - generic [ref=e140]:
+              - generic [ref=e141]: "05"
+              - generic [ref=e142]: STEP 05 · 振り返る
+            - heading "育てて、作って、 また、育てる。" [level=3] [ref=e143]
+            - paragraph [ref=e144]: 一年を通して、どの野菜がどれくらい採れたか。家族が喜んだ献立は何だったか。次の春のヒントに、やさしく残します。
+            - list [ref=e145]:
+              - listitem [ref=e146]: ✓ 年間収穫グラフ
+              - listitem [ref=e147]: ✓ お気に入り献立アルバム
+              - listitem [ref=e148]: ✓ 来シーズンの計画メモ
+          - figure [ref=e150]:
+            - img "とれたべの料理実績画面" [ref=e152]
+    - generic [ref=e153]:
+      - img
+      - generic [ref=e154]:
+        - generic [ref=e155]:
+          - generic [ref=e156]: Get Started
+          - heading "はじめ方は、3ステップ。" [level=2] [ref=e157]
+          - paragraph [ref=e158]: 難しい設定は、いりません。
+        - generic [ref=e159]:
+          - article [ref=e161]:
+            - img [ref=e163]
+            - paragraph [ref=e167]: STEP 01
+            - heading "ダウンロードして、 はじめに挨拶。" [level=3] [ref=e168]
+            - paragraph [ref=e169]: App Storeからダウンロード。ニックネームと、今育てている野菜を教えてください（あとから足してOK）。
+          - article [ref=e170]:
+            - img [ref=e172]
+            - paragraph [ref=e175]: STEP 02
+            - heading "野菜を、一つ登録。" [level=3] [ref=e176]
+            - paragraph [ref=e177]: 「植えた日」は、だいたいでOK。品種は一覧から選ぶか、自由記述。写真は撮っても、撮らなくても。
+          - article [ref=e178]:
+            - img [ref=e180]
+            - paragraph [ref=e185]: STEP 03
+            - heading "採れたら、数秒で記録。" [level=3] [ref=e186]
+            - paragraph [ref=e187]: ホームの「収穫する」を押して、個数を選ぶだけ。あとは、使い切るまでアプリがそっと見守ります。
+    - generic [ref=e189]:
+      - generic [ref=e190]:
+        - generic [ref=e191]: FAQ
+        - heading "よくある、ご質問。" [level=2] [ref=e192]
+        - paragraph [ref=e193]: 迷ったときは、まずこちらをご覧ください。
+      - generic [ref=e194]:
+        - generic [ref=e195]:
+          - heading "01 アプリについて" [level=3] [ref=e196]:
+            - generic [ref=e197]: "01"
+            - text: アプリについて
+          - group [ref=e198]:
+            - generic "家庭菜園初心者でも使えますか？" [ref=e199] [cursor=pointer]:
+              - generic [ref=e200]: 家庭菜園初心者でも使えますか？
+            - paragraph [ref=e202]: はい、むしろ初心者の方にこそ使っていただきたいアプリです。品種ごとの収穫目安や、保存方法のミニ知識など、育て始めたばかりの方が迷いやすいポイントを、そっとサポートします。難しい専門用語や、細かな管理は求めません。
+          - group [ref=e203]:
+            - generic "ベランダ栽培・プランターでも大丈夫ですか？" [ref=e204] [cursor=pointer]:
+              - generic [ref=e205]: ベランダ栽培・プランターでも大丈夫ですか？
+          - group [ref=e207]:
+            - generic "アカウント登録は必要ですか？" [ref=e208] [cursor=pointer]:
+              - generic [ref=e209]: アカウント登録は必要ですか？
+          - group [ref=e211]:
+            - generic "料金はかかりますか？" [ref=e212] [cursor=pointer]:
+              - generic [ref=e213]: 料金はかかりますか？
+        - generic [ref=e215]:
+          - heading "02 記録について" [level=3] [ref=e216]:
+            - generic [ref=e217]: "02"
+            - text: 記録について
+          - group [ref=e218]:
+            - generic "野菜の品種が一覧にないのですが、どうしたらよいですか？" [ref=e219] [cursor=pointer]:
+              - generic [ref=e220]: 野菜の品種が一覧にないのですが、どうしたらよいですか？
+          - group [ref=e222]:
+            - generic "収穫日を過ぎてしまった野菜の記録はできますか？" [ref=e223] [cursor=pointer]:
+              - generic [ref=e224]: 収穫日を過ぎてしまった野菜の記録はできますか？
+          - group [ref=e226]:
+            - generic "単位が選べる「ふんわり」って、どういう意味ですか？" [ref=e227] [cursor=pointer]:
+              - generic [ref=e228]: 単位が選べる「ふんわり」って、どういう意味ですか？
+        - generic [ref=e230]:
+          - heading "03 献立・使い切りについて" [level=3] [ref=e231]:
+            - generic [ref=e232]: "03"
+            - text: 献立・使い切りについて
+          - group [ref=e233]:
+            - generic "献立提案のレシピは、どこから来ていますか？" [ref=e234] [cursor=pointer]:
+              - generic [ref=e235]: 献立提案のレシピは、どこから来ていますか？
+          - group [ref=e237]:
+            - generic "食材ロスは、どれくらい減りますか？" [ref=e238] [cursor=pointer]:
+              - generic [ref=e239]: 食材ロスは、どれくらい減りますか？
+          - group [ref=e241]:
+            - generic "アレルギーや苦手な食材は除外できますか？" [ref=e242] [cursor=pointer]:
+              - generic [ref=e243]: アレルギーや苦手な食材は除外できますか？
+        - generic [ref=e245]:
+          - heading "04 プライバシー・サポート" [level=3] [ref=e246]:
+            - generic [ref=e247]: "04"
+            - text: プライバシー・サポート
+          - group [ref=e248]:
+            - generic "写真やデータは、外部に送られますか？" [ref=e249] [cursor=pointer]:
+              - generic [ref=e250]: 写真やデータは、外部に送られますか？
+          - group [ref=e252]:
+            - generic "Androidには対応していますか？" [ref=e253] [cursor=pointer]:
+              - generic [ref=e254]: Androidには対応していますか？
+          - group [ref=e256]:
+            - generic "要望や不具合は、どこから連絡できますか？" [ref=e257] [cursor=pointer]:
+              - generic [ref=e258]: 要望や不具合は、どこから連絡できますか？
+    - generic [ref=e260]:
+      - img
+      - img
+      - img
+      - img
+      - generic [ref=e261]:
+        - paragraph [ref=e262]: ─── Download ───
+        - heading "育てた野菜に、 ちゃんと、 おつきあいを。" [level=2] [ref=e263]:
+          - text: 育てた野菜に、
+          - text: ちゃんと、
+          - text: おつきあいを。
+        - paragraph [ref=e264]:
+          - text: 今日から、冷蔵庫の奥のもったいないを、
+          - text: そっと見送ってあげましょう。
+        - link "Download on the App Store" [ref=e265] [cursor=pointer]:
+          - /url: "#download"
+          - img [ref=e266]
+          - generic [ref=e268]:
+            - generic [ref=e269]: Download on the
+            - text: App Store
+        - generic [ref=e270]:
+          - generic [ref=e271]: ✓
+          - text: Android版は2026年秋リリース予定
+  - contentinfo [ref=e272]:
+    - generic [ref=e273]:
+      - generic [ref=e274]:
+        - generic [ref=e275]:
+          - generic [ref=e276]:
+            - img [ref=e278]
+            - text: とれたべ
+          - paragraph [ref=e281]:
+            - text: 家庭菜園の「収穫したあと」を、やさしく助ける。
+            - text: 育てた野菜に、ちゃんとおつきあいするためのアプリ。
+        - navigation "法的情報" [ref=e282]:
+          - heading "法的情報" [level=2] [ref=e283]
+          - link "利用規約" [ref=e284] [cursor=pointer]:
+            - /url: "#"
+          - link "プライバシーポリシー" [ref=e285] [cursor=pointer]:
+            - /url: "#"
+          - link "お問い合わせ" [ref=e286] [cursor=pointer]:
+            - /url: https://forms.gle/7FKcm5zv6F6Ci8Wa6
+      - generic [ref=e287]:
+        - generic [ref=e288]: © 2026 とれたべ. Made with 🌱 in Japan.
+        - generic [ref=e289]: ver. 1.0.0 (iOS)
