@@ -406,11 +406,11 @@ button {
 }
 
 .hero-title {
-  font-size: clamp(3.3rem, 6.4vw, 5.4rem);
+  font-size: clamp(3rem, 5.6vw, 4.85rem);
 }
 
 .section-title {
-  font-size: clamp(1.75rem, 3.2vw, 2.65rem);
+  font-size: clamp(1.7rem, 2.8vw, 2.35rem);
 }
 
 .hero-title__accent,
@@ -740,7 +740,7 @@ button {
 .works-entry__title {
   margin: 0;
   font-family: var(--font-serif);
-  font-size: clamp(1.7rem, 2.6vw, 2.35rem);
+  font-size: clamp(1.55rem, 2.2vw, 2.05rem);
   line-height: 1.04;
   letter-spacing: -0.03em;
   font-weight: 600;
@@ -1203,6 +1203,8 @@ button {
 
 .case-article-hero__title {
   max-width: 12ch;
+  font-size: clamp(2.75rem, 5vw, 4.35rem);
+  line-height: 1;
 }
 
 .case-article-hero__title .title-line {
@@ -1259,6 +1261,17 @@ button {
   border-radius: var(--radius-lg);
 }
 
+.case-article__figure--phone {
+  justify-items: center;
+}
+
+.case-article__figure--phone img {
+  width: min(100%, 320px);
+  height: auto;
+  object-fit: contain;
+  border-radius: 34px;
+}
+
 .case-article-hero__visual figcaption,
 .case-article__figure figcaption {
   color: var(--text-soft);
@@ -1312,8 +1325,8 @@ button {
 .case-article__section h2 {
   margin: 0;
   font-family: var(--font-serif);
-  font-size: clamp(2rem, 3vw, 2.7rem);
-  line-height: 1.08;
+  font-size: clamp(1.75rem, 2.4vw, 2.25rem);
+  line-height: 1.16;
   letter-spacing: -0.03em;
   font-weight: 600;
   text-wrap: balance;
