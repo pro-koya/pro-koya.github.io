@@ -1,0 +1,85 @@
+- generic [active] [ref=e1]:
+  - main "とれたべ ランディングページ" [ref=e4]:
+    - iframe [ref=e5]:
+      - generic [active] [ref=f1e1]:
+        - img [ref=f1e3]:
+          - generic [ref=f1e8]: とれたべ
+          - generic [ref=f1e9]: HOMEGROWN · EAT WELL
+        - generic [ref=f1e10]: "Error unpacking: Unterminated string in JSON at position 847362 (line 2 column 847362)"
+        - text: \n\n \n
+        - banner [ref=f1e11]:
+          - text: \n
+          - generic [ref=f1e12]:
+            - text: \n
+            - link "\\n \\n \\\"\\\"\\n \\n とれたべ\\n" [ref=f1e13] [cursor=pointer]:
+              - /url: \"#\"
+              - text: \n
+              - generic [ref=f1e14]:
+                - text: \n
+                - img "\\\"\\\"" [ref=f1e15]
+                - text: \n
+              - text: \n とれたべ\n
+            - text: \n
+            - navigation [ref=f1e16]:
+              - text: \n
+              - link "コンセプト" [ref=f1e17] [cursor=pointer]:
+                - /url: \"#concept\"
+              - text: \n
+              - link "使い方" [ref=f1e18] [cursor=pointer]:
+                - /url: \"#steps\"
+              - text: \n
+              - link "はじめ方" [ref=f1e19] [cursor=pointer]:
+                - /url: \"#howto\"
+              - text: \n
+              - link "よくある質問" [ref=f1e20] [cursor=pointer]:
+                - /url: \"#faq\"
+              - text: \n
+            - text: \n
+            - link "ダウンロード" [ref=f1e21] [cursor=pointer]:
+              - /url: \"#download\"
+            - text: \n
+          - text: \n
+        - text: \n\n
+        - text: \n\n \n
+        - generic [ref=f1e22]:
+          - text: \n
+          - heading "Tweaks" [level=4] [ref=f1e23]
+          - text: \n
+          - generic [ref=f1e24]:
+            - text: \n アクセントカラー\n
+            - generic [ref=f1e25]:
+              - text: \n
+              - button [ref=f1e26]
+              - text: \n
+              - button [ref=f1e27]
+              - text: \n
+              - button [ref=f1e28]
+              - text: \n
+              - button [ref=f1e29]
+              - text: \n
+            - text: \n
+          - text: \n
+          - generic [ref=f1e30]:
+            - text: \n 背景トーン\n
+            - combobox [ref=f1e31]:
+              - text: \n
+              - option "ミントソフト（標準）" [selected]
+              - text: \n
+              - option "クリーム"
+              - text: \n
+              - option "ホワイト"
+              - text: \n
+            - text: \n
+          - text: \n
+          - generic [ref=f1e32]:
+            - text: \n 見出しの書体\n
+            - combobox [ref=f1e33]:
+              - text: \n
+              - option "明朝体（読み物風）" [selected]
+              - text: \n
+              - option "ゴシック体（モダン）"
+              - text: \n
+            - text: \n
+          - text: \n
+        - text: \n\n \n \n \n\n \n \n \n \n \n \n \n\n\n"
+  - alert [ref=e6]

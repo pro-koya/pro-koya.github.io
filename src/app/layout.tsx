@@ -34,6 +34,9 @@ export const metadata: Metadata = {
   title: 'koya | Webアプリ開発・業務自動化のポートフォリオ',
   description:
     '要件整理から設計・実装・改善まで一貫して伴走するWebエンジニアのポートフォリオ。実績と現在の対応領域を、静かな余白のある構成で整理しています。',
+  icons: {
+    icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
+  },
 };
 
 export const viewport: Viewport = {
@@ -50,9 +53,6 @@ export default function RootLayout({
       lang="ja"
       className={`${cormorant.variable} ${manrope.variable} ${notoSerifJP.variable} ${notoSansJP.variable}`}
     >
-      <head>
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-      </head>
       <body className="page-home">
         <div className="page-shell">{children}</div>
       </body>

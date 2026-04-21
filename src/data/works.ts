@@ -39,7 +39,7 @@ export const WORKS: Work[] = [
     summary: '収穫後の迷いを軽くする家庭菜園アプリ',
     excerpt: '栽培、収穫、在庫、献立、使い切りまでをつなぎ、家庭菜園の「採れた」を毎日の食卓へ自然に結びつける体験です。',
     tags: ['SwiftUI', 'SwiftData', '家庭菜園', 'AI献立'],
-    thumbnail: '/assets/media/toretabe/cover.png',
+    thumbnail: '/assets/media/toretabe/lp-capture.png',
     detailPath: '/case-studies/toretabe-app/',
     featured: true,
     featuredOrder: 2,

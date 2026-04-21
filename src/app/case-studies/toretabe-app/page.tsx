@@ -50,10 +50,10 @@ export default function ToretabeAppCaseStudyPage() {
               </dl>
               <figure className="case-article-hero__visual reveal reveal-delay-1">
                 <Image
-                  src="/assets/media/toretabe/cover.png"
-                  alt="とれたべの紹介カバー"
-                  width={1200}
-                  height={760}
+                  src="/assets/media/toretabe/lp-capture.png"
+                  alt="とれたべのLPキャプチャ"
+                  width={1440}
+                  height={960}
                   style={{ width: '100%', height: 'auto' }}
                 />
                 <figcaption>
@@ -96,7 +96,6 @@ export default function ToretabeAppCaseStudyPage() {
                     alt="とれたべのホーム画面"
                     width={1170}
                     height={2532}
-                    style={{ width: '100%', height: 'auto' }}
                   />
                   <figcaption>
                     ホーム画面では「もうすぐ収穫」「今ある収穫物」「今日のおすすめ献立」が一続きの流れとして配置されています。
@@ -131,7 +130,6 @@ export default function ToretabeAppCaseStudyPage() {
                     alt="とれたべのAI献立提案画面"
                     width={1170}
                     height={2532}
-                    style={{ width: '100%', height: 'auto' }}
                   />
                   <figcaption>
                     献立提案は、今ある野菜を見るだけでなく、AI による再提案や買い足しの少なさまで含めて魅力として伝える必要がありました。
