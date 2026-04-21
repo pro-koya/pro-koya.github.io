@@ -1,0 +1,17 @@
+- banner [ref=e2]:
+  - generic [ref=e3]:
+    - link "とれたべ" [ref=e4] [cursor=pointer]:
+      - /url: "#"
+      - img [ref=e6]
+      - text: とれたべ
+    - navigation [ref=e9]:
+      - link "コンセプト" [ref=e10] [cursor=pointer]:
+        - /url: "#concept"
+      - link "使い方" [ref=e11] [cursor=pointer]:
+        - /url: "#steps"
+      - link "はじめ方" [ref=e12] [cursor=pointer]:
+        - /url: "#howto"
+      - link "よくある質問" [ref=e13] [cursor=pointer]:
+        - /url: "#faq"
+    - link "ダウンロード" [ref=e14] [cursor=pointer]:
+      - /url: "#download"
