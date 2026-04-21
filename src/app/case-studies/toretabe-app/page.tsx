@@ -50,7 +50,7 @@ export default function ToretabeAppCaseStudyPage() {
               </dl>
               <figure className="case-article-hero__visual reveal reveal-delay-1">
                 <Image
-                  src="/assets/media/toretabe/cover.svg"
+                  src="/assets/media/toretabe/cover.png"
                   alt="とれたべの紹介カバー"
                   width={1200}
                   height={760}
@@ -90,7 +90,7 @@ export default function ToretabeAppCaseStudyPage() {
                   </ul>
                 </section>
 
-                <figure className="case-article__figure">
+                <figure className="case-article__figure case-article__figure--phone">
                   <Image
                     src="/assets/media/toretabe/home.png"
                     alt="とれたべのホーム画面"
@@ -125,7 +125,7 @@ export default function ToretabeAppCaseStudyPage() {
                   </div>
                 </section>
 
-                <figure className="case-article__figure case-article__figure--wide">
+                <figure className="case-article__figure case-article__figure--phone">
                   <Image
                     src="/assets/media/toretabe/meal-ai.png"
                     alt="とれたべのAI献立提案画面"
