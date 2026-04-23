@@ -229,11 +229,13 @@
     }
 
     .hero__icon {
+      display: block;
       width: 80px;
       height: 80px;
       border-radius: 18px;
       box-shadow: 0 8px 28px rgba(43, 80, 60, 0.18);
-      margin-bottom: 20px;
+      margin: 0 auto 20px;
+      object-fit: cover;
     }
 
     /* ============================
@@ -580,6 +582,19 @@
       grid-template-columns: 1fr 1fr;
       gap: 16px;
       margin-top: 24px;
+      align-items: start;
+    }
+
+    .screenshots-grid > .guide-screenshot {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .screenshots-grid > .guide-screenshot img {
+      width: 100%;
+      max-width: 270px;
+      height: auto;
     }
 
     @media (max-width: 600px) {
@@ -687,6 +702,13 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 20px;
+      align-items: start;
+    }
+
+    .cards-grid > .card {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
     }
 
     @media (max-width: 700px) {
