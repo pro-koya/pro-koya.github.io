@@ -41,7 +41,7 @@ export default function KusahachiCorporateSitePage() {
                 <div>
                   <dt>Live</dt>
                   <dd>
-                    <a href="https://kouban.jp/" target="_blank" rel="noreferrer">kouban.jp</a>
+                    <a href="https://kouban.jp/" target="_blank" rel="noopener noreferrer">kouban.jp</a>
                   </dd>
                 </div>
               </dl>
@@ -141,7 +141,7 @@ export default function KusahachiCorporateSitePage() {
                       className="button button--ghost"
                       href="https://kouban.jp/"
                       target="_blank"
-                      rel="noreferrer"
+                      rel="noopener noreferrer"
                     >
                       公開サイトを見る
                     </a>
