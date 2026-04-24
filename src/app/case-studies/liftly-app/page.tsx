@@ -37,14 +37,13 @@ export default function LiftlyAppPage() {
               </div>
               <span className="eyebrow">Liftly</span>
               <h1 className="hero-title case-article-hero__title">
-                <span className="title-line">毎日使うからこそ、</span>
-                <span className="title-line hero-title__accent">入力の軽さと</span>
-                <span className="title-line">続けやすさを整えた。</span>
+                <span className="title-line">筋トレ記録を</span>
+                <span className="title-line hero-title__accent">続けやすくする</span>
+                <span className="title-line">iOSアプリ。</span>
               </h1>
               <p className="case-article-hero__lead">
-                Liftly は、シンプルで続けやすい筋トレ記録アプリです。派手な機能を増やすのではなく、
-                毎日開いて記録する、その小さな行為の摩擦をどこまで減らせるかに重心を置いて設計しました。
-                このページでは、公開ページの紹介ではなく、どんな体験設計を大切にしたかを記事としてまとめています。
+                Liftly は、トレーニング内容を素早く記録できる iOS アプリです。
+                入力、履歴、グラフ、タイマーなど、日々使う機能をシンプルにまとめています。
               </p>
               <dl className="case-article-facts">
                 <div><dt>Platform</dt><dd>iOS App</dd></div>
@@ -60,7 +59,7 @@ export default function LiftlyAppPage() {
                   height={750}
                   style={{ width: '100%', height: 'auto' }}
                 />
-                <figcaption>公開ページ。アプリの機能説明だけでなく、手触りを伝えるための見せ方にもAI活用。</figcaption>
+                <figcaption>Liftlyの公開ページ。</figcaption>
               </figure>
             </div>
           </div>
@@ -72,45 +71,42 @@ export default function LiftlyAppPage() {
               <div className="case-article">
                 <section className="case-article__section case-article__section--intro">
                   <p className="case-article__intro">
-                    記録アプリは、機能の多さよりも、開いてから入力し終えるまでの軽さが重要です。
-                    Liftly では、ログ入力、グラフ確認、タイマー、体重管理といった要素をただ並べるのではなく、
-                    毎日の継続を邪魔しない流れにどうまとめるかを軸に設計しました。
+                    毎回使う記録アプリなので、入力のしやすさを重視しました。
+                    ログ入力、グラフ確認、タイマー、体重管理を一つの流れで扱えます。
                   </p>
                 </section>
 
                 <section className="case-article__section">
-                  <h2>大事だったのは、続けるための抵抗を減らすことでした。</h2>
+                  <h2>記録を素早く残せる設計</h2>
                   <p>
-                    トレーニング記録アプリは、一度だけ使われるものではありません。毎回の入力がわずかでも重いと、
-                    すぐに使われなくなります。Liftly では、種目、重量、回数を素早く入力し、前回の記録を参照しながら
-                    そのまま次のセットへ進めるような、反復に耐える設計を優先しました。
+                    種目、重量、回数を迷わず入力でき、前回の記録も確認できます。
+                    トレーニング中でも使いやすいことを優先しました。
                   </p>
                   <ul className="case-article__list">
                     <li>種目、重量、回数を迷わず入れられる入力導線</li>
                     <li>前回の記録を参照しながら、継続的に使えるUI</li>
-                    <li>毎日の習慣を壊さないための軽さと見通し</li>
+                    <li>タイマーや履歴確認まで含めた記録体験</li>
                   </ul>
                 </section>
 
                 <section className="case-article__section">
-                  <h2>「続けたくなる」より先に、「続けやすい」を作りました。</h2>
+                  <h2>成長を見返せる構成</h2>
                   <p>
-                    グラフや履歴は、見栄えのためではなく、成長実感を途切れさせないためにあります。
-                    ただ記録を残すだけでなく、重量・回数・ボリュームの変化を見返せることで、
-                    ユーザーが次のトレーニングへ自然につながる構成を意識しました。
+                    重量、回数、ボリュームの変化をグラフで確認できます。
+                    記録を残すだけでなく、次のトレーニングに活かせる形にしています。
                   </p>
                   <div className="case-article__subgrid">
                     <div>
                       <h3>入力体験</h3>
-                      <p>毎回の記録が負担にならないよう、入力順序と情報の見せ方を整理しました。</p>
+                      <p>入力順序と表示する情報を整理。</p>
                     </div>
                     <div>
                       <h3>可視化</h3>
-                      <p>成長グラフと履歴で、積み重ねが見える状態を維持できるようにしました。</p>
+                      <p>グラフと履歴で変化を確認可能。</p>
                     </div>
                     <div>
                       <h3>補助機能</h3>
-                      <p>セット間タイマーや体重管理、バックアップなど、継続を支える周辺機能も切り離さず整えました。</p>
+                      <p>タイマー、体重管理、バックアップにも対応。</p>
                     </div>
                   </div>
                 </section>
@@ -123,20 +119,15 @@ export default function LiftlyAppPage() {
                     height={750}
                     style={{ width: '100%', height: 'auto' }}
                   />
-                  <figcaption>紹介ページと動画を用意することで、アプリ本体だけでなく、外からの伝わり方も営業導線として整えています。</figcaption>
+                  <figcaption>公開ページ。アプリの概要と導線を整理しています。</figcaption>
                 </figure>
 
                 <section className="case-article__section">
-                  <h2>この実績は、モバイルでも設計から考えられることを示しています。</h2>
+                  <h2>対応範囲</h2>
                   <p>
-                    Liftly は、iOSカテゴリの掲載例であると同時に、継続して使うプロダクトをどう設計するかを示す実績でもあります。
-                    UIの見た目だけではなく、入力、履歴、可視化、公開導線までを一つの体験として扱えること。
-                    そこがこの実績でいちばん伝えたいポイントです。
+                    アプリの機能設計、記録UI、グラフ表示、公開ページまで対応しました。
+                    継続して使うモバイルアプリの実績として掲載しています。
                   </p>
-                  <blockquote className="case-article__quote">
-                    便利そうに見えることより、毎日ちゃんと使えること。<br />
-                    Liftly では、その順番を崩さないように設計しました。
-                  </blockquote>
                 </section>
 
                 <section className="case-article__section case-article__section--summary">

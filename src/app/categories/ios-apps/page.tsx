@@ -22,17 +22,15 @@ export default function IosAppsPage() {
               <div className="category-hero__label">Category / iOS Apps</div>
               <div className="category-hero__grid">
                 <h1 className="hero-title hero-title--category">
-                  <span className="title-line">iOSアプリ開発</span>
-                  <span className="title-line">継続体験</span>
-                  <span className="title-line hero-title__accent">の設計</span>
+                  <span className="title-line">iOSアプリ</span>
+                  <span className="title-line hero-title__accent">開発実績</span>
                 </h1>
                 <div className="category-hero__text">
                   <p className="hero-lead">
-                    入力しやすさ、続けやすさ、公開後の見せ方まで含めて、
-                    日常的に使われるモバイル体験として整理した実績をまとめています。
+                    記録、入力導線、継続体験を中心にしたiOSアプリの実績をまとめています。
                   </p>
                   <p className="category-hero__note">
-                    毎日触る記録系アプリや、入力導線と継続体験を大切にしたい案件と特に相性があります。
+                    日常的に使うアプリや、入力のしやすさが重要な案件に対応できます。
                   </p>
                 </div>
               </div>
@@ -42,12 +40,12 @@ export default function IosAppsPage() {
 
         <CategoryWorksSection
           category="ios"
-          headingNote="手触りや継続体験が伝わるように、個別の実績詳細や公開ページへつながる構成にしています。"
+          headingNote="アプリ本体と公開ページの実績を掲載しています。"
         />
 
         <CategoryContactSection
           heading={`継続体験を大事にしたい相談も、\nここから送れます。`}
-          lead="Web案件が主軸ですが、日常的に使われるiOSアプリや、入力導線と継続設計を大切にしたい相談も歓迎しています。"
+          lead="Web案件が主軸ですが、iOSアプリや入力導線の改善についてもご相談ください。"
           pageContext="ios-category"
           idPrefix="ios-contact"
           inquiryTypes={[

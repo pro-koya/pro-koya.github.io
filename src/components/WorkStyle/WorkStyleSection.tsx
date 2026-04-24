@@ -314,18 +314,17 @@ export function WorkStyleSection() {
               <div className="philosophy-static-heading">
                 <p className="philosophy-static-eyebrow">仕事観</p>
                 <h2 className="philosophy-static-title">
-                  <span style={{ display: 'block' }}>人と人のあいだに残るものを、</span>
-                  <span style={{ display: 'block' }}>仕事にしたい。</span>
+                  <span style={{ display: 'block' }}>使われ続けるものを、</span>
+                  <span style={{ display: 'block' }}>丁寧につくる。</span>
                 </h2>
               </div>
               <div className="philosophy-static-body">
                 <p>
-                  私は、単に便利なものや完成した機能をつくること以上に、
-                  人と人との関わりの中で意味を持ち、使われ続ける仕事に価値を感じています。
+                  ただ機能を増やすのではなく、実際の仕事や生活の中で使いやすい形にすることを大切にしています。
                 </p>
                 <p>
-                  農業や地域の営みに触れる中で、仕事は成果物を納めて終わるものではなく、
-                  関係や流れを整え、少しずつ根づいていくものだと感じるようになりました。
+                  背景にある関係や流れを見ながら、必要なものを一つずつ整えていく。
+                  その感覚を、設計や実装にも持ち込んでいます。
                 </p>
               </div>
             </div>
@@ -367,18 +366,17 @@ export function WorkStyleSection() {
           <div className="philosophy-static-heading">
             <p className="philosophy-static-eyebrow">仕事観</p>
             <h2 className="philosophy-static-title">
-              <span style={{ display: 'block' }}>人と人のあいだに残るものを、</span>
-              <span style={{ display: 'block' }}>仕事にしたい。</span>
+              <span style={{ display: 'block' }}>使われ続けるものを、</span>
+              <span style={{ display: 'block' }}>丁寧につくる。</span>
             </h2>
           </div>
           <div className="philosophy-static-body">
             <p>
-              私は、単に便利なものや完成した機能をつくること以上に、
-              人と人との関わりの中で意味を持ち、使われ続ける仕事に価値を感じています。
+              ただ機能を増やすのではなく、実際の仕事や生活の中で使いやすい形にすることを大切にしています。
             </p>
             <p>
-              農業や地域の営みに触れる中で、仕事は成果物を納めて終わるものではなく、
-              関係や流れを整え、少しずつ根づいていくものだと感じるようになりました。
+              背景にある関係や流れを見ながら、必要なものを一つずつ整えていく。
+              その感覚を、設計や実装にも持ち込んでいます。
             </p>
           </div>
         </div>

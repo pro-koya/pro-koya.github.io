@@ -93,27 +93,27 @@ export function HeroSection() {
         </div>
 
         {/* Main hero content */}
-        <div className="hero-home">
+          <div className="hero-home">
           <div className="hero-home__aside">
-            <p className="hero-home__aside-label">かたちを、問う。</p>
+            <p className="hero-home__aside-label">Portfolio / 2026</p>
             <p className="hero-home__aside-text">
-              完成した瞬間に閉じるものではなく、人や現場の営みの中に自然に溶け込み、使われながら育っていくこと。
-              それが、私にとっての「息をする形」と考えています。
+              要件整理から設計、実装、改善まで。
+              作る前の整理を大切にしながら、使いやすい形に落とし込みます。
             </p>
           </div>
 
           <div className="hero-home__main">
             <span className="eyebrow">Web App Engineer</span>
             <h1 className="hero-title hero-title--home">
-              <span className="title-line">営みの中で、</span>
-              <span className="title-line hero-title__accent">息をするものを。</span>
+              <span className="title-line">作る前から、</span>
+              <span className="title-line hero-title__accent">整えていく。</span>
             </h1>
             <p className="hero-lead">
-              機能をつくること以上に、人や仕事の流れの中で自然に使われ続ける形を大切にしています。
+              Webアプリ、業務システム、管理画面などを中心に、
+              相談段階から実装・改善まで一貫して対応しています。
             </p>
             <p className="hero-subcopy">
-              人と人のあいだで生まれる価値が、
-              ちゃんと前に進む形になるように。
+              曖昧な要件を整理し、運用しやすいプロダクトへ。
             </p>
             <div className="hero__actions">
               <a className="button button--primary" href="#works">実績を見る</a>

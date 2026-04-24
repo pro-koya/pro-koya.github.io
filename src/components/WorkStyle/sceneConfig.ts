@@ -9,7 +9,7 @@ export const SCENES: SceneConfig[] = [
     label: '01',
     title: '耕す',
     description:
-      '問題の本質を掘り起こし、\n土台から丁寧に整える。\n急がず、深く。',
+      '課題を分解し、\n必要な土台を整理する。',
     sampleStep: 3,
     maxPoints: 17000,
   },
@@ -18,7 +18,7 @@ export const SCENES: SceneConfig[] = [
     label: '02',
     title: '植える',
     description:
-      'アイデアを形にして、\n適切な場所に根付かせる。\n小さくても、確かな一手を。',
+      '優先順位を決め、\n小さく作り始める。',
     sampleStep: 3,
     maxPoints: 18000,
   },
@@ -27,7 +27,7 @@ export const SCENES: SceneConfig[] = [
     label: '03',
     title: '育てる',
     description:
-      '継続的に改善を積み重ね、\n着実に成長させていく。\nフィードバックを糧に、前へ。',
+      '使いながら直し、\n改善しやすい状態にする。',
     sampleStep: 3,   // 他より密に（粒子多め）
     maxPoints: 18000,
   },
@@ -36,7 +36,7 @@ export const SCENES: SceneConfig[] = [
     label: '04',
     title: '届ける',
     description:
-      '使う人の手に、\n確かな価値を届ける。\nそれがゴールであり、スタートでもある。',
+      '使う人に届く形で、\n運用へつなげる。',
     sampleStep: 2,
     maxPoints: 18000,
   },

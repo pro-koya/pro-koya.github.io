@@ -8,7 +8,7 @@ import { RevealObserver } from '@/components/RevealObserver';
 export const metadata: Metadata = {
   title: 'とれたべ | case study | koya portfolio',
   description:
-    'とれたべのケーススタディ。家庭菜園の収穫後体験をどう整理し、実際のアプリ画面を使ったLPとポートフォリオ導線へ落とし込んだかをまとめています。',
+    'とれたべの制作実績。家庭菜園の収穫、在庫、献立提案、料理記録をつなぐiOSアプリです。',
 };
 
 const TORETABE_FOOTER_LINKS = [
@@ -33,14 +33,13 @@ export default function ToretabeAppCaseStudyPage() {
               </div>
               <span className="eyebrow">とれたべ</span>
               <h1 className="hero-title case-article-hero__title">
-                <span className="title-line">収穫した後の</span>
-                <span className="title-line hero-title__accent">迷いまで</span>
-                <span className="title-line">設計した。</span>
+                <span className="title-line">収穫後の</span>
+                <span className="title-line hero-title__accent">使い切りを</span>
+                <span className="title-line">支えるアプリ。</span>
               </h1>
               <p className="case-article-hero__lead">
-                とれたべは、家庭菜園の収穫後に生まれる「今ある野菜をどう使うか」を支える iOS アプリです。
-                この実績では、SwiftUI で作られた実アプリの価値を整理し、公開LPとポートフォリオ導線まで含めて
-                一つの見せ方に落とし込みました。
+                とれたべは、家庭菜園で採れた野菜の在庫管理、献立提案、料理記録を扱う iOS アプリです。
+                アプリ本体に加えて、公開LPとポートフォリオ導線も整えました。
               </p>
               <dl className="case-article-facts">
                 <div><dt>Platform</dt><dd>iOS App</dd></div>
@@ -56,9 +55,7 @@ export default function ToretabeAppCaseStudyPage() {
                   height={960}
                   style={{ width: '100%', height: 'auto' }}
                 />
-                <figcaption>
-                  草案をそのまま使うのではなく、実際の実装画面に差し替えたうえで、家庭菜園アプリとしての価値が伝わる構成へ再整理しました。
-                </figcaption>
+                <figcaption>実際のアプリ画面を使った公開LP。</figcaption>
               </figure>
             </div>
           </div>
@@ -70,18 +67,16 @@ export default function ToretabeAppCaseStudyPage() {
               <div className="case-article">
                 <section className="case-article__section case-article__section--intro">
                   <p className="case-article__intro">
-                    家庭菜園アプリは「育てる記録」を中心に設計されがちですが、
-                    とれたべでは収穫したあとに何を作り、どう使い切るかまでを主役として扱っています。
-                    その構造が伝わるよう、LPでも単なる画面紹介ではなく、流れごと見せることを重視しました。
+                    栽培記録だけでなく、収穫後にどう使うかまで扱うアプリです。
+                    ホーム、在庫、献立提案、料理記録が一つの流れになるように整理しました。
                   </p>
                 </section>
 
                 <section className="case-article__section">
-                  <h2>差別化の芯は、収穫後の意思決定を軽くすることでした。</h2>
+                  <h2>収穫後の流れを設計</h2>
                   <p>
-                    Harvest-Loop のコードベースを確認すると、ホーム、収穫物一覧、献立提案、料理実績、
-                    次に育てる野菜の提案までが一つのループとしてつながっています。LPでもその構造を崩さず、
-                    「栽培記録アプリ」ではなく「収穫後アプリ」として理解できる順番に情報を整理しました。
+                    収穫した野菜を在庫として管理し、今ある食材から献立を考えられる構成です。
+                    料理記録も残せるため、使い切りまでつながります。
                   </p>
                   <ul className="case-article__list">
                     <li>栽培の見通しから収穫導線までをホームで俯瞰できる</li>
@@ -97,29 +92,27 @@ export default function ToretabeAppCaseStudyPage() {
                     width={1170}
                     height={2532}
                   />
-                  <figcaption>
-                    ホーム画面では「もうすぐ収穫」「今ある収穫物」「今日のおすすめ献立」が一続きの流れとして配置されています。
-                  </figcaption>
+                  <figcaption>ホーム画面。収穫予定、在庫、献立提案を確認できます。</figcaption>
                 </figure>
 
                 <section className="case-article__section">
-                  <h2>草案と実装の差分を埋め、実画面ベースのLPへ置き換えました。</h2>
+                  <h2>公開LPも実画面ベースで作成</h2>
                   <p>
-                    今回のLP制作では、添付された草案を参考にしつつ、実際のスクリーンショットへすべて差し替えています。
-                    これにより、公開ページを見た人がダウンロード前に受ける印象と、アプリを開いた後の体験がなるべくずれない状態を目指しました。
+                    公開ページでは、仮の画面ではなく実際のスクリーンショットを使用しました。
+                    アプリの機能と見え方がずれないよう、紹介文と導線も合わせて調整しています。
                   </p>
                   <div className="case-article__subgrid">
                     <div>
                       <h3>実装確認</h3>
-                      <p>HomeView や献立提案・収穫物一覧の実装を読み、現在の機能と文言に合わせて構成しました。</p>
+                      <p>現在の機能に合わせてLPの構成を整理。</p>
                     </div>
                     <div>
                       <h3>画面差し替え</h3>
-                      <p>草案上の仮画面ではなく、最新のスクリーンショットをそのままLPに反映しています。</p>
+                      <p>最新のスクリーンショットをLPに反映。</p>
                     </div>
                     <div>
                       <h3>導線追加</h3>
-                      <p>LPだけで閉じず、ポートフォリオのトップ・iOSカテゴリ・個別記事にもつながる形へ拡張しました。</p>
+                      <p>トップ、iOSカテゴリ、個別記事への導線を追加。</p>
                     </div>
                   </div>
                 </section>
@@ -131,22 +124,15 @@ export default function ToretabeAppCaseStudyPage() {
                     width={1170}
                     height={2532}
                   />
-                  <figcaption>
-                    献立提案は、今ある野菜を見るだけでなく、AI による再提案や買い足しの少なさまで含めて魅力として伝える必要がありました。
-                  </figcaption>
+                  <figcaption>AI献立提案。今ある野菜から料理案を表示します。</figcaption>
                 </figure>
 
                 <section className="case-article__section">
-                  <h2>この実績は、モバイル体験と公開ページを一緒に設計できることを示しています。</h2>
+                  <h2>対応範囲</h2>
                   <p>
-                    とれたべは、アプリの UI を整えるだけではなく、その価値を外にどう伝えるかまでをまとめて設計した実績です。
-                    実装を確認しながら公開ページを作ることで、見た目だけの LP ではなく、
-                    体験の芯とズレない紹介ページにできることを、この案件で示しています。
+                    iOSアプリの機能整理、画面紹介、公開LP、ポートフォリオ掲載まで対応しました。
+                    アプリ本体と紹介ページを合わせて見せた実績です。
                   </p>
-                  <blockquote className="case-article__quote">
-                    家庭菜園の楽しさを、育てるところだけで終わらせない。<br />
-                    収穫した後の迷いまで軽くすることが、とれたべの価値です。
-                  </blockquote>
                 </section>
 
                 <section className="case-article__section case-article__section--summary">
