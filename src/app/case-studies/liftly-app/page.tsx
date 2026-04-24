@@ -142,7 +142,14 @@ export default function LiftlyAppPage() {
                     </div>
                   </div>
                   <div className="hero__actions">
-                    <Link className="button button--primary" href="/liftly/">公開ページを見る</Link>
+                    <Link
+                      className="button button--primary"
+                      href="/liftly/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      公開ページを見る
+                    </Link>
                     <Link className="button button--ghost" href="/#contact">この方向で相談する</Link>
                   </div>
                 </section>
