@@ -8,7 +8,7 @@ import { RevealObserver } from '@/components/RevealObserver';
 export const metadata: Metadata = {
   title: 'セッツマルシェ | case study | koya portfolio',
   description:
-    'セッツマルシェのケーススタディ。地域の農家と買い手をつなぐ食材ECプラットフォームとして、複数ロール、認証、決済、B2B承認まで含めた実装内容を整理しています。',
+    'セッツマルシェの制作実績。食材EC、複数ロール、認証、決済、B2B承認まで含めたWebアプリです。',
 };
 
 export default function SettsuMarchePage() {
@@ -26,14 +26,13 @@ export default function SettsuMarchePage() {
               </div>
               <span className="eyebrow">Settsu Marche</span>
               <h1 className="hero-title case-article-hero__title">
-                <span className="title-line">食材ECを超えて、</span>
-                <span className="title-line hero-title__accent">運用全体を支える</span>
-                <span className="title-line">業務基盤にした。</span>
+                <span className="title-line">食材ECと</span>
+                <span className="title-line hero-title__accent">B2B業務を</span>
+                <span className="title-line">一つの形に。</span>
               </h1>
               <p className="case-article-hero__lead">
                 セッツマルシェは、地域の農家・生産者と消費者・飲食店をつなぐ食材ECプラットフォームです。
-                この実績では、見た目の公開サイトだけでなく、buyer / seller / admin それぞれの運用導線や
-                B2Bの承認フロー、月次請求まで含めた構成をどう扱ったかを、読み物として整理しています。
+                buyer / seller / admin の導線、B2Bの承認フロー、決済、帳票出力まで含めて設計・実装しました。
               </p>
               <dl className="case-article-facts">
                 <div><dt>Product</dt><dd>食材EC + 業務システム</dd></div>
@@ -49,7 +48,7 @@ export default function SettsuMarchePage() {
                   height={750}
                   style={{ width: '100%', height: 'auto' }}
                 />
-                <figcaption>トップページ。ブランドの見せ方と購入導線の入口を一枚で整理しています。</figcaption>
+                <figcaption>トップページと購入導線の入口。</figcaption>
               </figure>
             </div>
           </div>
@@ -61,27 +60,21 @@ export default function SettsuMarchePage() {
               <div className="case-article">
                 <section className="case-article__section case-article__section--intro">
                   <p className="case-article__intro">
-                    ECサイトの案件に見えて、実際にはもっと広い範囲を扱っていました。
-                    誰が何を見て、どこで承認し、どの単位で請求し、公開画面と業務画面をどう切り分けるか。
-                    この案件で大事だったのは、機能を足していくことよりも、商流と運用を整理して一つの構造にまとめることでした。
+                    一般的なEC機能に加えて、法人取引や管理業務まで扱う案件でした。
+                    画面、権限、承認、請求を整理し、運用しやすい構成にまとめています。
                   </p>
                 </section>
 
                 <section className="case-article__section">
-                  <h2>扱ったのは、販売画面ではなく運用の全体像でした。</h2>
+                  <h2>複数ロールの運用に対応</h2>
                   <p>
-                    消費者向けの購入導線だけなら、一般的なECとして整理できます。ただセッツマルシェでは、
-                    生産者、買い手、管理者それぞれの責務が異なり、B2Bの承認や顧客別価格、請求書発行など、
-                    売る前後の業務が大きな比重を占めていました。
-                  </p>
-                  <p>
-                    そのため、公開ページと業務管理の境目を曖昧にせず、画面ごとに目的を分けながらも、
-                    一つの流れとして矛盾しない構成に整えることを優先しました。
+                    買い手、生産者、管理者で必要な画面と操作が異なるため、
+                    ロールごとの責務を分けて設計しました。
                   </p>
                   <ul className="case-article__list">
                     <li>buyer / seller / admin のロールごとに責務を明確化</li>
                     <li>発注承認や顧客別価格など、法人取引特有の要件に対応</li>
-                    <li>決済、帳票、配送情報まで含めて一つの運用導線として整理</li>
+                    <li>決済、帳票、配送情報まで含めて実装</li>
                   </ul>
                 </section>
 
@@ -93,28 +86,27 @@ export default function SettsuMarchePage() {
                     height={750}
                     style={{ width: '100%', height: 'auto' }}
                   />
-                  <figcaption>商品一覧。見せ方だけでなく、検索や条件絞り込みの設計まで含めて、買い手が迷わない流れを意識しました。</figcaption>
+                  <figcaption>商品一覧。検索や条件絞り込みにも対応しています。</figcaption>
                 </figure>
 
                 <section className="case-article__section">
-                  <h2>実装の中心にあったのは、事故が起きやすい領域です。</h2>
+                  <h2>認証・決済・帳票まで実装</h2>
                   <p>
-                    運用前提のサービスでは、認証、権限、決済、帳票といった領域がそのまま信頼性に直結します。
-                    この案件でも、メール認証や2段階認証、WebAuthn / パスキー、Stripe を使った購入導線、
-                    注文詳細と帳票出力など、あとから継ぎ足すと崩れやすい部分を最初からまとめて扱いました。
+                    メール認証、2段階認証、WebAuthn / パスキー、Stripe決済、注文管理、
+                    帳票出力までをまとめて扱いました。
                   </p>
                   <div className="case-article__subgrid">
                     <div>
                       <h3>認証と権限</h3>
-                      <p>メール認証、2段階認証、WebAuthn / パスキー、信頼済みデバイス管理まで含めて整理しました。</p>
+                      <p>メール認証、2段階認証、WebAuthn / パスキーに対応。</p>
                     </div>
                     <div>
                       <h3>購入体験</h3>
-                      <p>商品一覧、商品詳細、カート、チェックアウト、再注文まで、一連の流れを切れ目なく設計しました。</p>
+                      <p>商品一覧、カート、チェックアウト、再注文を実装。</p>
                     </div>
                     <div>
                       <h3>B2B運用</h3>
-                      <p>発注承認フロー、組織管理、顧客別価格、月次請求といった法人取引の実務にも対応しました。</p>
+                      <p>発注承認、組織管理、顧客別価格、月次請求に対応。</p>
                     </div>
                   </div>
                 </section>
@@ -127,20 +119,15 @@ export default function SettsuMarchePage() {
                     height={750}
                     style={{ width: '100%', height: 'auto' }}
                   />
-                  <figcaption>注文詳細。ステータス、配送情報、帳票出力を一画面に集約し、現場の確認コストを下げることを狙いました。</figcaption>
+                  <figcaption>注文詳細。ステータス、配送情報、帳票出力を確認できます。</figcaption>
                 </figure>
 
                 <section className="case-article__section">
-                  <h2>この実績で伝えたいのは、複雑さを整理して進められることです。</h2>
+                  <h2>対応範囲</h2>
                   <p>
-                    セッツマルシェは、単純に「ECサイトを作った」では収まらない実績です。
-                    画面数が多いことよりも、複数の立場とルールが混ざる案件を、運用可能な構造に整えながら前へ進められること。
-                    そこにこの案件の価値があります。
+                    ECの公開画面だけでなく、管理画面、認証、決済、承認、帳票まで含めた実装です。
+                    複数ロールが関わる業務アプリの設計例として掲載しています。
                   </p>
-                  <blockquote className="case-article__quote">
-                    公開サイトの見え方と、日々の業務運用は切り離せません。<br />
-                    その両方を一つのシステムとして扱えるかどうかが、この案件の本質でした。
-                  </blockquote>
                 </section>
 
                 <section className="case-article__section case-article__section--summary">

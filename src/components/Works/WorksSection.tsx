@@ -14,7 +14,7 @@ export function WorksSection() {
             <h2 className="section-title">実績</h2>
           </div>
           <p className="section-note">
-            現在掲載している中から、対応領域と進め方が伝わりやすいものを先に置いています。
+            Webアプリ、iOSアプリ、企業サイトの実績を掲載しています。
           </p>
         </div>
 

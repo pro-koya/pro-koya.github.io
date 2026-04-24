@@ -22,17 +22,16 @@ export default function WebAppsPage() {
               <div className="category-hero__label">Category / Web Apps</div>
               <div className="category-hero__grid">
                 <h1 className="hero-title hero-title--category">
-                  <span className="title-line">Webアプリ</span>
-                  <span className="title-line">開発・業務</span>
-                  <span className="title-line hero-title__accent">システム開発</span>
+                  <span className="title-line">Webアプリ・</span>
+                  <span className="title-line hero-title__accent">業務システム</span>
                 </h1>
                 <div className="category-hero__text">
                   <p className="hero-lead">
                     会員機能、管理画面、認証、決済、権限設計など、
-                    運用前提のWebアプリとして整理した実績をまとめています。
+                    業務で使うWebアプリの実績をまとめています。
                   </p>
                   <p className="category-hero__note">
-                    既存業務のWeb化、複数ロール設計、決済や承認フローを含む案件と特に相性があります。
+                    既存業務のWeb化、複数ロール設計、決済や承認フローを含む案件に対応できます。
                   </p>
                 </div>
               </div>
@@ -42,12 +41,12 @@ export default function WebAppsPage() {
 
         <CategoryWorksSection
           category="web"
-          headingNote="個別の実績詳細では、どこまで作っているかをもう少し具体的に見られるようにしています。"
+          headingNote="対応範囲と実装内容が分かる実績を掲載しています。"
         />
 
         <CategoryContactSection
           heading={`このカテゴリに近い相談なら、\nそのまま送ってください。`}
-          lead="要件整理から入りたい案件や、運用前提で設計したいWebアプリ開発と特に相性が良いです。まだ構想段階でも問題ありません。"
+          lead="構想段階の相談でも大丈夫です。要件を整理しながら、必要な形を一緒に考えます。"
           pageContext="web-category"
           idPrefix="web-contact"
           inquiryTypes={[
