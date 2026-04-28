@@ -60,7 +60,7 @@ export default function SorryGainsPrivacyPage() {
         <section>
           <h2>3. Liftly連携を利用する場合</h2>
           <p>
-            ユーザーが任意でLiftly連携を利用する場合、本アプリはGoogle/Supabase認証を通じて、
+            ユーザーが任意でLiftly連携を利用する場合、本アプリはApple/Google/Supabase認証を通じて、
             認証に必要なメールアドレスおよびユーザーIDを扱います。
             また、筋肉ごめん度の算出や仙人の助言などのアプリ機能のために、Liftlyのトレーニング要約を取得します。
           </p>
@@ -89,7 +89,7 @@ export default function SorryGainsPrivacyPage() {
         <section>
           <h2>6. 第三者サービス</h2>
           <p>
-            本アプリは、任意のLiftly連携および認証機能のために、Google Sign-InおよびSupabaseを利用します。
+            本アプリは、任意のLiftly連携および認証機能のために、Sign in with Apple、Google Sign-InおよびSupabaseを利用します。
             これらのサービスにおけるデータの取り扱いは、各サービス提供者のポリシーにも従います。
           </p>
         </section>
@@ -98,7 +98,8 @@ export default function SorryGainsPrivacyPage() {
           <h2>7. 情報の削除</h2>
           <p>
             端末内に保存されたアプリ内記録は、アプリの削除またはアプリ内の操作により削除できます。
-            Liftly連携に関するアカウント情報や外部連携データの削除を希望する場合は、お問い合わせ窓口までご連絡ください。
+            Liftly連携に関するアカウント情報や外部連携データは、アプリ内の設定画面から削除を開始できます。
+            削除が正常に完了しない場合や追加の確認が必要な場合は、お問い合わせ窓口までご連絡ください。
             本人確認のうえ、合理的な範囲で対応します。
           </p>
         </section>
