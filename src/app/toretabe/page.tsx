@@ -1,6 +1,3 @@
-const APP_STORE_URL =
-  'https://apps.apple.com/us/app/%E3%81%A8%E3%82%8C%E3%81%9F%E3%81%B9/id6762575549';
-
 export default function ToretabePage() {
   return (
     <main className="toretabe-standalone-page" aria-label="とれたべ ランディングページ">
@@ -15,14 +12,6 @@ export default function ToretabePage() {
           </a>
           <a href="/toretabe/privacy/" className="toretabe-topnav__link">
             プライバシー
-          </a>
-          <a
-            href={APP_STORE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="toretabe-topnav__link toretabe-topnav__link--store"
-          >
-            App Storeで入手
           </a>
         </div>
       </nav>
