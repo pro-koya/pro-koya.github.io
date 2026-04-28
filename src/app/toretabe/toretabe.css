@@ -56,6 +56,18 @@
   color: #2b8a40;
 }
 
+.toretabe-topnav__link--store {
+  background: #2b8a40;
+  color: #fff;
+  font-weight: 700;
+  border: none;
+}
+
+.toretabe-topnav__link--store:hover {
+  background: #237334;
+  color: #fff;
+}
+
 .toretabe-standalone-page__frame {
   display: block;
   width: 100%;

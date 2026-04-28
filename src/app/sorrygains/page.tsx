@@ -224,7 +224,7 @@ export default function SorryGainsPage() {
         <div className="sg-privacy__body">
           <p>
             飲酒記録、体重、週のトレーニング回数、リカバリー行動は端末内に保存されます。
-            任意でLiftly連携を利用する場合、Google/Supabase認証によりメールアドレスとユーザーIDが扱われ、
+            任意でLiftly連携を利用する場合、Apple/Google/Supabase認証によりメールアドレスとユーザーIDが扱われ、
             Liftlyのトレーニング要約をアプリ機能のために取得します。
           </p>
           <p>本アプリは、ユーザーのデータを第三者広告やトラッキング目的で利用しません。</p>
