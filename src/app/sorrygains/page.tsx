@@ -2,31 +2,33 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 const CONTACT_FORM_URL = 'https://forms.gle/7FKcm5zv6F6Ci8Wa6';
+const APP_STORE_URL =
+  'https://apps.apple.com/us/app/%E7%AD%8B%E8%82%89%E3%81%94%E3%82%81%E3%82%93/id6763986050';
 
 const features = [
   {
     title: '飲酒を記録',
-    body: 'ビール、日本酒、ワインなどを選び、量を入れるだけ。夜の記録を短い操作で残せます。',
+    body: 'ビール、日本酒、ワイン、ハイボールなどを選び、量と度数を入れるだけ。10秒で夜の記録が残せます。',
   },
   {
-    title: '筋肉ごめん度',
-    body: '飲酒量や体重などから、今日の筋肉への謝罪レベルをエンタメとして表示します。',
+    title: '怒りレベル',
+    body: '飲酒量に応じて筋肉キャラの怒りが5段階で変化。今日のあなたの飲み方を、表情で本音にして返します。',
   },
   {
-    title: '回復目安',
-    body: '水分補給、睡眠、ストレッチなど、翌日に向けたリカバリー行動を静かに促します。',
+    title: '翌日リカバリー',
+    body: '筋トレ・プロテイン・ストレッチ・睡眠などのお詫び行動を記録するたび、怒りスコアが下がっていきます。',
   },
   {
-    title: '仙人のひとこと',
-    body: '説教ではなく、少しだけ刺さる言葉でトレーニングとの付き合い方を整えます。',
+    title: '筋トレ仙人',
+    body: '説教ではなく、少しだけ刺さる言葉でトレーニングとの付き合い方を整える、仙人のひとこと。',
+  },
+  {
+    title: '飲み会モード',
+    body: '一晩を丸ごと記録するモード。経過時間・杯数をリアルタイム表示し、終了時にセッションレポートを生成します。',
   },
   {
     title: 'Liftly連携',
-    body: '任意でLiftlyのトレーニング要約を同期し、より状況に合った表示にできます。',
-  },
-  {
-    title: '広告・トラッキングなし',
-    body: 'データを広告やトラッキング目的で利用しない方針を、プライバシーポリシーに明記しています。',
+    body: '任意でLiftlyのトレーニング要約を同期。筋トレした日に飲むと、ダメージ計算がよりリアルになります。',
   },
 ];
 
@@ -34,12 +36,12 @@ const steps = [
   {
     label: '01',
     title: '飲んだ内容を残す',
-    body: '飲酒量、体重、トレーニング頻度などを入力。基本記録は端末内に保存されます。',
+    body: 'お酒の種類、量、度数を選んで「筋肉に報告する」。基本記録は端末内に保存されます。',
   },
   {
     label: '02',
     title: '結果を見る',
-    body: '筋肉ごめん度、努力回収率、回復目安を確認。数字は医学的判定ではなく、体験演出です。',
+    body: '怒りレベル・筋トレ成果減少度・影響スコアを確認。数字は医学的判定ではなく、体験演出です。',
   },
   {
     label: '03',
@@ -69,49 +71,39 @@ const faqs = [
 
 function AppStoreButton({ className = '' }: { className?: string }) {
   return (
-    <span className={`sg-button sg-button--primary ${className}`} aria-disabled="true">
-      App Store公開予定
-    </span>
+    <a
+      className={`sg-button sg-button--primary ${className}`}
+      href={APP_STORE_URL}
+      target="_blank"
+      rel="noreferrer"
+    >
+      App Storeでダウンロード
+    </a>
   );
 }
 
-function PhoneMock() {
+function PhoneFrame({
+  src,
+  alt,
+  priority = false,
+}: {
+  src: string;
+  alt: string;
+  priority?: boolean;
+}) {
   return (
-    <div className="sg-phone" aria-label="筋肉ごめんの画面イメージ">
+    <div className="sg-phone sg-phone--photo" aria-label={alt}>
       <div className="sg-phone__speaker" />
       <div className="sg-phone__screen">
-        <div className="sg-app-top">
-          <span>今夜の謝罪</span>
-          <strong>筋肉ごめん</strong>
-        </div>
-        <div className="sg-score">
-          <span>筋肉ごめん度</span>
-          <strong>74</strong>
-          <small>やや深めの謝罪</small>
-        </div>
-        <div className="sg-meter" aria-hidden="true">
-          <span style={{ width: '74%' }} />
-        </div>
-        <div className="sg-stat-grid">
-          <div>
-            <span>努力回収率</span>
-            <strong>62%</strong>
-          </div>
-          <div>
-            <span>回復目安</span>
-            <strong>10h</strong>
-          </div>
-        </div>
-        <div className="sg-sage-mini">
-          <Image
-            src="/assets/media/sorrygains/sage.png"
-            alt=""
-            width={180}
-            height={225}
-            aria-hidden="true"
-          />
-          <p>謝るだけで終わらぬ者が、明日のセットを救う。</p>
-        </div>
+        <Image
+          className="sg-phone__shot"
+          src={src}
+          alt={alt}
+          width={1206}
+          height={2622}
+          sizes="(max-width: 640px) 80vw, 332px"
+          priority={priority}
+        />
       </div>
     </div>
   );
@@ -139,8 +131,8 @@ export default function SorryGainsPage() {
           <h1>筋肉ごめん</h1>
           <p className="sg-hero__tagline">飲んだ夜の筋肉に、そっと謝る。</p>
           <p className="sg-hero__lead">
-            飲酒記録から、筋肉ごめん度・努力回収率・回復目安を楽しく表示するiOSアプリ。
-            罪悪感を、少し笑える記録に変えます。
+            飲酒量に応じて筋肉キャラが怒り出す、エンタメ系の飲酒記録アプリ。
+            罪悪感を、少し笑える記録に変えます。App Storeで配信中。
           </p>
           <div className="sg-hero__actions">
             <AppStoreButton />
@@ -149,16 +141,20 @@ export default function SorryGainsPage() {
             </Link>
           </div>
         </div>
-        <div className="sg-hero__visual" aria-hidden="true">
+        <div className="sg-hero__visual">
           <Image
             className="sg-hero__icon"
             src="/assets/media/sorrygains/icon.png"
             alt=""
             width={360}
             height={360}
+            aria-hidden="true"
+          />
+          <PhoneFrame
+            src="/assets/media/sorrygains/home-lv3.png"
+            alt="筋肉ごめん ホーム画面 怒りレベル3"
             priority
           />
-          <PhoneMock />
         </div>
       </section>
 
@@ -205,13 +201,16 @@ export default function SorryGainsPage() {
       </section>
 
       <section className="sg-section sg-showcase" aria-label="画面イメージ">
-        <PhoneMock />
+        <PhoneFrame
+          src="/assets/media/sorrygains/input.png"
+          alt="筋肉ごめん 飲酒入力画面"
+        />
         <div className="sg-showcase__text">
           <p className="sg-eyebrow">App Experience</p>
           <h2>夜の静けさに合う、重めのダークUI。</h2>
           <p>
             深いネイビー、チャコール、琥珀色のアクセントで、酒の温かさと筋トレの損失感を表現。
-            面白さは派手な装飾ではなく、結果の瞬間とコピーで出します。
+            お酒の種類・量・度数を選んで「筋肉に報告する」だけ。面白さは派手な装飾ではなく、結果の瞬間とコピーで出します。
           </p>
         </div>
       </section>
