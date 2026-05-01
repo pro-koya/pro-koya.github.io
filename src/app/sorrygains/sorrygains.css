@@ -218,6 +218,19 @@
   background: linear-gradient(180deg, #111827 0%, #171a22 48%, #232734 100%);
 }
 
+.sg-phone--photo .sg-phone__screen {
+  padding: 0;
+  background: #05070a;
+}
+
+.sg-phone__shot {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
 .sg-app-top {
   display: flex;
   align-items: center;

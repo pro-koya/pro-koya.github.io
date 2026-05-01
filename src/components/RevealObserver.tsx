@@ -2,29 +2,22 @@
 
 import { useEffect } from 'react';
 
-export function RevealObserver() {
+export { RevealObserver };
+export default function RevealObserver() {
   useEffect(() => {
-    const elements = document.querySelectorAll<HTMLElement>('.reveal');
-    if (!elements.length) return;
-
-    if (!('IntersectionObserver' in window)) {
-      elements.forEach((el) => el.classList.add('is-visible'));
-      return;
-    }
-
+    const targets = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            observer.unobserve(entry.target);
+            entry.target.classList.add('in');
           }
         });
       },
-      { threshold: 0.16, rootMargin: '0px 0px -48px 0px' },
+      { threshold: 0.12 },
     );
 
-    elements.forEach((el) => observer.observe(el));
+    targets.forEach((target) => observer.observe(target));
     return () => observer.disconnect();
   }, []);
 

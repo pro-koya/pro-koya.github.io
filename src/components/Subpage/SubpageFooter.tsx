@@ -1,3 +1,5 @@
+import { TransitionLink } from '../TransitionLink';
+
 interface FooterLink {
   label: string;
   href: string;
@@ -10,29 +12,28 @@ interface SubpageFooterProps {
 
 const DEFAULT_LINKS: FooterLink[] = [
   { label: 'Top', href: '/' },
-  { label: 'Web', href: '/categories/web-apps/' },
-  { label: 'iOS', href: '/categories/ios-apps/' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Works', href: '/works' },
+  { label: 'Contact', href: '/contact' },
 ];
 
 export function SubpageFooter({ links = DEFAULT_LINKS }: SubpageFooterProps) {
   return (
-    <footer className="footer">
-      <div className="footer__inner">
-        <div className="footer__links">
+    <footer className="footer" style={{ padding: '40px 40px 24px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
+        <div className="footer-links">
           {links.map((link) =>
             link.external ? (
               <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer">
                 {link.label}
               </a>
             ) : (
-              <a key={link.href} href={link.href}>
+              <TransitionLink key={link.href} href={link.href}>
                 {link.label}
-              </a>
+              </TransitionLink>
             ),
           )}
         </div>
-        <div className="footer__copy">© {new Date().getFullYear()} koya portfolio</div>
+        <div className="meta">© {new Date().getFullYear()} MIYABAYASI KOYA</div>
       </div>
     </footer>
   );

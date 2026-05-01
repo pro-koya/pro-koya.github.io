@@ -1,46 +1,57 @@
 import type { Metadata, Viewport } from 'next';
-import { Cormorant_Garamond, Manrope, Noto_Serif_JP, Noto_Sans_JP } from 'next/font/google';
+import { Archivo, Inter, JetBrains_Mono, Noto_Sans_JP } from 'next/font/google';
+import { PageTransitionProvider } from '@/components/PageTransition';
 import './globals.css';
 
-const cormorant = Cormorant_Garamond({
+const archivo = Archivo({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-cormorant',
+  weight: ['500', '600', '700', '800'],
+  style: ['normal', 'italic'],
+  variable: '--font-archivo',
   display: 'swap',
 });
 
-const manrope = Manrope({
+const inter = Inter({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
-  variable: '--font-manrope',
+  weight: ['400', '500', '600'],
+  variable: '--font-inter',
   display: 'swap',
 });
 
-const notoSerifJP = Noto_Serif_JP({
+const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
-  weight: ['400', '500', '700'],
-  variable: '--font-noto-serif',
+  weight: ['400', '500'],
+  variable: '--font-jetbrains',
   display: 'swap',
 });
 
 const notoSansJP = Noto_Sans_JP({
   subsets: ['latin'],
-  weight: ['400', '500', '700'],
-  variable: '--font-noto-sans',
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-noto-sans-jp',
   display: 'swap',
 });
 
 export const metadata: Metadata = {
-  title: 'koya | Webアプリ開発・業務自動化のポートフォリオ',
+  title: 'Miyabayasi Koya | よく動き、よく食べ、よくつくる。',
   description:
-    '要件整理から設計・実装・改善まで一貫して伴走するWebエンジニアのポートフォリオ。実績と現在の対応領域を、静かな余白のある構成で整理しています。',
+    '身体を動かし、土に触れ、日々の実感を発信する。ときどき、Webサービスやアプリ、システムにもしている Miyabayasi Koya の個人サイトです。',
+  openGraph: {
+    title: 'Miyabayasi Koya',
+    description:
+      'よく動き、よく食べ、よくつくる。AI時代に、身体でわかることを大事にする個人サイト。',
+    locale: 'ja_JP',
+    type: 'website',
+  },
   icons: {
     icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
+    shortcut: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
+    apple: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: '#111111',
+  themeColor: '#14130f',
 };
 
 export default function RootLayout({
@@ -51,10 +62,10 @@ export default function RootLayout({
   return (
     <html
       lang="ja"
-      className={`${cormorant.variable} ${manrope.variable} ${notoSerifJP.variable} ${notoSansJP.variable}`}
+      className={`${archivo.variable} ${inter.variable} ${jetbrainsMono.variable} ${notoSansJP.variable}`}
     >
-      <body className="page-home">
-        <div className="page-shell">{children}</div>
+      <body>
+        <PageTransitionProvider>{children}</PageTransitionProvider>
       </body>
     </html>
   );

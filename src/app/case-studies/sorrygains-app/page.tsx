@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import CaseStudyPageTemplate from '@/components/CaseStudyPage';
 import { getCaseStudy } from '@/data/case-studies';
 
-const cs = getCaseStudy('toretabe-app')!;
+const cs = getCaseStudy('sorrygains-app')!;
 
 export const metadata: Metadata = {
   title: `${cs.title} | Case Study | Miyabayasi Koya`,
