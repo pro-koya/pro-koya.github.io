@@ -38,7 +38,7 @@ const TRANSLATIONS = {
       p2: 'アプリ内課金、広告表示に関わる処理について、各サービス提供者のポリシーが適用されます。\n詳しくはアプリ内の利用規約・プライバシーポリシーをご確認ください。',
     },
     contact: { title: 'お問い合わせ', desc: 'ご質問・ご要望は以下のフォームよりお送りください。', btn: 'お問い合わせフォームを開く' },
-    footer: { features: '機能', howto: '使い方', privacy: 'プライバシー', contact: 'お問い合わせ', copyright: '© Liftly - Simple Fitness Log' },
+    footer: { features: '機能', howto: '使い方', privacy: 'プライバシー', contact: 'お問い合わせ', copyright: '© Liftly - Simple Fitness Log', creator: '制作: Miyabayasi Koya' },
     lang: { ja: '日本語', en: 'English' },
     urls: {
       appStore: 'https://apps.apple.com/app/liftly-simple-workout-log/id6757798075',
@@ -80,7 +80,7 @@ const TRANSLATIONS = {
       p2: "In-app purchases and ads are subject to the respective service providers' policies.\nSee the in-app terms and privacy policy for details.",
     },
     contact: { title: 'Contact', desc: 'Send questions or feedback using the form below.', btn: 'Open contact form' },
-    footer: { features: 'Features', howto: 'How to', privacy: 'Privacy', contact: 'Contact', copyright: '© Liftly - Simple Fitness Log' },
+    footer: { features: 'Features', howto: 'How to', privacy: 'Privacy', contact: 'Contact', copyright: '© Liftly - Simple Fitness Log', creator: 'Created by Miyabayasi Koya' },
     lang: { ja: '日本語', en: 'English' },
     urls: {
       appStore: 'https://apps.apple.com/app/liftly-simple-workout-log/id6757798075',
@@ -255,7 +255,12 @@ function LiftlyContent() {
             <a href="#privacy">{t.footer.privacy}</a>
             <a href="#contact">{t.footer.contact}</a>
           </div>
-          <span className="footer-copy">{t.footer.copyright}</span>
+          <div className="footer-meta">
+            <span className="footer-copy">{t.footer.copyright}</span>
+            <a className="footer-creator" href="/">
+              {t.footer.creator}
+            </a>
+          </div>
         </div>
       </footer>
     </>

@@ -357,7 +357,7 @@ export default function ForgePage() {
           <span>FORGE.LP / DOC v1.0 / COMPILED 2026.05.04</span>
           <nav aria-label="Forge footer">
             <a href="/forge/privacy/">// PRIVACY</a>
-            <a href="/">// MUSCLE360</a>
+            <a href="/">// PORTFOLIO TOP</a>
           </nav>
         </footer>
       </div>

@@ -285,7 +285,7 @@ export default function ForgePrivacyPage() {
           <span>FORGE.PRIVACY / DOC v1.0 / COMPILED {EFFECTIVE_DATE.replace(/-/g, '.')}</span>
           <nav aria-label="Forge footer">
             <a href="/forge/">// FORGE.LP</a>
-            <a href="/">// MUSCLE360</a>
+            <a href="/">// PORTFOLIO TOP</a>
           </nav>
         </footer>
       </div>
