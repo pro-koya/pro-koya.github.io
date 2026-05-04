@@ -1,6 +1,6 @@
 # Contact Form Setup
 
-このポートフォリオの問い合わせフォームは、フロント側を `docs/`、送信処理を `Google Apps Script + Google Spreadsheet + Gmail` で構成しています。
+このポートフォリオの問い合わせフォームは、フロント側を Next.js の `src/components/Category/CategoryContactSection.tsx`、送信処理を `Google Apps Script + Google Spreadsheet + Gmail` で構成しています。
 
 ## 構成
 
@@ -60,10 +60,10 @@ https://script.google.com/macros/s/AKfycbwNH3P0TNGcGSGEnp0wzkJws5ezGai6dOapJXPGm
 
 ## 5. サイト側に Webアプリ URL を入れる
 
-[site-config.js](/Users/koya1104/Desktop/app-pages/docs/assets/site-config.js) の `contactEndpoint` に、上で取得した URL を入れます。
+[CategoryContactSection.tsx](/Users/koya1104/Desktop/app-pages/src/components/Category/CategoryContactSection.tsx) の `GAS_ENDPOINT` に、上で取得した URL を入れます。
 
-```js
-contactEndpoint: "https://script.google.com/macros/s/XXXXXXXXXXXX/exec"
+```ts
+const GAS_ENDPOINT = 'https://script.google.com/macros/s/XXXXXXXXXXXX/exec';
 ```
 
 ## 6. 動作確認
@@ -75,9 +75,8 @@ contactEndpoint: "https://script.google.com/macros/s/XXXXXXXXXXXX/exec"
 
 ## 補足
 
-- フォームには honeypot と簡易的な送信速度チェックを入れています
+- フォームには honeypot と入力バリデーションを入れています
 - 送信履歴は Spreadsheet に残るので、問い合わせ管理がしやすいです
 - `autoReplyEnabled: false` にすると自動返信を止められます
 - 初回デプロイ後にコードを変更した場合は、`新しいデプロイ` ではなく既存の `デプロイを管理` からバージョン更新して最新コードを反映してください
-- 今回の実装は `iframe` 経由で送信完了を受け取るため、`Code.gs` を更新したら必ず再デプロイしてください
-
+- `Code.gs` を更新したら必ず再デプロイしてください
