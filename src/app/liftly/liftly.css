@@ -450,9 +450,25 @@ section {
   color: var(--color-text);
 }
 
+.footer-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
 .footer-copy {
   color: var(--color-text-muted);
   font-size: 0.875rem;
+}
+
+.footer-creator {
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+.footer-creator:hover {
+  color: var(--color-text);
 }
 
 /* Nav */
@@ -710,6 +726,7 @@ body {
   .btn-primary { width: 100%; justify-content: center; min-height: 48px; margin-top: 0.25rem; }
   .footer-inner { flex-direction: column; align-items: center; text-align: center; gap: 16px; }
   .footer-links { flex-wrap: wrap; justify-content: center; gap: 16px; }
+  .footer-meta { align-items: center; }
 }
 
 /* モバイル: 極小（縦長・狭幅） */
@@ -729,7 +746,8 @@ body {
   .howto-step h3 { font-size: 1.125rem; }
   .footer-links { gap: 12px; }
   .footer-links a { font-size: 0.875rem; }
-  .footer-copy { font-size: 0.8125rem; }
+  .footer-copy,
+  .footer-creator { font-size: 0.8125rem; }
   .contact-cta { padding: 32px 16px; }
 }
 

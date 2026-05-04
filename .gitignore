@@ -1,12 +1,17 @@
 # macOS
 .DS_Store
-
-# 大容量動画（GitHub は 100MB 制限のためリポジトリに含めない）
-docs/source/*.mov
-docs/source/*.mp4
+**/.DS_Store
 
 # Next.js
 .next/
 node_modules/
 out/
+docs/
+tsconfig.tsbuildinfo
+*.tsbuildinfo
 npm-debug.log*
+
+# Local verification artifacts
+.playwright-cli/
+output/
+test-results/

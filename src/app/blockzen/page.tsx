@@ -72,7 +72,7 @@ const TRANSLATIONS = {
       desc: 'ご質問・ご要望・不具合の報告は以下のフォームよりお送りください。',
       btn: 'お問い合わせフォームを開く',
     },
-    footer: { features: '特長', howto: '遊び方', privacy: 'プライバシー', contact: 'お問い合わせ', copyright: '© Calm Blokku' },
+    footer: { features: '特長', howto: '遊び方', privacy: 'プライバシー', contact: 'お問い合わせ', copyright: '© Calm Blokku', creator: '制作: Miyabayasi Koya' },
     lang: { ja: '日本語', en: 'English' },
     urls: {
       appStore: 'https://apps.apple.com/us/app/calm-blokku/id6761009357',
@@ -146,7 +146,7 @@ const TRANSLATIONS = {
       desc: 'For questions, feedback, or bug reports, please use the form below.',
       btn: 'Open contact form',
     },
-    footer: { features: 'Features', howto: 'How to Play', privacy: 'Privacy', contact: 'Contact', copyright: '© Calm Blokku' },
+    footer: { features: 'Features', howto: 'How to Play', privacy: 'Privacy', contact: 'Contact', copyright: '© Calm Blokku', creator: 'Created by Miyabayasi Koya' },
     lang: { ja: '日本語', en: 'English' },
     urls: {
       appStore: 'https://apps.apple.com/us/app/calm-blokku/id6761009357',
@@ -325,7 +325,12 @@ function BlockzenContent() {
             <a href="#privacy">{t.footer.privacy}</a>
             <a href="#contact">{t.footer.contact}</a>
           </div>
-          <span className="footer-copy">{t.footer.copyright}</span>
+          <div className="footer-meta">
+            <span className="footer-copy">{t.footer.copyright}</span>
+            <a className="footer-creator" href="/">
+              {t.footer.creator}
+            </a>
+          </div>
         </div>
       </footer>
     </>

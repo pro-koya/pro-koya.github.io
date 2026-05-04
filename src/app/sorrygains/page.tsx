@@ -262,6 +262,7 @@ export default function SorryGainsPage() {
         <span>© 2026 筋肉ごめん</span>
         <div>
           <Link href="/sorrygains/privacy/">Privacy Policy</Link>
+          <Link href="/">制作: Miyabayasi Koya</Link>
           <a href={CONTACT_FORM_URL} target="_blank" rel="noreferrer">
             Contact
           </a>
