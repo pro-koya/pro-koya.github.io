@@ -349,7 +349,7 @@ export default function ForgePage() {
           <div className="install-actions">
             <AppStoreBadge compact />
             <span>無料 / 広告任意 / オフライン完動</span>
-            <a href="/forge/privacy/">PRIVACY DRAFT</a>
+            <a href="/forge/privacy/">PRIVACY POLICY</a>
           </div>
         </section>
 
