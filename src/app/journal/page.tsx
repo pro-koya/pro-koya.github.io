@@ -24,7 +24,7 @@ export default function JournalPage() {
           <div className="eyebrow">Journal — Feed</div>
           <h1 className="display page-title" style={{ marginTop: 18 }}>JOURNAL</h1>
           <h2 className="display journal-page-subtitle">
-            動いたこと、育てたこと、考えたこと。
+            動いた日、育てた野菜、考えた言葉。
           </h2>
           <p className="journal-page-desc">
             運動、農業、暮らし、制作の記録。<br />

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { TransitionLink as Link } from '@/components/TransitionLink';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import RevealObserver from '@/components/RevealObserver';
@@ -15,7 +16,7 @@ const ACTIVITIES = [
     n: '01',
     en: 'MOVE',
     jp: '運動',
-    body: '運動は、自分を整えるための習慣です。筋トレ、ランニングを軸に、これからクロスフィットやHYROXにも挑戦したいと思っています。',
+    body: '運動は、自分を整えるための習慣です。筋トレ、ランニングを軸に、これからクロスフィットにも挑戦したいと思っています。',
   },
   {
     n: '02',
@@ -34,11 +35,11 @@ const ACTIVITIES = [
 const INTERESTS = ['Fitness', 'Farming', 'Food', 'Lifestyle', 'Web Service', 'App', 'System'] as const;
 
 const CONCEPT_ITEMS = [
-  '走ること。',
-  '鍛えること。',
-  '土に触れること。',
-  '食べるものを育てること。',
-  '自分で試して、自分の言葉で残すこと。',
+  '走る。',
+  '鍛える。',
+  '土に触れる。',
+  '自分で育てて、自分で食べる。',
+  '試して、自分の言葉で残す。',
 ] as const;
 
 export default function AboutPage() {
@@ -100,7 +101,7 @@ export default function AboutPage() {
         {/* Activities */}
         <section className="sec-inner">
           <div className="eyebrow reveal" style={{ marginBottom: 18 }}>03 — Activities</div>
-          <h2 className="display reveal about-activities-title">日々やっていること</h2>
+          <h2 className="display reveal about-activities-title">日々の実践</h2>
           <div>
             {ACTIVITIES.map((row) => (
               <div key={row.n} className="reveal activity-row">
@@ -133,6 +134,15 @@ export default function AboutPage() {
                 <p className="making-text" style={{ color: 'rgba(244,241,234,0.78)' }}>
                   作ることは目的ではなく、実感を誰かの行動や暮らしにつなげるための手段です。
                 </p>
+                <div className="reveal delay-2" style={{ marginTop: 32 }}>
+                  <Link
+                    href="/build"
+                    className="btn"
+                    style={{ color: 'var(--paper)', borderColor: 'var(--paper)' }}
+                  >
+                    仕事として請ける場合は BUILD <span className="arrow" />
+                  </Link>
+                </div>
               </div>
             </div>
             <div className="making-anim-col reveal delay-2">

@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, type FormEvent } from 'react';
+import { Suspense, useEffect, useState, type FormEvent } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import RevealObserver from '@/components/RevealObserver';
@@ -13,6 +14,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MESSAGE_MAX = 5000;
 
 const TOPICS = [
+  '業務改善・自動化・AI活用の相談',
   '制作・開発の相談',
   'Webサービス・アプリの相談',
   '業務システムの相談',
@@ -20,9 +22,18 @@ const TOPICS = [
   'その他',
 ] as const;
 
+const TOPIC_BY_KEY: Record<string, (typeof TOPICS)[number]> = {
+  build: '業務改善・自動化・AI活用の相談',
+  make: '制作・開発の相談',
+  web: 'Webサービス・アプリの相談',
+  system: '業務システムの相談',
+  collab: '協業・取材',
+};
+
 type Status = 'idle' | 'pending' | 'success' | 'error';
 
-export default function ContactPage() {
+function ContactPageInner() {
+  const searchParams = useSearchParams();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [topic, setTopic] = useState('');
@@ -31,6 +42,13 @@ export default function ContactPage() {
   const [status, setStatus] = useState<Status>('idle');
   const [statusMsg, setStatusMsg] = useState('');
   const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    const key = searchParams.get('topic');
+    if (key && TOPIC_BY_KEY[key]) {
+      setTopic(TOPIC_BY_KEY[key]);
+    }
+  }, [searchParams]);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -66,7 +84,7 @@ export default function ContactPage() {
     formData.set('inquiryType', topic);
     formData.set('message', trimmedMessage);
     formData.set('website', website);
-    formData.set('pageContext', 'contact');
+    formData.set('pageContext', topic === '業務改善・自動化・AI活用の相談' ? 'build' : 'contact');
     formData.set('pageUrl', window.location.href);
     formData.set(
       'requestId',
@@ -115,8 +133,8 @@ export default function ContactPage() {
             関心が重なる<br />相談があれば。
           </h2>
           <p className="contact-page-desc">
-            制作、開発、協業、取材などの相談があればご連絡ください。<br />
-            Webサービス、アプリ、業務システム、農業・食・運動に関わる企画など、関心が重なるものは特にうれしいです。
+            制作、開発、協業、取材など、お気軽にご連絡ください。<br />
+            Webサービス、アプリ、業務システム、業務改善・AI活用、農業・食・運動に関わる企画など、関心が重なるテーマだと特にうれしいです。
           </p>
         </section>
 
@@ -150,7 +168,7 @@ export default function ContactPage() {
 
             <label className="form-field reveal">
               <div className="form-label">04 / メッセージ</div>
-              <textarea className="form-textarea" placeholder="ご相談内容をどうぞ" rows={6}
+              <textarea className="form-textarea" placeholder="ご相談内容をどうぞ。紹介経由の場合は、その旨も添えてください。" rows={6}
                 value={message} onChange={(e) => setMessage(e.target.value)} required maxLength={MESSAGE_MAX} />
             </label>
 
@@ -195,5 +213,13 @@ export default function ContactPage() {
       <Footer />
       <RevealObserver />
     </>
+  );
+}
+
+export default function ContactPage() {
+  return (
+    <Suspense fallback={null}>
+      <ContactPageInner />
+    </Suspense>
   );
 }

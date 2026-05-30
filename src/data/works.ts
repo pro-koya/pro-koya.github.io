@@ -1,3 +1,5 @@
+export type WorkKind = 'personal' | 'client' | 'hybrid';
+
 export interface Work {
   readonly slug: string;
   readonly title: string;
@@ -9,6 +11,7 @@ export interface Work {
   readonly no: string;
   readonly detailPath: string;
   readonly category: 'web' | 'ios';
+  readonly kind: WorkKind;
   readonly variant: '' | 'dark' | 'green';
   readonly categoryLabel: string;
   readonly focusLabel: string;
@@ -34,6 +37,7 @@ const ALL_WORKS: readonly Work[] = [
     no: '01',
     detailPath: '/case-studies/toretabe-app/',
     category: 'ios',
+    kind: 'personal',
     variant: '',
     categoryLabel: 'iOS App',
     focusLabel: '収穫後UX / 家庭菜園 / AI提案',
@@ -53,6 +57,7 @@ const ALL_WORKS: readonly Work[] = [
     no: '02',
     detailPath: '/case-studies/liftly-app/',
     category: 'ios',
+    kind: 'personal',
     variant: 'dark',
     categoryLabel: 'iOS App',
     focusLabel: '継続体験 / 記録UI / モバイル設計',
@@ -72,6 +77,7 @@ const ALL_WORKS: readonly Work[] = [
     no: '03',
     detailPath: '/case-studies/settsu-marche/',
     category: 'web',
+    kind: 'client',
     variant: 'green',
     categoryLabel: 'Web App',
     focusLabel: '食材EC / B2B / 業務導線',
@@ -91,6 +97,7 @@ const ALL_WORKS: readonly Work[] = [
     no: '04',
     detailPath: '/case-studies/sorrygains-app/',
     category: 'ios',
+    kind: 'personal',
     variant: 'dark',
     categoryLabel: 'iOS App',
     focusLabel: '飲酒記録 / キャラクター演出 / リカバリーUX',
@@ -110,6 +117,7 @@ const ALL_WORKS: readonly Work[] = [
     no: '05',
     detailPath: '/case-studies/forge-app/',
     category: 'ios',
+    kind: 'personal',
     variant: 'dark',
     categoryLabel: 'iOS App',
     focusLabel: 'WOD記録 / Hyrox / タイマーUX',
@@ -129,6 +137,7 @@ const ALL_WORKS: readonly Work[] = [
     no: '06',
     detailPath: '/case-studies/kusahachi-corporate-site/',
     category: 'web',
+    kind: 'client',
     variant: '',
     categoryLabel: 'Web Site',
     focusLabel: '企業サイト / CMS / 情報整理',
@@ -149,4 +158,8 @@ export function getFeaturedWorks(): readonly Work[] {
 
 export function getWorksByCategory(category: Work['category']): readonly Work[] {
   return WORKS.filter((w) => w.category === category);
+}
+
+export function getWorksByKind(kind: WorkKind): readonly Work[] {
+  return WORKS.filter((w) => w.kind === kind);
 }

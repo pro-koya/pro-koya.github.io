@@ -24,8 +24,8 @@ function HeroSection() {
       <div className="hero-bottom" style={{ marginTop: 60 }}>
         <div className="reveal delay-1 hero-desc">
           <strong style={{ fontWeight: 700 }}>よく動き、よく食べ、よくつくる。</strong><br />
-          身体を動かし、土に触れ、日々の実感を発信。<br />
-          たまに、Webサービスやアプリへ変換。
+          身体を動かし、土に触れ、日々の実感を発信する。<br />
+          ときどき、Webサービスやアプリに変換する。
         </div>
         <div className="reveal delay-2" style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
           <Link href="/journal" className="btn btn-fill">
@@ -69,13 +69,13 @@ function ConceptSection() {
       <div className="reveal delay-1 concept-body">
         <p style={{ marginBottom: '1.4em' }}>AIが文章を書き、コードを書き、仕事の進め方まで変えていく時代。</p>
         <p style={{ marginBottom: '1.4em' }}>
-          だからこそ、走ること、鍛えること、土に触れること、食べるものを育てることを大事にしたい。
+          だからこそ、走る。鍛える。土に触れる。自分で育てて、自分で食べる。
         </p>
         <p className="concept-quote">
-          便利なものは使う。<br />でも、生きる感覚までは手放さない。
+          便利な道具は使う。<br />でも、生きる感覚までは手放さない。
         </p>
         <p>
-          運動、農業、発信、ものづくり。<br />その実践を、このサイトに残していきます。
+          運動、農業、発信、開発。<br />その実践を、このサイトに残していきます。
         </p>
       </div>
     </section>
@@ -142,7 +142,7 @@ function WorksSection() {
       <div className="reveal sec-header" style={{ marginBottom: 60 }}>
         <div>
           <div className="eyebrow" style={{ marginBottom: 14 }}>04 — Works</div>
-          <h2 className="display" style={{ fontSize: 'clamp(36px, 7.5vw, 96px)' }}>つくったもの</h2>
+          <h2 className="display" style={{ fontSize: 'clamp(36px, 7.5vw, 96px)' }}>つくってきたもの</h2>
         </div>
         <Link href="/works" className="btn">
           すべてのWorks <span className="arrow" />
@@ -187,8 +187,8 @@ function ContactPreview() {
             関心が、<br />重なるなら。
           </h2>
           <p className="contact-preview-text">
-            制作、開発、協業、取材などの相談があればご連絡ください。<br />
-            関心が重なるものは特にうれしいです。
+            制作、開発、協業、取材など、お気軽にご連絡ください。<br />
+            関心が重なるテーマだと、特にうれしいです。
           </p>
         </div>
         <div className="contact-cta-col">

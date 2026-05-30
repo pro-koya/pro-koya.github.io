@@ -26,7 +26,7 @@ export default function WorksPage() {
           </div>
           <h1 className="display page-title" style={{ marginTop: 24 }}>WORKS</h1>
           <div className="grid-4-8" style={{ marginTop: 32 }}>
-            <h2 className="display works-page-subtitle">つくったもの</h2>
+            <h2 className="display works-page-subtitle">つくってきたもの</h2>
             <p className="works-page-desc">
               食、運動、地域、仕事。<br />
               身近な関心や課題から、Webサービス、アプリ、システムを作っています。
