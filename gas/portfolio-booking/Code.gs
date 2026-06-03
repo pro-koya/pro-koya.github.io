@@ -35,13 +35,13 @@ const BOOKING_CONFIG = {
   // 会話方式
   methods: {
     meet: { label: "Google Meet" }, // 予約確定時に Meet リンクを自動生成
-    zoom: {
-      label: "Zoom",
-      // 予約ごとに Zoom ミーティングを自動発行する（認証情報は Script Properties に設定）。
-      // ↓ は Zoom API 認証情報が未設定のときだけ使う「フォールバック用」固定URL。
-      // API を設定すれば毎回ユニークなミーティング（待機室ON・パスコード付き）が作られる。
-      url: "https://zoom.us/j/REPLACE_WITH_YOUR_ZOOM_ROOM",
-    },
+    // Zoom は無効化中（無料Basicは40分上限のため Meet+対面のみ運用）。
+    // 再開する場合: 下の zoom を methods に戻し、フロントの METHODS にも 'zoom' を追加する。
+    // Zoom API 連携コード（createZoomMeeting_ 等）と Script Properties はそのまま残してある。
+    // zoom: {
+    //   label: "Zoom",
+    //   url: "https://zoom.us/j/REPLACE_WITH_YOUR_ZOOM_ROOM", // API未設定時のフォールバック
+    // },
     inperson: {
       label: "対面",
       location: "大阪近辺（確定後に詳細をご連絡します）",

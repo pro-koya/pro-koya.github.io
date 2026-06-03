@@ -67,6 +67,10 @@ const GAS_BOOKING_ENDPOINT = 'https://script.google.com/macros/s/XXXXXXXX/exec';
 
 ## 5. Zoom を予約ごとに自動発行する（Zoom API 連携）
 
+> **現在 Zoom は無効化中**（無料 Basic プランは1ミーティング40分の上限があり、60分相談に不向きなため **Meet＋対面のみ**で運用）。
+> 連携コード・Script Properties はそのまま残してあるので、Zoom Pro 等にする場合は `Code.gs` の `methods.zoom` のコメントアウトを戻し、フロント `page.tsx` の `METHODS` に `zoom` を追加すれば再開できます。
+> 以下は再開時の参考手順です。
+
 Zoom は固定リンクではなく、**予約ごとにユニークなミーティングを自動発行**します
 （待機室ON・ホスト不在時の参加不可・パスコード付き）。Server-to-Server OAuth アプリを使います。
 

@@ -18,7 +18,6 @@ const SLOT_MINUTES = 60;
 
 const METHODS = [
   { key: 'meet', label: 'Google Meet', note: 'ご予約の確定後に、Meetのリンクをカレンダーとメールでお送りします。' },
-  { key: 'zoom', label: 'Zoom', note: 'Zoomの参加リンクをメールでお送りします。' },
   { key: 'inperson', label: '対面', note: '大阪近辺を想定しています。場所はメールで調整させてください。' },
 ] as const;
 
@@ -242,9 +241,9 @@ function BookingInner() {
         dateLabel: `${day.date.replace(/-/g, '/')}（${day.weekday}）${slot.label}`,
         methodLabel: selectedMethod?.label ?? '',
         joinInfo:
-          method === 'meet' ? 'Meetリンクは予約確定時に自動発行されます（プレビュー）'
-          : method === 'zoom' ? 'Zoomリンクをメールでお送りします（プレビュー）'
-          : '大阪近辺（確定後に詳細をご連絡します）',
+          method === 'meet'
+            ? 'Meetリンクは予約確定時に自動発行されます（プレビュー）'
+            : '大阪近辺（確定後に詳細をご連絡します）',
       });
       setStatus('success');
       setStatusMsg('');
