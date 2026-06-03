@@ -10,7 +10,8 @@ const NAV_ITEMS = [
   { label: 'Works', href: '/works', n: '02' },
   { label: 'Journal', href: '/journal', n: '03' },
   { label: 'Build', href: '/build', n: '04' },
-  { label: 'Contact', href: '/contact', n: '05' },
+  { label: 'Booking', href: '/booking', n: '05' },
+  { label: 'Contact', href: '/contact', n: '06' },
 ] as const;
 
 export default function Nav() {

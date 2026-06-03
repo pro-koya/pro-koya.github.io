@@ -137,7 +137,8 @@ function ContactPageInner() {
             Webサービス、アプリ、業務システム、業務改善・AI活用、農業・食・運動に関わる企画など、関心が重なるテーマだと特にうれしいです。
           </p>
           <p className="contact-page-desc" style={{ marginTop: 16 }}>
-            オンライン（Meet・Zoom）や対面でお話しすることもできます。<a href="/booking/" style={{ textDecoration: 'underline' }}>日程を予約する</a> から、ご都合のよい日時をお選びいただけます。
+            <strong style={{ fontWeight: 600 }}>このフォームは、文章でのご連絡・ご相談用です。</strong><br />
+            日時を決めて直接お話ししたい場合は、こちらではなく <a href="/booking/" style={{ textDecoration: 'underline' }}>日程を予約する</a> から、Google Meet・対面の空き枠をその場でお選びいただけます。
           </p>
         </section>
 

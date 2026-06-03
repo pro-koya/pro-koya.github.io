@@ -426,7 +426,7 @@ export default function BuildPage() {
                     borderColor: 'var(--paper)',
                   }}
                 >
-                  相談する <span className="arrow" />
+                  メッセージで相談 <span className="arrow" />
                 </Link>
               </div>
               <div

@@ -2222,3 +2222,25 @@ select {
     animation: none;
   }
 }
+
+/* ── Nav: 6項目（Booking 追加）対応のレスポンシブ ──
+   中間幅では meta を隠し、6項目が収まらない幅ではバーガーに切り替える */
+@media (max-width: 1180px) {
+  .nav-meta { display: none; }
+}
+
+@media (max-width: 1024px) {
+  .nav-links { display: none; }
+  .nav-burger {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 6px;
+  }
+  .nav-burger span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--ink);
+  }
+}

@@ -356,8 +356,11 @@ function BookingInner() {
             ご都合に合わせて、<br />お話しできれば。
           </h2>
           <p className="contact-page-desc">
-            ご希望の方法と日時をお選びいただき、必要な情報をご入力のうえ、ご予約ください。ご相談されたいことやご質問があれば、あわせてお書き添えいただけるとうれしいです。<br />
+            ここでは、Google Meet・対面で<strong style={{ fontWeight: 600 }}>直接お話しする日時</strong>をご予約いただけます。ご希望の方法と日時をお選びいただき、必要な情報をご入力のうえ、ご予約ください。ご相談されたいことやご質問があれば、あわせてお書き添えいただけるとうれしいです。<br />
             ご予約の確定後に、Googleカレンダーのご招待と参加情報をメールでお送りします。
+          </p>
+          <p className="contact-page-desc" style={{ marginTop: 16 }}>
+            まずは文章で伝えたい・軽く聞いてみたい場合は、<a href="/contact/" style={{ textDecoration: 'underline' }}>お問い合わせ</a> からでも受け付けています。
           </p>
         </section>
 

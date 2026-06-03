@@ -188,7 +188,8 @@ function ContactPreview() {
           </h2>
           <p className="contact-preview-text">
             制作、開発、協業、取材など、お気軽にご連絡ください。<br />
-            関心が重なるテーマだと、特にうれしいです。
+            関心が重なるテーマだと、特にうれしいです。<br />
+            <span style={{ color: 'var(--ink-3)' }}>直接話すなら「日程を予約」、文章で伝えるなら「メッセージで相談」、どちらでもどうぞ。</span>
           </p>
         </div>
         <div className="contact-cta-col">
@@ -197,7 +198,7 @@ function ContactPreview() {
               日程を予約する <span className="arrow" />
             </Link>
             <Link href="/contact" className="btn" style={{ padding: '20px 32px', fontSize: 13 }}>
-              相談する <span className="arrow" />
+              メッセージで相談 <span className="arrow" />
             </Link>
           </div>
           <div style={{ fontFamily: 'var(--f-mono)', fontSize: 11, letterSpacing: '0.24em', color: 'var(--ink-3)', textTransform: 'uppercase', display: 'flex', gap: 18 }}>
