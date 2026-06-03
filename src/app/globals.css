@@ -1063,6 +1063,30 @@ select {
 
 .booking-slot.selected .booking-slot-end { color: rgba(244, 241, 234, 0.6); }
 
+/* 予約不可（埋まり/受付時間外）の枠＝グレーアウト */
+.booking-slot:disabled {
+  cursor: not-allowed;
+  border-color: var(--line);
+  border-style: dashed;
+  background: var(--paper-2);
+  color: var(--ink-4);
+}
+
+.booking-slot:disabled:hover {
+  transform: none;
+  border-color: var(--line);
+}
+
+.booking-slot:disabled .booking-slot-time {
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+
+.booking-slot:disabled .booking-slot-end {
+  color: var(--ink-4);
+  letter-spacing: 0.16em;
+}
+
 /* Selection summary — ticket strip */
 .booking-ticket {
   display: flex;

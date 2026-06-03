@@ -24,7 +24,7 @@ const METHODS = [
 
 type MethodKey = (typeof METHODS)[number]['key'];
 
-type Slot = { start: number; label: string };
+type Slot = { start: number; label: string; available?: boolean };
 type Day = { date: string; label: string; weekday: string; slots: Slot[] };
 
 type LoadState = 'loading' | 'ready' | 'empty' | 'error';
@@ -59,14 +59,13 @@ function buildSampleDays(): Day[] {
   for (let d = today; d.getTime() < horizonEnd.getTime(); d = addDays(d, 1)) {
     const slots: Slot[] = [];
     for (let h = 7; h <= 19; h++) {
-      // それらしく所々埋める
-      if ((d.getDate() + h) % 3 === 0) continue;
       const start = new Date(d.getFullYear(), d.getMonth(), d.getDate(), h).getTime();
-      if (start < earliest) continue;
       const pad = (n: number) => (n < 10 ? `0${n}` : `${n}`);
-      slots.push({ start, label: `${pad(h)}:00` });
+      // それらしく所々埋める（リードタイム前 or サンプルの埋まり枠は available:false）
+      const available = start >= earliest && (d.getDate() + h) % 3 !== 0;
+      slots.push({ start, label: `${pad(h)}:00`, available });
     }
-    if (slots.length === 0) continue;
+    if (!slots.some((s) => s.available)) continue;
     days.push({
       date: `${d.getFullYear()}-${`${d.getMonth() + 1}`.padStart(2, '0')}-${`${d.getDate()}`.padStart(2, '0')}`,
       label: `${d.getMonth() + 1}/${d.getDate()}`,
@@ -434,20 +433,25 @@ function BookingInner() {
                   {activeDay && (
                     <div className="booking-slot-head">
                       {IS_PREVIEW && <span className="preview-tag">Preview · サンプル</span>}
-                      <span><strong>{activeDay.label}（{activeDay.weekday}）</strong> 空き {activeDay.slots.length}枠</span>
+                      <span><strong>{activeDay.label}（{activeDay.weekday}）</strong> 空き {activeDay.slots.filter((s) => s.available !== false).length}枠</span>
                       <span>1枠 {SLOT_MINUTES}分</span>
                     </div>
                   )}
 
                   <div className="booking-slot-grid">
-                    {activeDay?.slots.map((s) => (
-                      <button key={s.start} type="button"
-                        className={`booking-slot ${slotStart === s.start ? 'selected' : ''}`}
-                        onClick={() => setSlotStart(s.start)}>
-                        <span className="booking-slot-time">{s.label}</span>
-                        <span className="booking-slot-end">〜{endLabel(s.label)}</span>
-                      </button>
-                    ))}
+                    {activeDay?.slots.map((s) => {
+                      const unavailable = s.available === false;
+                      return (
+                        <button key={s.start} type="button"
+                          disabled={unavailable}
+                          className={`booking-slot ${slotStart === s.start ? 'selected' : ''}`}
+                          title={unavailable ? '満席' : undefined}
+                          onClick={() => !unavailable && setSlotStart(s.start)}>
+                          <span className="booking-slot-time">{s.label}</span>
+                          <span className="booking-slot-end">{unavailable ? '満' : `〜${endLabel(s.label)}`}</span>
+                        </button>
+                      );
+                    })}
                   </div>
                 </>
               )}

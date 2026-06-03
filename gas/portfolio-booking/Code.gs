@@ -127,7 +127,9 @@ function buildAvailableDays_() {
   ) {
     if (BOOKING_CONFIG.weekdays.indexOf(day.getDay()) === -1) continue;
 
+    // 営業時間内の全枠を返し、各枠に available フラグを付ける（埋まり枠はフロントでグレー表示）
     const slots = [];
+    let availableCount = 0;
     const open = BOOKING_CONFIG.openHour * 60;
     const close = BOOKING_CONFIG.closeHour * 60;
     for (let minutes = open; minutes + BOOKING_CONFIG.slotMinutes <= close; minutes += BOOKING_CONFIG.slotStepMinutes) {
@@ -135,12 +137,13 @@ function buildAvailableDays_() {
       const mm = minutes % 60;
       const start = new Date(day.getFullYear(), day.getMonth(), day.getDate(), hh, mm, 0).getTime();
       const end = start + BOOKING_CONFIG.slotMinutes * MINUTE_MS;
-      if (start < earliest) continue;
-      if (overlapsBusy_(start, end, busy)) continue;
-      slots.push({ start: start, label: pad2_(hh) + ":" + pad2_(mm) });
+      const available = start >= earliest && !overlapsBusy_(start, end, busy);
+      if (available) availableCount++;
+      slots.push({ start: start, label: pad2_(hh) + ":" + pad2_(mm), available: available });
     }
 
-    if (slots.length === 0) continue;
+    // 空きが1枠も無い日は出さない（週カレンダー側で「予約不可日」として淡色表示）
+    if (availableCount === 0) continue;
     days.push({
       date: Utilities.formatDate(day, tz, "yyyy-MM-dd"),
       label: Utilities.formatDate(day, tz, "M/d"),
