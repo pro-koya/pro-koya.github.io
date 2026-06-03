@@ -402,19 +402,33 @@ export default function BuildPage() {
               </p>
             </div>
             <div className="contact-cta-col">
-              <Link
-                href="/contact?topic=build"
-                className="btn btn-fill"
-                style={{
-                  padding: '20px 32px',
-                  fontSize: 13,
-                  background: 'var(--paper)',
-                  color: 'var(--ink)',
-                  borderColor: 'var(--paper)',
-                }}
-              >
-                相談する <span className="arrow" />
-              </Link>
+              <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+                <Link
+                  href="/booking"
+                  className="btn btn-fill"
+                  style={{
+                    padding: '20px 32px',
+                    fontSize: 13,
+                    background: 'var(--paper)',
+                    color: 'var(--ink)',
+                    borderColor: 'var(--paper)',
+                  }}
+                >
+                  日程を予約する <span className="arrow" />
+                </Link>
+                <Link
+                  href="/contact?topic=build"
+                  className="btn"
+                  style={{
+                    padding: '20px 32px',
+                    fontSize: 13,
+                    color: 'var(--paper)',
+                    borderColor: 'var(--paper)',
+                  }}
+                >
+                  相談する <span className="arrow" />
+                </Link>
+              </div>
               <div
                 style={{
                   fontFamily: 'var(--f-mono)',

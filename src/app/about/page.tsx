@@ -134,13 +134,20 @@ export default function AboutPage() {
                 <p className="making-text" style={{ color: 'rgba(244,241,234,0.78)' }}>
                   作ることは目的ではなく、実感を誰かの行動や暮らしにつなげるための手段です。
                 </p>
-                <div className="reveal delay-2" style={{ marginTop: 32 }}>
+                <div className="reveal delay-2" style={{ marginTop: 32, display: 'flex', gap: 12, flexWrap: 'wrap' }}>
                   <Link
                     href="/build"
                     className="btn"
                     style={{ color: 'var(--paper)', borderColor: 'var(--paper)' }}
                   >
-                    仕事として請ける場合は BUILD <span className="arrow" />
+                    お仕事のご依頼は BUILD <span className="arrow" />
+                  </Link>
+                  <Link
+                    href="/booking"
+                    className="btn"
+                    style={{ color: 'var(--paper)', borderColor: 'var(--paper)' }}
+                  >
+                    ご相談はこちら <span className="arrow" />
                   </Link>
                 </div>
               </div>

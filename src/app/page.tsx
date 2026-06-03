@@ -192,9 +192,14 @@ function ContactPreview() {
           </p>
         </div>
         <div className="contact-cta-col">
-          <Link href="/contact" className="btn btn-fill" style={{ padding: '20px 32px', fontSize: 13 }}>
-            相談する <span className="arrow" />
-          </Link>
+          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+            <Link href="/booking" className="btn btn-fill" style={{ padding: '20px 32px', fontSize: 13 }}>
+              日程を予約する <span className="arrow" />
+            </Link>
+            <Link href="/contact" className="btn" style={{ padding: '20px 32px', fontSize: 13 }}>
+              相談する <span className="arrow" />
+            </Link>
+          </div>
           <div style={{ fontFamily: 'var(--f-mono)', fontSize: 11, letterSpacing: '0.24em', color: 'var(--ink-3)', textTransform: 'uppercase', display: 'flex', gap: 18 }}>
             {SOCIAL_LINKS.map((link) => (
               <a key={link.shortLabel} href={link.href} target="_blank" rel="noopener noreferrer">
