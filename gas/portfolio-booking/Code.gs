@@ -191,7 +191,13 @@ function overlapsBusy_(start, end, busy) {
 
 function createBooking_(payload) {
   const lock = LockService.getScriptLock();
-  lock.waitLock(20000);
+  try {
+    lock.waitLock(20000);
+  } catch (lockError) {
+    // 20秒待ってもロックを取得できない＝同時アクセスが集中している。
+    // 枠を確保せず安全に弾き、わかりやすいメッセージで再試行を促す。
+    throw new Error("ただいまアクセスが混み合っています。少し時間をおいて、もう一度お試しください。");
+  }
   try {
     const start = Number(payload.start);
     const end = start + BOOKING_CONFIG.slotMinutes * MINUTE_MS;
@@ -212,12 +218,21 @@ function createBooking_(payload) {
       zoomMeeting = createZoomMeeting_(payload, start, end);
     }
 
+    // カレンダーへの登録が「予約確定（＝枠の確保）」の確定点。
+    // ここが成功した時点で、お客様への Google カレンダー招待も送信済み（sendUpdates:"all"）。
     const created = insertCalendarEvent_(payload, start, end, method, zoomMeeting);
     const joinInfo = joinInfoFor_(payload.method, method, created, zoomMeeting);
-
     const startedAt = new Date(start);
-    recordBooking_(payload, startedAt, joinInfo);
-    sendBookingEmails_(payload, method, startedAt, end, joinInfo, created);
+
+    // 以降のスプレッドシート記録・確認メールは補助処理。
+    // ここで失敗しても確定済みの予約は取り消さない（取り消すと枠だけ空いて二重予約の温床になる）。
+    // 失敗はログと管理者通知に残し、お客様には成功として返す。
+    safeStep_("予約のスプレッドシート記録", function () {
+      recordBooking_(payload, startedAt, joinInfo);
+    });
+    safeStep_("確認メール送信", function () {
+      sendBookingEmails_(payload, method, startedAt, end, joinInfo, created);
+    });
 
     return {
       start: start,
@@ -604,4 +619,39 @@ function pad2_(n) {
 
 function errorMessage_(error) {
   return error && error.message ? error.message : "処理に失敗しました。";
+}
+
+/**
+ * 予約確定後の補助処理（記録・メール）を安全に実行する。
+ * カレンダー登録で枠は既に確保済みのため、ここでの失敗は予約を無効化しない。
+ * 失敗はログに残し、管理者にも通知する（通知自体の失敗は飲み込んでログのみ）。
+ */
+function safeStep_(label, fn) {
+  try {
+    fn();
+  } catch (error) {
+    console.error("[booking] " + label + " に失敗しました: " + errorMessage_(error));
+    notifyAdminFailureQuietly_(label, error);
+  }
+}
+
+/** 後処理エラーを管理者にだけ通知する。MailApp 不調時は通知も諦めてログのみ残す。 */
+function notifyAdminFailureQuietly_(label, error) {
+  try {
+    MailApp.sendEmail({
+      to: BOOKING_CONFIG.notifyTo,
+      subject: "[Portfolio予約] 後処理エラー: " + label,
+      body: [
+        "予約自体は成立していますが、後続の「" + label + "」に失敗しました。",
+        "",
+        "エラー: " + errorMessage_(error),
+        "",
+        "Google カレンダー（および予約シート）をご確認のうえ、",
+        "必要なら手動でフォロー（確認メールの再送など）をお願いします。",
+      ].join("\n"),
+      name: BOOKING_CONFIG.serviceName,
+    });
+  } catch (notifyError) {
+    console.error("[booking] 管理者への後処理エラー通知も失敗: " + errorMessage_(notifyError));
+  }
 }
