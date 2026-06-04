@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense, useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
+import { Fragment, Suspense, useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import RevealObserver from '@/components/RevealObserver';
@@ -124,11 +124,55 @@ function buildWeeks(days: Day[]): Week[] {
   return weeks;
 }
 
+type MatrixColumn = {
+  date: string;
+  weekdayIdx: number;
+  dayNum: number;
+  month: number;
+  hasAvailability: boolean;
+  day?: Day;
+  slotsByLabel: Record<string, Slot>;
+  availableCount: number;
+};
+type WeekMatrix = { columns: MatrixColumn[]; rowLabels: string[] };
+
+/** その週を「時間(行) × 曜日(列)」のマトリクスに組み立てる。行ラベルは空き日の枠から導出。 */
+function buildWeekMatrix(week: Week | undefined, days: Day[]): WeekMatrix | null {
+  if (!week) return null;
+  const byDate = new Map(days.map((d) => [d.date, d]));
+
+  const columns: MatrixColumn[] = week.cells.map((c) => {
+    const day = byDate.get(c.date);
+    const slotsByLabel: Record<string, Slot> = {};
+    let availableCount = 0;
+    if (day) {
+      for (const s of day.slots) {
+        slotsByLabel[s.label] = s;
+        if (s.available !== false) availableCount++;
+      }
+    }
+    return {
+      date: c.date,
+      weekdayIdx: c.weekdayIdx,
+      dayNum: c.dayNum,
+      month: parseDate(c.date).getMonth() + 1,
+      hasAvailability: c.available,
+      day,
+      slotsByLabel,
+      availableCount,
+    };
+  });
+
+  // 行ラベル（時間帯）は、空き枠データを持つ最初の列から取得する（全日同じ営業時間帯）
+  const ref = columns.find((col) => col.day);
+  const rowLabels = ref && ref.day ? ref.day.slots.map((s) => s.label) : [];
+  return { columns, rowLabels };
+}
+
 function BookingInner() {
   const [method, setMethod] = useState<MethodKey | ''>('');
   const [days, setDays] = useState<Day[]>([]);
   const [loadState, setLoadState] = useState<LoadState>('loading');
-  const [activeDate, setActiveDate] = useState('');
   const [slotStart, setSlotStart] = useState<number | null>(null);
 
   const [name, setName] = useState('');
@@ -149,12 +193,7 @@ function BookingInner() {
     if (IS_PREVIEW) {
       const sample = buildSampleDays();
       setDays(sample);
-      if (sample.length > 0) {
-        setActiveDate(sample[0].date);
-        setLoadState('ready');
-      } else {
-        setLoadState('empty');
-      }
+      setLoadState(sample.length > 0 ? 'ready' : 'empty');
       return;
     }
 
@@ -169,12 +208,7 @@ function BookingInner() {
         }
         const list = data.slots as Day[];
         setDays(list);
-        if (list.length === 0) {
-          setLoadState('empty');
-          return;
-        }
-        setActiveDate(list[0].date);
-        setLoadState('ready');
+        setLoadState(list.length === 0 ? 'empty' : 'ready');
       } catch {
         if (!cancelled) setLoadState('error');
       }
@@ -183,11 +217,6 @@ function BookingInner() {
       cancelled = true;
     };
   }, []);
-
-  const activeDay = useMemo(
-    () => days.find((d) => d.date === activeDate),
-    [days, activeDate],
-  );
 
   const selectedSlot = useMemo(() => {
     for (const d of days) {
@@ -201,16 +230,12 @@ function BookingInner() {
   const [weekIdx, setWeekIdx] = useState(0);
   const safeWeekIdx = Math.min(weekIdx, Math.max(0, weeks.length - 1));
   const activeWeek = weeks[safeWeekIdx];
+  const weekMatrix = useMemo(() => buildWeekMatrix(activeWeek, days), [activeWeek, days]);
 
   const gotoWeek = (idx: number) => {
-    const w = weeks[idx];
-    if (!w) return;
+    if (!weeks[idx]) return;
     setWeekIdx(idx);
-    const firstAvail = w.cells.find((c) => c.available);
-    if (firstAvail) {
-      setActiveDate(firstAvail.date);
-      setSlotStart(null);
-    }
+    setSlotStart(null);
   };
 
   const selectedMethod = METHODS.find((m) => m.key === method);
@@ -302,7 +327,6 @@ function BookingInner() {
       if (data.status === 'success' && Array.isArray(data.slots)) {
         setDays(data.slots);
         setSlotStart(null);
-        if (data.slots[0]) setActiveDate(data.slots[0].date);
       }
     } catch {
       /* no-op: 既存表示を維持 */
@@ -399,7 +423,7 @@ function BookingInner() {
                 </p>
               )}
 
-              {loadState === 'ready' && activeWeek && (
+              {loadState === 'ready' && activeWeek && weekMatrix && (
                 <>
                   <div className="booking-week-nav">
                     <button type="button" className="booking-week-btn"
@@ -411,49 +435,74 @@ function BookingInner() {
                       onClick={() => gotoWeek(safeWeekIdx + 1)}>›</button>
                   </div>
 
-                  <div className="booking-weekday-head" aria-hidden="true">
-                    {WEEKDAYS_JP.map((w) => <span key={w}>{w}</span>)}
+                  <div className="booking-matrix-meta">
+                    {IS_PREVIEW && <span className="preview-tag">Preview · サンプル</span>}
+                    <span>この週の空き枠から選べます</span>
+                    <span>1枠 {SLOT_MINUTES}分</span>
                   </div>
 
-                  <div className="booking-week-grid">
-                    {activeWeek.cells.map((c) =>
-                      c.available ? (
-                        <button key={c.date} type="button"
-                          className={`booking-day-cell ${activeDate === c.date ? 'selected' : ''}`}
-                          onClick={() => { setActiveDate(c.date); setSlotStart(null); }}>
-                          <span className="booking-day-cell-num">{c.dayNum}</span>
-                          <span className="booking-day-cell-dot" aria-hidden="true" />
-                        </button>
-                      ) : (
-                        <div key={c.date} className="booking-day-cell is-empty" aria-hidden="true">
-                          <span className="booking-day-cell-num">{c.dayNum}</span>
+                  {/* デスクトップ: 時間(行) × 曜日(列) のマトリクスで週を一望 */}
+                  <div className="booking-matrix" role="grid" aria-label="週間の空き枠">
+                    <div className="bm-corner" aria-hidden="true" />
+                    {weekMatrix.columns.map((col) => (
+                      <div key={col.date} role="columnheader"
+                        className={`bm-colhead ${col.hasAvailability ? '' : 'is-dim'}`}>
+                        <span className="bm-col-wd">{WEEKDAYS_JP[col.weekdayIdx]}</span>
+                        <span className="bm-col-date">{col.month}/{col.dayNum}</span>
+                      </div>
+                    ))}
+
+                    {weekMatrix.rowLabels.map((label) => (
+                      <Fragment key={label}>
+                        <div className="bm-rowhead">{label}</div>
+                        {weekMatrix.columns.map((col) => {
+                          const slot = col.slotsByLabel[label];
+                          const available = !!slot && slot.available !== false;
+                          if (!available || !slot) {
+                            return <div key={col.date} className="bm-cell is-empty" aria-hidden="true" />;
+                          }
+                          const selected = slotStart === slot.start;
+                          return (
+                            <button key={col.date} type="button"
+                              className={`bm-cell ${selected ? 'selected' : ''}`}
+                              aria-label={`${WEEKDAYS_JP[col.weekdayIdx]} ${col.month}/${col.dayNum} ${label}〜${endLabel(label)} を選択`}
+                              aria-pressed={selected}
+                              onClick={() => setSlotStart(slot.start)}>
+                              <span className="bm-dot" aria-hidden="true" />
+                            </button>
+                          );
+                        })}
+                      </Fragment>
+                    ))}
+                  </div>
+
+                  {/* モバイル: 空き日ごとの縦アジェンダ（各日に時間チップを内包） */}
+                  <div className="booking-agenda">
+                    {weekMatrix.columns
+                      .filter((col) => col.day && col.availableCount > 0)
+                      .map((col) => (
+                        <div key={col.date} className="ba-day">
+                          <div className="ba-day-head">
+                            <strong>{WEEKDAYS_JP[col.weekdayIdx]} {col.month}/{col.dayNum}</strong>
+                            <span>空き {col.availableCount}枠</span>
+                          </div>
+                          <div className="ba-chips">
+                            {col.day!.slots.map((s) => {
+                              if (s.available === false) return null;
+                              const selected = slotStart === s.start;
+                              return (
+                                <button key={s.start} type="button"
+                                  className={`booking-slot ${selected ? 'selected' : ''}`}
+                                  aria-pressed={selected}
+                                  onClick={() => setSlotStart(s.start)}>
+                                  <span className="booking-slot-time">{s.label}</span>
+                                  <span className="booking-slot-end">〜{endLabel(s.label)}</span>
+                                </button>
+                              );
+                            })}
+                          </div>
                         </div>
-                      ),
-                    )}
-                  </div>
-
-                  {activeDay && (
-                    <div className="booking-slot-head">
-                      {IS_PREVIEW && <span className="preview-tag">Preview · サンプル</span>}
-                      <span><strong>{activeDay.label}（{activeDay.weekday}）</strong> 空き {activeDay.slots.filter((s) => s.available !== false).length}枠</span>
-                      <span>1枠 {SLOT_MINUTES}分</span>
-                    </div>
-                  )}
-
-                  <div className="booking-slot-grid">
-                    {activeDay?.slots.map((s) => {
-                      const unavailable = s.available === false;
-                      return (
-                        <button key={s.start} type="button"
-                          disabled={unavailable}
-                          className={`booking-slot ${slotStart === s.start ? 'selected' : ''}`}
-                          title={unavailable ? '満席' : undefined}
-                          onClick={() => !unavailable && setSlotStart(s.start)}>
-                          <span className="booking-slot-time">{s.label}</span>
-                          <span className="booking-slot-end">{unavailable ? '満' : `〜${endLabel(s.label)}`}</span>
-                        </button>
-                      );
-                    })}
+                      ))}
                   </div>
                 </>
               )}
