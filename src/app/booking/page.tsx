@@ -441,7 +441,7 @@ function BookingInner() {
                     <span>1枠 {SLOT_MINUTES}分</span>
                   </div>
 
-                  {/* デスクトップ: 時間(行) × 曜日(列) のマトリクスで週を一望 */}
+                  {/* 時間(行) × 曜日(列) のマトリクス（PC・モバイル共通で週を一望） */}
                   <div className="booking-matrix" role="grid" aria-label="週間の空き枠">
                     <div className="bm-corner" aria-hidden="true" />
                     {weekMatrix.columns.map((col) => (
@@ -475,35 +475,6 @@ function BookingInner() {
                       </Fragment>
                     ))}
                   </div>
-
-                  {/* モバイル: 空き日ごとの縦アジェンダ（各日に時間チップを内包） */}
-                  <div className="booking-agenda">
-                    {weekMatrix.columns
-                      .filter((col) => col.day && col.availableCount > 0)
-                      .map((col) => (
-                        <div key={col.date} className="ba-day">
-                          <div className="ba-day-head">
-                            <strong>{WEEKDAYS_JP[col.weekdayIdx]} {col.month}/{col.dayNum}</strong>
-                            <span>空き {col.availableCount}枠</span>
-                          </div>
-                          <div className="ba-chips">
-                            {col.day!.slots.map((s) => {
-                              if (s.available === false) return null;
-                              const selected = slotStart === s.start;
-                              return (
-                                <button key={s.start} type="button"
-                                  className={`booking-slot ${selected ? 'selected' : ''}`}
-                                  aria-pressed={selected}
-                                  onClick={() => setSlotStart(s.start)}>
-                                  <span className="booking-slot-time">{s.label}</span>
-                                  <span className="booking-slot-end">〜{endLabel(s.label)}</span>
-                                </button>
-                              );
-                            })}
-                          </div>
-                        </div>
-                      ))}
-                  </div>
                 </>
               )}
             </div>
@@ -533,7 +504,7 @@ function BookingInner() {
               style={{ position: 'absolute', left: '-10000px', width: 1, height: 1, opacity: 0 }}
             />
 
-            {selectedSlot && selectedMethod && (
+            {selectedSlot && (
               <div className="booking-ticket">
                 <div className="booking-ticket-accent" aria-hidden="true" />
                 <div className="booking-ticket-body">
@@ -541,7 +512,11 @@ function BookingInner() {
                   <div className="booking-ticket-main">
                     {selectedSlot.day.label}（{selectedSlot.day.weekday}） {selectedSlot.slot.label}–{endLabel(selectedSlot.slot.label)}
                   </div>
-                  <div className="booking-ticket-sub">{selectedMethod.label} / {SLOT_MINUTES}分</div>
+                  <div className="booking-ticket-sub">
+                    {selectedMethod
+                      ? `${selectedMethod.label} / ${SLOT_MINUTES}分`
+                      : `方式（01）を選ぶと予約できます · ${SLOT_MINUTES}分`}
+                  </div>
                 </div>
               </div>
             )}

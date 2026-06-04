@@ -1001,7 +1001,7 @@ select {
 
 .booking-day-cell.selected .booking-day-cell-dot { background: var(--paper); }
 
-/* ── Week matrix (時間×曜日) — desktop / agenda — mobile ─── */
+/* ── Week matrix (時間×曜日) — PC・モバイル共通で週を一望 ─── */
 .booking-matrix-meta {
   display: flex;
   flex-wrap: wrap;
@@ -1016,151 +1016,104 @@ select {
 }
 .booking-matrix-meta .preview-tag { color: var(--rust); }
 
-/* モバイル既定: マトリクスは隠し、縦アジェンダを表示 */
-.booking-matrix { display: none; }
-
-.booking-agenda {
-  display: flex;
-  flex-direction: column;
+.booking-matrix {
+  display: grid;
+  grid-template-columns: minmax(34px, auto) repeat(7, minmax(0, 1fr));
+  border-top: 1px solid var(--line-strong);
+  border-left: 1px solid var(--line-strong);
   margin-bottom: 26px;
 }
 
-.ba-day {
-  padding: 16px 0;
-  border-bottom: 1px solid var(--line);
+.bm-corner {
+  border-right: 1px solid var(--line-strong);
+  border-bottom: 1px solid var(--line-strong);
 }
-.ba-day:first-child { border-top: 1px solid var(--line); }
 
-.ba-day-head {
+.bm-colhead {
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 12px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: clamp(7px, 1.6vw, 10px) 2px;
+  border-right: 1px solid var(--line-strong);
+  border-bottom: 1px solid var(--line-strong);
 }
-.ba-day-head strong {
+.bm-colhead.is-dim { opacity: 0.38; }
+
+.bm-col-wd {
+  font-family: var(--f-mono);
+  font-size: clamp(9px, 2.4vw, 10px);
+  letter-spacing: 0.08em;
+  color: var(--ink-4);
+}
+/* 日曜列（corner の次＝2番目の子）のラベルを rust に */
+.booking-matrix > div:nth-child(2) .bm-col-wd { color: var(--rust); }
+
+.bm-col-date {
   font-family: var(--f-display);
   font-weight: 700;
-  font-size: 16px;
-  letter-spacing: 0.01em;
+  font-size: clamp(12px, 3.2vw, 15px);
+  line-height: 1;
+  white-space: nowrap;
   font-feature-settings: "tnum";
 }
-.ba-day-head span {
+
+.bm-rowhead {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 clamp(5px, 1.6vw, 10px);
+  min-height: clamp(40px, 8vw, 46px);
   font-family: var(--f-mono);
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-size: clamp(9px, 2.6vw, 11px);
+  letter-spacing: 0.02em;
   color: var(--ink-3);
   white-space: nowrap;
+  border-right: 1px solid var(--line-strong);
+  border-bottom: 1px solid var(--line);
+  font-feature-settings: "tnum";
 }
 
-.ba-chips {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
-  gap: 8px;
+.bm-cell {
+  position: relative;
+  min-height: clamp(40px, 8vw, 46px);
+  padding: 0;
+  border: 0;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.18s ease;
+}
+.bm-cell:hover { background: var(--paper-2); }
+
+.bm-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1.5px solid var(--rust);
+  background: transparent;
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+.bm-cell:hover .bm-dot { background: rgba(169, 74, 44, 0.25); }
+
+.bm-cell.selected { background: var(--ink); }
+.bm-cell.selected .bm-dot {
+  background: var(--rust);
+  border-color: var(--rust);
+  transform: scale(1.3);
 }
 
-/* デスクトップ: 週を一望できるマトリクス */
-@media (min-width: 760px) {
-  .booking-agenda { display: none; }
-
-  .booking-matrix {
-    display: grid;
-    grid-template-columns: minmax(46px, auto) repeat(7, minmax(0, 1fr));
-    border-top: 1px solid var(--line-strong);
-    border-left: 1px solid var(--line-strong);
-    margin-bottom: 26px;
-  }
-
-  .bm-corner {
-    border-right: 1px solid var(--line-strong);
-    border-bottom: 1px solid var(--line-strong);
-  }
-
-  .bm-colhead {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2px;
-    padding: 10px 4px;
-    border-right: 1px solid var(--line-strong);
-    border-bottom: 1px solid var(--line-strong);
-  }
-  .bm-colhead.is-dim { opacity: 0.38; }
-
-  .bm-col-wd {
-    font-family: var(--f-mono);
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    color: var(--ink-4);
-  }
-  /* 日曜列（corner の次＝2番目の子）のラベルを rust に */
-  .booking-matrix > div:nth-child(2) .bm-col-wd { color: var(--rust); }
-
-  .bm-col-date {
-    font-family: var(--f-display);
-    font-weight: 700;
-    font-size: 15px;
-    line-height: 1;
-    font-feature-settings: "tnum";
-  }
-
-  .bm-rowhead {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 0 10px;
-    min-height: 44px;
-    font-family: var(--f-mono);
-    font-size: 11px;
-    letter-spacing: 0.04em;
-    color: var(--ink-3);
-    border-right: 1px solid var(--line-strong);
-    border-bottom: 1px solid var(--line);
-    font-feature-settings: "tnum";
-  }
-
-  .bm-cell {
-    position: relative;
-    min-height: 44px;
-    padding: 0;
-    border: 0;
-    border-right: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-    background: transparent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background 0.18s ease;
-  }
-  .bm-cell:hover { background: var(--paper-2); }
-
-  .bm-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    border: 1.5px solid var(--rust);
-    background: transparent;
-    transition: background 0.18s ease, transform 0.18s ease;
-  }
-  .bm-cell:hover .bm-dot { background: rgba(169, 74, 44, 0.25); }
-
-  .bm-cell.selected { background: var(--ink); }
-  .bm-cell.selected .bm-dot {
-    background: var(--rust);
-    border-color: var(--rust);
-    transform: scale(1.3);
-  }
-
-  .bm-cell.is-empty { cursor: default; }
-  .bm-cell.is-empty::before {
-    content: "";
-    width: 8px;
-    height: 1px;
-    background: var(--line);
-  }
+.bm-cell.is-empty { cursor: default; }
+.bm-cell.is-empty::before {
+  content: "";
+  width: 8px;
+  height: 1px;
+  background: var(--line);
 }
 
 /* Slot section heading */
