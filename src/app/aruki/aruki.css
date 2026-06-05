@@ -1,0 +1,664 @@
+/* Aruki — 歩 -あるき- 公式LP
+   配色: 和紙白 #f4f3ec / 墨黒 #1c1b19 / 紅(beni) #b7352d / アースグリーン #6f7a5a
+   美学: ミニマル・プレミアム・余白・禅。明朝見出し + Noto Sans JP 本文。 */
+
+.aruki-root {
+  --washi: #f4f3ec;
+  --washi-deep: #ebe9df;
+  --paper: #ffffff;
+  --sumi: #1c1b19;
+  --sumi-soft: #4a4742;
+  --sumi-muted: #6f6b62;
+  --beni: #b7352d;
+  --beni-soft: #c8554c;
+  --ai-nezu: #5b6472;
+  --line: rgba(28, 27, 25, 0.1);
+  --line-strong: rgba(28, 27, 25, 0.16);
+
+  min-height: 100vh;
+  background: var(--washi);
+  color: var(--sumi);
+  font-family: var(--font-noto-sans-jp), -apple-system, BlinkMacSystemFont, 'Hiragino Sans', sans-serif;
+}
+
+.ar-mincho {
+  font-family: 'Hiragino Mincho ProN', 'Yu Mincho', 'YuMincho', serif;
+}
+
+.ar-page {
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* ---------- Nav ---------- */
+.ar-nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  width: min(100% - 40px, 1180px);
+  margin: 0 auto;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+  background: rgba(244, 243, 236, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.ar-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  color: var(--sumi);
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+}
+
+.ar-brand img {
+  border-radius: 11px;
+  box-shadow: 0 6px 18px rgba(28, 27, 25, 0.14);
+}
+
+.ar-nav__links {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.ar-nav__links a,
+.ar-footer a,
+.ar-legal__nav-link {
+  color: var(--sumi-muted);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+}
+
+.ar-nav__links a:hover,
+.ar-footer a:hover,
+.ar-legal__nav-link:hover {
+  color: var(--beni);
+}
+
+/* ---------- Hero ---------- */
+.ar-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 440px);
+  align-items: center;
+  gap: clamp(40px, 6vw, 88px);
+  width: min(100% - 40px, 1180px);
+  margin: 0 auto;
+  padding: clamp(52px, 8vw, 100px) 0 clamp(60px, 8vw, 104px);
+}
+
+.ar-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 20px;
+  color: var(--beni);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.ar-eyebrow::before {
+  width: 26px;
+  height: 2px;
+  border-radius: 999px;
+  background: currentColor;
+  content: '';
+}
+
+.ar-hero h1 {
+  margin: 0;
+  color: var(--sumi);
+  font-size: clamp(52px, 8vw, 104px);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.02;
+}
+
+.ar-hero__tagline {
+  margin: 24px 0 0;
+  color: var(--sumi);
+  font-size: clamp(23px, 3.4vw, 38px);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.34;
+}
+
+.ar-hero__lead {
+  max-width: 560px;
+  margin: 22px 0 0;
+  color: var(--sumi-soft);
+  font-size: clamp(15px, 1.5vw, 17px);
+  line-height: 2;
+}
+
+.ar-hero__actions,
+.ar-final__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin-top: 32px;
+}
+
+.ar-hero__note {
+  margin: 16px 0 0;
+  color: var(--sumi-muted);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* ---------- Buttons ---------- */
+.ar-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  border-radius: 999px;
+  padding: 0 26px;
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+}
+
+.ar-button--primary {
+  background: var(--beni);
+  color: #fff;
+  box-shadow: 0 16px 34px rgba(183, 53, 45, 0.26);
+}
+
+.ar-button--primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 20px 40px rgba(183, 53, 45, 0.32);
+}
+
+.ar-button--ghost {
+  border: 1px solid var(--line-strong);
+  background: rgba(255, 255, 255, 0.5);
+  color: var(--sumi);
+}
+
+.ar-button--ghost:hover {
+  border-color: var(--sumi);
+}
+
+.ar-button--secondary {
+  border: 1px solid rgba(183, 53, 45, 0.4);
+  background: rgba(183, 53, 45, 0.07);
+  color: var(--beni);
+}
+
+/* 配信前の「近日公開」表示 */
+.ar-soon {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 50px;
+  border-radius: 999px;
+  padding: 0 24px;
+  border: 1px dashed rgba(28, 27, 25, 0.28);
+  background: rgba(255, 255, 255, 0.4);
+  color: var(--sumi-soft);
+  font-size: 14px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.ar-soon::before {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--beni);
+  content: '';
+}
+
+/* ---------- Hero visual (flat marketing shot) ---------- */
+.ar-hero__visual {
+  display: grid;
+  place-items: center;
+}
+
+.ar-shot {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 26px;
+  background: var(--washi);
+  box-shadow:
+    0 30px 70px rgba(28, 27, 25, 0.16),
+    0 2px 0 rgba(255, 255, 255, 0.6) inset;
+}
+
+.ar-hero__visual .ar-shot {
+  max-width: 420px;
+}
+
+/* ---------- Sections ---------- */
+.ar-section {
+  width: min(100% - 40px, 1180px);
+  margin: 0 auto;
+  padding: clamp(64px, 8vw, 116px) 0;
+  border-top: 1px solid var(--line);
+}
+
+.ar-section__head {
+  max-width: 760px;
+  margin-bottom: 36px;
+}
+
+.ar-section h2,
+.ar-final h2,
+.ar-legal__hero h1 {
+  margin: 0;
+  color: var(--sumi);
+  font-size: clamp(30px, 4.4vw, 56px);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.28;
+}
+
+.ar-concept p,
+.ar-showcase__text p {
+  max-width: 760px;
+  margin: 0;
+  color: var(--sumi-soft);
+  font-size: clamp(15px, 1.5vw, 18px);
+  line-height: 2.1;
+}
+
+.ar-concept .ar-button {
+  margin-top: 28px;
+}
+
+/* ---------- Features ---------- */
+.ar-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.ar-feature,
+.ar-step,
+.ar-faq {
+  min-height: 100%;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--paper);
+  padding: 26px;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.ar-feature h3,
+.ar-step h3,
+.ar-faq h3 {
+  margin: 0;
+  color: var(--sumi);
+  font-size: 19px;
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+.ar-feature p,
+.ar-step p,
+.ar-faq p {
+  margin: 12px 0 0;
+  color: var(--sumi-muted);
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.ar-feature__mark {
+  display: inline-block;
+  margin-bottom: 16px;
+  color: var(--beni);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+/* ---------- Steps ---------- */
+.ar-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.ar-step span {
+  display: inline-flex;
+  margin-bottom: 24px;
+  color: var(--beni);
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* ---------- Showcase ---------- */
+.ar-showcase {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  align-items: center;
+  gap: clamp(38px, 7vw, 96px);
+}
+
+.ar-showcase--reverse {
+  grid-template-columns: 360px minmax(0, 1fr);
+}
+
+.ar-showcase .ar-shot {
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+/* ---------- Gallery ---------- */
+.ar-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.ar-gallery .ar-shot {
+  max-width: 100%;
+}
+
+/* ---------- Pricing ---------- */
+.ar-price-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.ar-price {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--paper);
+  padding: 28px 24px;
+}
+
+.ar-price--featured {
+  border-color: rgba(183, 53, 45, 0.4);
+  box-shadow: 0 18px 42px rgba(183, 53, 45, 0.12);
+}
+
+.ar-price__badge {
+  position: absolute;
+  top: -12px;
+  left: 24px;
+  border-radius: 999px;
+  padding: 5px 13px;
+  background: var(--beni);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.ar-price h3 {
+  margin: 0;
+  color: var(--sumi-muted);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.ar-price__amount {
+  margin: 12px 0 0;
+  color: var(--sumi);
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.ar-price__amount small {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--sumi-muted);
+}
+
+.ar-price p {
+  margin: 14px 0 0;
+  color: var(--sumi-muted);
+  font-size: 13.5px;
+  line-height: 1.85;
+}
+
+.ar-price__free {
+  margin-top: 24px;
+  color: var(--sumi-muted);
+  font-size: 13px;
+  line-height: 1.9;
+  text-align: center;
+}
+
+/* ---------- FAQ ---------- */
+.ar-faq-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+/* ---------- Final CTA ---------- */
+.ar-final {
+  width: min(100% - 40px, 920px);
+  margin: 0 auto;
+  padding: clamp(70px, 10vw, 124px) 0;
+  text-align: center;
+}
+
+.ar-final p {
+  margin: 18px auto 0;
+  max-width: 540px;
+  color: var(--sumi-soft);
+  font-size: clamp(15px, 1.5vw, 17px);
+  line-height: 2;
+}
+
+.ar-final__actions {
+  justify-content: center;
+}
+
+/* ---------- Footer ---------- */
+.ar-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  width: min(100% - 40px, 1180px);
+  margin: 0 auto;
+  padding: 28px 0 44px;
+  border-top: 1px solid var(--line);
+  color: var(--sumi-muted);
+  font-size: 13px;
+}
+
+.ar-footer div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+/* ---------- Legal pages (privacy / terms / support) ---------- */
+.ar-legal {
+  min-height: 100vh;
+  padding: 22px clamp(20px, 5vw, 40px) 96px;
+  background: var(--washi);
+  color: var(--sumi);
+}
+
+.ar-legal__nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  width: min(100%, 940px);
+  margin: 0 auto clamp(52px, 8vw, 88px);
+}
+
+.ar-legal__nav-link {
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.ar-legal__hero {
+  width: min(100%, 940px);
+  margin: 0 auto 32px;
+}
+
+.ar-legal__hero p:not(.ar-eyebrow) {
+  max-width: 720px;
+  margin: 20px 0 0;
+  color: var(--sumi-soft);
+  font-size: clamp(15px, 1.6vw, 18px);
+  line-height: 2;
+}
+
+.ar-legal__hero span {
+  display: inline-flex;
+  margin-top: 22px;
+  border: 1px solid rgba(183, 53, 45, 0.3);
+  border-radius: 999px;
+  padding: 8px 14px;
+  color: var(--beni);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.ar-legal__card {
+  width: min(100%, 940px);
+  margin: 0 auto;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: clamp(28px, 6vw, 56px);
+  background: var(--paper);
+}
+
+.ar-legal__card section + section {
+  margin-top: 34px;
+  border-top: 1px solid var(--line);
+  padding-top: 34px;
+}
+
+.ar-legal__card h2 {
+  margin: 0 0 12px;
+  color: var(--sumi);
+  font-size: clamp(19px, 2.4vw, 25px);
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.ar-legal__card p,
+.ar-legal__card li {
+  color: var(--sumi-soft);
+  font-size: 15px;
+  line-height: 2;
+}
+
+.ar-legal__card p {
+  margin: 0;
+}
+
+.ar-legal__card p + p {
+  margin-top: 14px;
+}
+
+.ar-legal__card ul {
+  display: grid;
+  gap: 8px;
+  margin: 14px 0;
+  padding-left: 1.25em;
+}
+
+.ar-legal__card a {
+  color: var(--beni);
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-color: rgba(183, 53, 45, 0.35);
+  text-underline-offset: 0.24em;
+}
+
+/* 表（料金/データ取扱い） */
+.ar-table {
+  width: 100%;
+  margin: 16px 0 4px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.ar-table th,
+.ar-table td {
+  padding: 11px 12px;
+  border: 1px solid var(--line);
+  text-align: left;
+  color: var(--sumi-soft);
+  line-height: 1.7;
+}
+
+.ar-table th {
+  background: var(--washi-deep);
+  color: var(--sumi);
+  font-weight: 800;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .ar-hero,
+  .ar-showcase,
+  .ar-showcase--reverse {
+    grid-template-columns: 1fr;
+  }
+
+  .ar-hero__visual {
+    order: -1;
+  }
+
+  .ar-feature-grid,
+  .ar-steps,
+  .ar-price-grid,
+  .ar-gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .ar-nav__links {
+    gap: 12px;
+  }
+
+  .ar-nav__links a:nth-child(-n + 3) {
+    display: none;
+  }
+
+  .ar-feature-grid,
+  .ar-steps,
+  .ar-faq-list,
+  .ar-price-grid,
+  .ar-gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .ar-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ar-legal {
+    padding: 20px 16px 72px;
+  }
+}
