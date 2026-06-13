@@ -10,7 +10,7 @@ const zenMaru = Zen_Maru_Gothic({
 });
 
 export const metadata: Metadata = {
-  title: 'DogWalk — 毎日の散歩が、あの子の健康記録になる。',
+  title: 'DogWalk — 毎日の散歩が、うちの子の健康記録になる。',
   description:
     'GPSでルート・距離を記録し、うんちの状態や気分までワンタップでログ。獣医さんに見せられるレポートまで作れる、犬の散歩×健康記録アプリ「DogWalk」の公式ページです。',
   icons: {
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     apple: [{ url: '/assets/media/dogwalk/icon.png', type: 'image/png' }],
   },
   openGraph: {
-    title: 'DogWalk — 毎日の散歩が、あの子の健康記録になる。',
+    title: 'DogWalk — 毎日の散歩が、うちの子の健康記録になる。',
     description:
       'GPSルート記録 × 健康ログ × 獣医共有レポート。犬の散歩がもっと楽しく、もっと意味のある時間に。',
     locale: 'ja_JP',

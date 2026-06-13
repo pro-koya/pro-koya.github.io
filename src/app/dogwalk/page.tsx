@@ -36,7 +36,7 @@ const features = [
   {
     icon: '🎨',
     title: 'シェアカード & AI似顔絵',
-    body: '今日のルートとスタッツを、SNS映えするカードに自動レイアウト。あの子のAI似顔絵をアイコンにもできます。',
+    body: '今日のルートとスタッツを、SNS映えするカードに自動レイアウト。うちの子のAI似顔絵をアイコンにもできます。',
   },
 ];
 
@@ -175,7 +175,7 @@ export default function DogWalkPage() {
           <h1>
             毎日の散歩が、
             <br />
-            あの子の<em>健康記録</em>になる。
+            うちの子の<em>健康記録</em>になる。
           </h1>
           <p className="dw-hero__lead">
             GPSでルートと距離を自動記録。うんちの状態も、水を飲んだことも、ワンタップか声でログ。
@@ -225,7 +225,7 @@ export default function DogWalkPage() {
           <p className="dw-eyebrow">Features</p>
           <h2>散歩のじゃまをしない、6つの機能。</h2>
           <p>
-            記録のための操作は最小限に。歩くこと、あの子と過ごす時間が主役のままでいられるように設計しています。
+            記録のための操作は最小限に。歩くこと、うちの子と過ごす時間が主役のままでいられるように設計しています。
           </p>
         </div>
         <div className="dw-features">
@@ -301,13 +301,15 @@ export default function DogWalkPage() {
               数字で答える。
             </h2>
             <p style={{ color: 'var(--ink-soft)', margin: 0 }}>
-              散歩開始時の気温から路面温度を推定し、肉球のやけどや熱中症のリスクを3段階で表示。
-              パグやフレンチブルドッグなどの短頭種には、より慎重な基準で警告します。
+              散歩開始時の気温・湿度・日射から路面温度（約◯◯℃）を推定し、肉球のやけどや熱中症のリスクを3段階で表示。
+              危険なときは「早朝か日没後に」といった具体的な行動と、地面に手の甲を当てる“5秒チェック”まで案内します。
+              パグやフレンチブルドッグなどの短頭種は、より慎重な基準で判定します。
             </p>
             <div className="dw-safety__badges">
               <span className="dw-badge dw-badge--green">☀️ 快適</span>
               <span className="dw-badge dw-badge--sun">⚠️ 注意</span>
               <span className="dw-badge dw-badge--coral">🔥 危険</span>
+              <span className="dw-badge dw-badge--sky">🐾 路面温度を数値で</span>
               <span className="dw-badge dw-badge--sky">🐶 短頭種は厳しめ判定</span>
             </div>
           </div>
