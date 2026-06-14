@@ -92,7 +92,7 @@ export const CASE_STUDIES: Record<string, CaseStudy> = {
     credits: [
       { role: 'Concept / Design / Development', name: 'Miyabayasi Koya' },
       { role: 'Photography', name: 'Self-shot · ジム' },
-      { role: 'Stack', name: 'Flutter · Firebase' },
+      { role: 'Stack', name: 'Flutter · Supabase' },
     ],
     meta: [
       { k: 'YEAR', v: '2026' },
@@ -180,8 +180,8 @@ export const CASE_STUDIES: Record<string, CaseStudy> = {
       { n: '03', label: 'Credits', bg: 'dark', caption: 'CHARACTER · SAGE', image: '/assets/media/sorrygains/sage-screen.png' },
     ],
     links: [
-      { label: 'Landing Page', href: 'https://pro-koya.github.io/sorrygains/', external: true },
-      { label: 'App Store', href: 'https://apps.apple.com/us/app/%E7%AD%8B%E8%82%89%E3%81%94%E3%82%81%E3%82%93/id6763986050', external: true },
+      { label: 'Landing Page', href: '/sorrygains/' },
+      { label: 'App Store', href: 'https://apps.apple.com/app/id6763986050', external: true },
     ],
     next: { slug: 'forge-app', en: 'FORGE', no: '05', subtitle: 'CrossFitとHyroxの記録をタイマーからつなげる' },
   },
