@@ -83,7 +83,7 @@ const faqs = [
   ['Q.01', '広告は出ますか？', '無料版は控えめに表示。Ad-Free サブスクで全消去。'],
   ['Q.02', 'Apple Watch 対応？', 'Phase 1.x で対応予定。Phase 0 は iPhone のみ。'],
   ['Q.03', 'データはクラウド？', 'Supabase 経由で同期。オフライン時はローカル優先。'],
-  ['Q.04', '他アプリと連携？', 'Liftly / SorryGains（同 Muscle360 ファミリー）と連携可能。'],
+  ['Q.04', '他アプリと連携？', 'Liftly / SorryGains と同じ Muscle360 ファミリー。Muscle360 Pro バンドルなら 1 つの購読で 3 アプリの Pro 機能が解放されます。'],
   ['Q.05', 'CSV エクスポート？', '履歴画面から JSON / CSV を共有シート経由で出力。'],
 ];
 
