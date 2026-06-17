@@ -212,6 +212,38 @@ export default function Muscle360Page() {
 
       {/* ── HERO ────────────────────────────── */}
       <section className="m360-hero" aria-labelledby="m360-hero-title">
+        <div className="m360-hero-orb-wrap" data-hero-cue aria-hidden="true">
+          <svg className="m360-hero-orb" viewBox="0 0 400 400" role="presentation">
+            <defs>
+              <radialGradient id="m360OrbGlow" cx="50%" cy="44%" r="55%">
+                <stop offset="0%" stopColor="rgba(255,255,255,0.16)" />
+                <stop offset="38%" stopColor="rgba(76,141,255,0.16)" />
+                <stop offset="72%" stopColor="rgba(229,68,59,0.1)" />
+                <stop offset="100%" stopColor="transparent" />
+              </radialGradient>
+              <linearGradient id="m360Ring" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stopColor="#e5443b" />
+                <stop offset="38%" stopColor="#f3a83c" />
+                <stop offset="70%" stopColor="#4c8dff" />
+                <stop offset="100%" stopColor="#34d399" />
+              </linearGradient>
+            </defs>
+            <circle cx="200" cy="200" r="168" fill="url(#m360OrbGlow)" />
+            <circle cx="200" cy="200" r="150" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
+            <g className="m360-ring m360-ring--1">
+              <ellipse cx="200" cy="200" rx="150" ry="54" fill="none" stroke="url(#m360Ring)" strokeWidth="1.2" opacity="0.85" />
+              <circle className="m360-orb-node" cx="350" cy="200" r="4.5" fill="#f3a83c" />
+            </g>
+            <g className="m360-ring m360-ring--2">
+              <ellipse cx="200" cy="200" rx="150" ry="112" fill="none" stroke="url(#m360Ring)" strokeWidth="1.1" opacity="0.6" />
+              <circle className="m360-orb-node" cx="50" cy="200" r="4" fill="#4c8dff" />
+            </g>
+            <g className="m360-ring m360-ring--3">
+              <ellipse cx="200" cy="200" rx="116" ry="150" fill="none" stroke="url(#m360Ring)" strokeWidth="1" opacity="0.5" />
+              <circle className="m360-orb-node" cx="200" cy="50" r="3.5" fill="#34d399" />
+            </g>
+          </svg>
+        </div>
         <p className="m360-kicker" data-hero-cue>
           <span className="m360-dot" /> MUSCLE360 — 統合構想
         </p>
@@ -362,10 +394,10 @@ export default function Muscle360Page() {
       <section className="m360-section m360-sage" data-sage aria-labelledby="m360-sage-title">
         <div className="m360-sage-portrait" data-reveal>
           <Image
-            src="/assets/media/sorrygains/sage.png"
+            src="/assets/media/muscle360/sage-dark.png"
             alt="筋トレ仙人"
-            width={520}
-            height={520}
+            width={561}
+            height={701}
           />
         </div>
         <div className="m360-sage-copy">

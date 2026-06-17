@@ -356,6 +356,7 @@ export default function ForgePage() {
         <footer className="forge-footer">
           <span>FORGE.LP / DOC v1.0 / COMPILED 2026.05.04</span>
           <nav aria-label="Forge footer">
+            <a href="/muscle360/">// MUSCLE360</a>
             <a href="/forge/privacy/">// PRIVACY</a>
             <a href="/">// PORTFOLIO TOP</a>
           </nav>

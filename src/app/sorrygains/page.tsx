@@ -120,6 +120,7 @@ export default function SorryGainsPage() {
           <a href="#features">機能</a>
           <a href="#privacy">プライバシー</a>
           <a href="#faq">FAQ</a>
+          <Link href="/muscle360/">Muscle360</Link>
           <Link href="/sorrygains/privacy/">Privacy Policy</Link>
         </div>
       </nav>
@@ -260,6 +261,7 @@ export default function SorryGainsPage() {
       <footer className="sg-footer">
         <span>© 2026 筋肉ごめん</span>
         <div>
+          <Link href="/muscle360/">Muscle360</Link>
           <Link href="/sorrygains/privacy/">Privacy Policy</Link>
           <Link href="/">制作: Miyabayasi Koya</Link>
           <a href={CONTACT_FORM_URL} target="_blank" rel="noreferrer">

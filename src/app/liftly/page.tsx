@@ -132,6 +132,7 @@ function LiftlyContent() {
               <a href="#howto">{t.nav.howto}</a>
               <a href="#privacy">{t.nav.privacy}</a>
               <a href="#contact">{t.nav.contact}</a>
+              <a href="/muscle360/">Muscle360</a>
             </div>
           </div>
         </div>
@@ -257,6 +258,7 @@ function LiftlyContent() {
             <a href="#howto">{t.footer.howto}</a>
             <a href="#privacy">{t.footer.privacy}</a>
             <a href="#contact">{t.footer.contact}</a>
+            <a href="/muscle360/">Muscle360</a>
           </div>
           <div className="footer-meta">
             <span className="footer-copy">{t.footer.copyright}</span>
