@@ -8,7 +8,7 @@ type DocSectionProps = {
 };
 
 const specStrip = [
-  ['VERSION', '1.0.0'],
+  ['VERSION', '1.0.1'],
   ['PLATFORM', 'iOS 17+'],
   ['LANGUAGES', 'JA / EN'],
   ['SIZE', '38.4 MB'],
@@ -80,7 +80,7 @@ const accentColors = [
 ];
 
 const faqs = [
-  ['Q.01', '広告は出ますか？', '無料版は控えめに表示。Ad-Free サブスクで全消去。'],
+  ['Q.01', '広告は出ますか？', '無料版は控えめに表示。Muscle360 Pro バンドル（月額¥250 / 年額¥2,500）の購読で全て非表示にできます。'],
   ['Q.02', 'Apple Watch 対応？', 'Phase 1.x で対応予定。Phase 0 は iPhone のみ。'],
   ['Q.03', 'データはクラウド？', 'Supabase 経由で同期。オフライン時はローカル優先。'],
   ['Q.04', '他アプリと連携？', 'Liftly / SorryGains と同じ Muscle360 ファミリー。Muscle360 Pro バンドルなら 1 つの購読で 3 アプリの Pro 機能が解放されます。'],
@@ -343,8 +343,8 @@ export default function ForgePage() {
         <section className="install-section" id="install" aria-labelledby="install-title">
           <p>07 - INSTALL</p>
           <h2 id="install-title">$ <span>install</span> forge</h2>
-          <pre>{`> downloading FORGE v1.0.0 ...
-> OK / 38.4 MB / iOS 17+
+          <pre>{`> downloading FORGE v1.0.1 ...
+> OK / iOS 17+
 > ready to record.`}</pre>
           <div className="install-actions">
             <AppStoreBadge compact />

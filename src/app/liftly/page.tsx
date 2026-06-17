@@ -24,6 +24,7 @@ const TRANSLATIONS = {
       f4: { title: '体重管理', desc: '体重の推移を記録し、月間の変化を確認。トレーニング頻度と体重の関係をインサイトで把握できます。' },
       f5: { title: 'バックアップ・復元', desc: 'JSON/CSV形式でエクスポート・インポート可能。データは端末内に保存され、あなたがコントロールできます。' },
       f6: { title: 'カスタマイズ', desc: 'テーマや単位（kg/lb）、言語（日本語/English）を切り替え。あなた好みの環境で続けられます。' },
+      f7: { title: 'Muscle360 Pro', desc: 'Forge・筋肉ごめん・Liftly の Muscle360 ファミリー。Muscle360 Pro バンドルなら、1つの購読で3アプリの Pro 機能が使えます。' },
     },
     howto: {
       title: 'はじめ方',
@@ -34,7 +35,7 @@ const TRANSLATIONS = {
     },
     privacy: {
       title: 'プライバシーポリシー',
-      p1: '本アプリは個人情報を収集しません。トレーニングデータは端末内にのみ保存され、外部に送信されることはありません。',
+      p1: '本アプリのトレーニングデータは端末内に保存されます。任意で Muscle360 Pro バンドルをご利用の場合のみ、3アプリ間で Pro を共有するために Apple / Google / Supabase 認証によりメールアドレスとユーザーIDを扱います。',
       p2: 'アプリ内課金、広告表示に関わる処理について、各サービス提供者のポリシーが適用されます。\n詳しくはアプリ内の利用規約・プライバシーポリシーをご確認ください。',
     },
     contact: { title: 'お問い合わせ', desc: 'ご質問・ご要望は以下のフォームよりお送りください。', btn: 'お問い合わせフォームを開く' },
@@ -66,6 +67,7 @@ const TRANSLATIONS = {
       f4: { title: 'Weight tracking', desc: 'Log your weight and see monthly changes. See how training frequency and weight relate over time.' },
       f5: { title: 'Backup & restore', desc: 'Export and import as JSON or CSV. Data stays on your device and under your control.' },
       f6: { title: 'Customization', desc: 'Switch theme, units (kg/lb), and language (Japanese/English) to match your preference.' },
+      f7: { title: 'Muscle360 Pro', desc: 'Liftly is part of the Muscle360 family with Forge and SorryGains. One Muscle360 Pro subscription unlocks Pro features across all three apps.' },
     },
     howto: {
       title: 'Getting started',
@@ -76,7 +78,7 @@ const TRANSLATIONS = {
     },
     privacy: {
       title: 'Privacy Policy',
-      p1: 'This app does not collect personal information. Training data is stored only on your device and is not sent to external servers.',
+      p1: 'Your training data is stored on your device. Only when you use the optional Muscle360 Pro bundle, your email and user ID are handled via Apple / Google / Supabase sign-in to share Pro across the three apps.',
       p2: "In-app purchases and ads are subject to the respective service providers' policies.\nSee the in-app terms and privacy policy for details.",
     },
     contact: { title: 'Contact', desc: 'Send questions or feedback using the form below.', btn: 'Open contact form' },
@@ -186,7 +188,8 @@ function LiftlyContent() {
                 { key: 'f4', icon: <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 3v18" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round"/><path d="M8 21h8" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round"/><path d="M6 8h12" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round"/><path d="M9 12h6" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round"/></svg> },
                 { key: 'f5', icon: <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 12a9 9 0 01-9 9 9 9 0 01-9-9 9 9 0 019-9 9 9 0 019 9z" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/><path d="M21 3v6h-6" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/></svg> },
                 { key: 'f6', icon: <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="2" fill="none"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round"/></svg> },
-              ] as { key: 'f1'|'f2'|'f3'|'f4'|'f5'|'f6'; icon: React.ReactNode }[]
+                { key: 'f7', icon: <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l9 5-9 5-9-5 9-5z" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/><path d="M3 12l9 5 9-5" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/><path d="M3 17l9 5 9-5" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/></svg> },
+              ] as { key: 'f1'|'f2'|'f3'|'f4'|'f5'|'f6'|'f7'; icon: React.ReactNode }[]
             ).map(({ key, icon }) => (
               <article className="feature-card" key={key}>
                 <div className="feature-icon">{icon}</div>

@@ -2,8 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 const CONTACT_FORM_URL = 'https://forms.gle/7FKcm5zv6F6Ci8Wa6';
-const APP_STORE_URL =
-  'https://apps.apple.com/us/app/%E7%AD%8B%E8%82%89%E3%81%94%E3%82%81%E3%82%93/id6763986050';
+const APP_STORE_URL = 'https://apps.apple.com/app/id6763986050';
 
 const features = [
   {
