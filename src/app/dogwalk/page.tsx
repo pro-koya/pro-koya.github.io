@@ -2,8 +2,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 // 公開後にここへ App Store のURLを入れると、CTAが自動でダウンロードボタンに変わります。
-// 例: 'https://apps.apple.com/jp/app/dogwalk/id0000000000'
-const APP_STORE_URL: string | null = null;
+// ロケール中立URL（koyaの他LPと統一）。App ID 6780091967。
+const APP_STORE_URL: string | null = 'https://apps.apple.com/app/id6780091967';
 
 const SHOT = { width: 1320, height: 2868 };
 
