@@ -1,0 +1,607 @@
+/* ═══════════════════════════════════════════════
+   Muscle360 — 統合構想 LP
+   Dark cinematic · spectrum accent · 360° orbit
+   ═══════════════════════════════════════════════ */
+
+.m360 {
+  --bg: #08080b;
+  --surface: #0e0f15;
+  --surface-2: #14161d;
+  --line: rgba(255, 255, 255, 0.1);
+  --line-soft: rgba(255, 255, 255, 0.06);
+  --hi: #f4f5f8;
+  --med: #a2a6b0;
+  --dim: #62656f;
+
+  --forge: #e5443b;
+  --liftly: #4c8dff;
+  --sorrygains: #f3a83c;
+  --nutri: #34d399;
+
+  --grad: linear-gradient(100deg, #e5443b 0%, #f3a83c 32%, #4c8dff 68%, #34d399 100%);
+
+  --fd: var(--m360-font-display), "Helvetica Neue", Arial, sans-serif;
+  --fj: var(--m360-font-jp), "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+  --fm: var(--m360-font-mono), ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --maxw: 1120px;
+  --pad: clamp(20px, 5vw, 64px);
+
+  position: relative;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--hi);
+  font-family: var(--fj);
+  font-feature-settings: "palt" 1;
+  line-height: 1.7;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+.m360 *,
+.m360 *::before,
+.m360 *::after { box-sizing: border-box; }
+
+body:has(.m360) { background: #08080b; }
+
+/* ── Background field ───────────────────────── */
+.m360-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.m360-bg-grid {
+  position: absolute;
+  inset: -2px;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 30%, #000 30%, transparent 80%);
+}
+.m360-bg-glow {
+  position: absolute;
+  width: 60vw;
+  height: 60vw;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.5;
+}
+.m360-bg-glow--a {
+  top: -18vw;
+  left: -10vw;
+  background: radial-gradient(circle, rgba(229, 68, 59, 0.45), transparent 70%);
+}
+.m360-bg-glow--b {
+  bottom: -22vw;
+  right: -12vw;
+  background: radial-gradient(circle, rgba(76, 141, 255, 0.4), transparent 70%);
+}
+
+.m360 > section { position: relative; z-index: 1; }
+
+/* ── Shared typography ──────────────────────── */
+.m360-kicker,
+.m360-eyebrow {
+  font-family: var(--fm);
+  font-size: 12px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--med);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.m360-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--forge);
+  box-shadow: 0 0 12px 2px rgba(229, 68, 59, 0.8);
+}
+.m360-h2 {
+  font-family: var(--fd), var(--fj);
+  font-weight: 800;
+  font-size: clamp(30px, 5.4vw, 64px);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin-top: 18px;
+}
+.m360-grad {
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.m360-section {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: clamp(90px, 14vh, 180px) var(--pad);
+}
+
+/* ── HERO ───────────────────────────────────── */
+.m360-hero {
+  min-height: 100svh;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 var(--pad);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 26px;
+}
+.m360-hero-title {
+  font-family: var(--fd), var(--fj);
+  font-weight: 900;
+  font-size: clamp(40px, 9vw, 112px);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+}
+.m360-line { display: block; overflow: hidden; padding-bottom: 0.06em; }
+.m360-line > span { display: block; }
+.m360-hero-sub {
+  max-width: 32em;
+  font-size: clamp(15px, 1.9vw, 19px);
+  color: var(--med);
+  line-height: 1.85;
+  text-wrap: pretty;
+}
+.m360-nb { white-space: nowrap; }
+.m360-hero-cue {
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--fm);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: var(--dim);
+}
+.m360-cue-bar {
+  width: 1px;
+  height: 56px;
+  background: linear-gradient(to bottom, var(--med), transparent);
+  animation: m360-cue 2.2s ease-in-out infinite;
+  transform-origin: top;
+}
+@keyframes m360-cue {
+  0%, 100% { transform: scaleY(0.35); opacity: 0.4; }
+  50% { transform: scaleY(1); opacity: 1; }
+}
+
+/* ── 記録だけでは弱い ───────────────────────── */
+.m360-weak-frags {
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 28px;
+}
+.m360-weak-frags > span {
+  font-family: var(--fd), var(--fj);
+  font-weight: 700;
+  font-size: clamp(22px, 4vw, 44px);
+  color: var(--dim);
+  letter-spacing: -0.01em;
+}
+.m360-weak-note {
+  margin-top: 44px;
+  max-width: 26em;
+  font-size: clamp(16px, 2vw, 21px);
+  color: var(--hi);
+  line-height: 1.8;
+}
+.m360-weak-note em { font-style: normal; color: var(--sorrygains); }
+
+/* ── 記録 → 解釈 → 行動 ─────────────────────── */
+.m360-loop-grid {
+  margin-top: 56px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+.m360-loop-card {
+  background: linear-gradient(180deg, var(--surface), rgba(14, 15, 21, 0.4));
+  border: 1px solid var(--line-soft);
+  border-radius: 20px;
+  padding: 28px 26px 32px;
+}
+.m360-loop-num {
+  font-family: var(--fm);
+  font-size: 13px;
+  color: var(--dim);
+  letter-spacing: 0.2em;
+}
+.m360-loop-card h3 {
+  margin: 16px 0 12px;
+  font-family: var(--fd), var(--fj);
+  font-weight: 800;
+  font-size: clamp(24px, 3vw, 32px);
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+.m360-loop-card h3 em {
+  font-family: var(--fm);
+  font-style: normal;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: var(--med);
+  text-transform: uppercase;
+}
+.m360-loop-card p { color: var(--med); font-size: 15px; line-height: 1.8; }
+
+/* ── 360° ORBIT (signature) ─────────────────── */
+.m360-orbit-section {
+  position: relative;
+  z-index: 1;
+}
+.m360-orbit-stage {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: clamp(60px, 9vh, 110px) var(--pad);
+  text-align: center;
+}
+.m360-orbit-head .m360-h2 { margin-top: 10px; }
+.m360-orbit {
+  --orbit-r: clamp(120px, 30vw, 280px);
+  position: relative;
+  width: calc(var(--orbit-r) * 2 + 160px);
+  height: calc(var(--orbit-r) * 2 + 160px);
+  max-width: 92vw;
+  display: grid;
+  place-items: center;
+  margin: clamp(10px, 3vh, 30px) 0;
+}
+.m360-orbit-center {
+  position: absolute;
+  z-index: 3;
+  width: clamp(120px, 22vw, 168px);
+  height: clamp(120px, 22vw, 168px);
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+  gap: 4px;
+  background: radial-gradient(circle at 50% 35%, rgba(255, 255, 255, 0.08), rgba(8, 8, 11, 0.9));
+  border: 1px solid var(--line);
+  box-shadow: 0 0 80px rgba(76, 141, 255, 0.18), inset 0 0 40px rgba(255, 255, 255, 0.04);
+}
+.m360-orbit-center-jp {
+  font-family: var(--fd), var(--fj);
+  font-weight: 800;
+  font-size: clamp(20px, 3.4vw, 30px);
+}
+.m360-orbit-center-en {
+  font-family: var(--fm);
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  color: var(--med);
+}
+.m360-orbit-ring {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  will-change: transform;
+}
+.m360-orbit-track {
+  position: absolute;
+  width: calc(var(--orbit-r) * 2);
+  height: calc(var(--orbit-r) * 2);
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 255, 255, 0.14);
+}
+.m360-orbit-node {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  will-change: transform, opacity;
+}
+.m360-orbit-node-inner {
+  width: clamp(86px, 13vw, 116px);
+  padding: 12px 10px;
+  border-radius: 16px;
+  background: rgba(14, 16, 23, 0.82);
+  border: 1px solid var(--line);
+  backdrop-filter: blur(6px);
+  display: grid;
+  gap: 2px;
+  text-align: center;
+  position: relative;
+}
+.m360-orbit-node-inner em {
+  font-family: var(--fm);
+  font-style: normal;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--med);
+}
+.m360-orbit-node-inner strong {
+  font-family: var(--fd), var(--fj);
+  font-weight: 800;
+  font-size: clamp(15px, 2vw, 19px);
+}
+.m360-orbit-node-inner small { font-size: 10.5px; color: var(--dim); line-height: 1.4; }
+.m360-orbit-node.is-core .m360-orbit-node-inner { border-color: rgba(255, 255, 255, 0.5); }
+.m360-orbit-node.is-live .m360-orbit-node-inner { border-color: rgba(229, 68, 59, 0.55); box-shadow: 0 0 22px rgba(229, 68, 59, 0.18); }
+.m360-orbit-node.is-soon .m360-orbit-node-inner { opacity: 0.66; border-style: dashed; }
+.m360-soon {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  font-family: var(--fm);
+  font-style: normal;
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  color: var(--med);
+}
+.m360-orbit-caption {
+  opacity: 0;
+  transform: translateY(16px);
+  max-width: 30em;
+  margin-top: clamp(14px, 3vh, 32px);
+  color: var(--med);
+  font-size: clamp(14px, 1.7vw, 17px);
+}
+
+/* ── 3アプリ ────────────────────────────────── */
+.m360-apps-head { max-width: 38em; }
+.m360-apps-lead { margin-top: 18px; color: var(--med); font-size: clamp(15px, 1.8vw, 18px); }
+.m360-app-list {
+  margin-top: 56px;
+  display: grid;
+  gap: 20px;
+}
+.m360-app-card {
+  display: grid;
+  grid-template-columns: 1fr minmax(220px, 360px);
+  align-items: center;
+  gap: 30px;
+  padding: clamp(26px, 4vw, 48px);
+  border-radius: 26px;
+  background: linear-gradient(120deg, var(--surface) 0%, rgba(14, 15, 21, 0.35) 100%);
+  border: 1px solid var(--line-soft);
+  text-decoration: none;
+  color: var(--hi);
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1), border-color 0.4s;
+}
+.m360-app-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.5;
+  background: radial-gradient(120% 140% at 100% 0%, var(--app-accent, transparent) 0%, transparent 42%);
+  pointer-events: none;
+}
+.m360-app-card.is-forge { --app-accent: rgba(229, 68, 59, 0.18); }
+.m360-app-card.is-liftly { --app-accent: rgba(76, 141, 255, 0.18); }
+.m360-app-card.is-sorrygains { --app-accent: rgba(243, 168, 60, 0.16); }
+.m360-app-card:hover { transform: translateY(-4px); border-color: var(--line); }
+.m360-app-domain {
+  font-family: var(--fm);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--med);
+}
+.m360-app-copy h3 {
+  margin: 12px 0 4px;
+  font-family: var(--fd), var(--fj);
+  font-weight: 800;
+  font-size: clamp(30px, 5vw, 52px);
+  letter-spacing: -0.02em;
+}
+.m360-app-role {
+  font-weight: 700;
+  font-size: clamp(15px, 2vw, 19px);
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+}
+.m360-app-card.is-forge .m360-app-role { background: none; color: var(--forge); }
+.m360-app-card.is-liftly .m360-app-role { background: none; color: var(--liftly); }
+.m360-app-card.is-sorrygains .m360-app-role { background: none; color: var(--sorrygains); }
+.m360-app-desc { margin-top: 14px; max-width: 26em; color: var(--med); font-size: 15px; line-height: 1.8; }
+.m360-app-link {
+  display: inline-block;
+  margin-top: 22px;
+  font-family: var(--fm);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: var(--hi);
+}
+.m360-app-visual {
+  align-self: stretch;
+  display: grid;
+  place-items: center;
+  min-height: 280px;
+}
+.m360-app-shot {
+  width: clamp(160px, 24vw, 240px);
+  border-radius: 26px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+  will-change: transform;
+}
+.m360-app-shot img { display: block; width: 100%; height: auto; }
+
+/* ── 筋トレ仙人 ─────────────────────────────── */
+.m360-sage {
+  display: grid;
+  grid-template-columns: 0.85fr 1fr;
+  gap: clamp(32px, 6vw, 80px);
+  align-items: center;
+}
+.m360-sage-portrait {
+  position: relative;
+  border-radius: 28px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: radial-gradient(circle at 50% 30%, rgba(243, 168, 60, 0.22), var(--surface) 70%);
+}
+.m360-sage-portrait img {
+  display: block;
+  width: 100%;
+  height: auto;
+  mix-blend-mode: luminosity;
+  opacity: 0.92;
+}
+.m360-sage-portrait::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, transparent 55%, rgba(8, 8, 11, 0.85) 100%),
+    radial-gradient(120% 80% at 50% 18%, transparent 50%, rgba(8, 8, 11, 0.5) 100%);
+  box-shadow: inset 0 0 60px rgba(8, 8, 11, 0.6);
+}
+.m360-sage-lead { margin-top: 20px; color: var(--med); font-size: clamp(15px, 1.9vw, 18px); line-height: 1.85; max-width: 30em; }
+.m360-sage-lines { margin-top: 34px; display: grid; gap: 16px; }
+.m360-sage-line {
+  font-family: var(--fd), var(--fj);
+  font-weight: 700;
+  font-size: clamp(17px, 2.5vw, 26px);
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  padding-left: 18px;
+  border-left: 2px solid var(--sorrygains);
+}
+.m360-sage-quote { color: var(--dim); }
+
+/* ── 共通ID ─────────────────────────────────── */
+.m360-id { text-align: center; }
+.m360-id-title { max-width: 16em; margin-inline: auto; }
+.m360-id-note { margin: 28px auto 0; max-width: 36em; color: var(--med); font-size: clamp(15px, 1.9vw, 18px); line-height: 1.85; }
+
+/* ── ロードマップ ───────────────────────────── */
+.m360-road-list { margin-top: 52px; display: grid; gap: 16px; }
+.m360-road-item {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 24px;
+  align-items: start;
+  padding: 30px clamp(22px, 3vw, 36px);
+  border-radius: 20px;
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+}
+.m360-road-meta { display: flex; flex-direction: column; gap: 8px; }
+.m360-road-tag { font-family: var(--fm); font-size: 12px; letter-spacing: 0.2em; color: var(--med); }
+.m360-road-state {
+  align-self: start;
+  font-family: var(--fm);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--dim);
+  width: max-content;
+}
+.m360-road-item.is-now { border-color: rgba(229, 68, 59, 0.4); }
+.m360-road-item.is-now .m360-road-state { color: var(--forge); border-color: rgba(229, 68, 59, 0.5); background: rgba(229, 68, 59, 0.08); }
+.m360-road-item h3 { font-family: var(--fd), var(--fj); font-weight: 800; font-size: clamp(20px, 2.6vw, 27px); letter-spacing: -0.01em; }
+.m360-road-item p { margin-top: 10px; color: var(--med); font-size: 15px; line-height: 1.8; max-width: 40em; }
+
+/* ── CTA ────────────────────────────────────── */
+.m360-cta {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: clamp(90px, 16vh, 200px) var(--pad) clamp(40px, 8vh, 80px);
+  text-align: center;
+}
+.m360-cta-title { font-family: var(--fd), var(--fj); font-weight: 900; font-size: clamp(36px, 7vw, 88px); letter-spacing: -0.03em; line-height: 1.05; }
+.m360-cta-sub { margin: 22px auto 0; max-width: 32em; color: var(--med); font-size: clamp(15px, 1.9vw, 18px); }
+.m360-cta-apps {
+  margin: 48px auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  max-width: 760px;
+}
+.m360-cta-app {
+  display: grid;
+  gap: 6px;
+  padding: 26px 18px;
+  border-radius: 18px;
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  text-decoration: none;
+  font-family: var(--fd), var(--fj);
+  font-weight: 800;
+  font-size: clamp(18px, 2.4vw, 24px);
+  color: var(--hi);
+  transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1), border-color 0.4s;
+}
+.m360-cta-app em { font-family: var(--fm); font-style: normal; font-weight: 400; font-size: 11px; letter-spacing: 0.12em; color: var(--med); }
+.m360-cta-app:hover { transform: translateY(-4px); }
+.m360-cta-app.is-forge:hover { border-color: rgba(229, 68, 59, 0.6); }
+.m360-cta-app.is-liftly:hover { border-color: rgba(76, 141, 255, 0.6); }
+.m360-cta-app.is-sorrygains:hover { border-color: rgba(243, 168, 60, 0.6); }
+.m360-footer {
+  margin-top: 60px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line-soft);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-family: var(--fm);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--dim);
+}
+.m360-footer a { color: var(--med); text-decoration: none; }
+
+/* ── Responsive ─────────────────────────────── */
+@media (max-width: 860px) {
+  .m360-loop-grid { grid-template-columns: 1fr; }
+  .m360-app-card { grid-template-columns: 1fr; gap: 20px; }
+  .m360-app-visual { order: -1; min-height: 0; }
+  .m360-sage { grid-template-columns: 1fr; }
+  .m360-sage-portrait { max-width: 320px; }
+  .m360-road-item { grid-template-columns: 1fr; gap: 12px; }
+  .m360-cta-apps { grid-template-columns: 1fr; }
+}
+
+/* Orbit: compact, decluttered layout on small screens */
+@media (max-width: 560px) {
+  .m360-orbit {
+    --orbit-r: clamp(118px, 39vw, 168px);
+    width: calc(var(--orbit-r) * 2 + 96px);
+    height: calc(var(--orbit-r) * 2 + 96px);
+  }
+  .m360-orbit-center { width: 104px; height: 104px; }
+  .m360-orbit-node-inner {
+    width: 62px;
+    padding: 8px 6px;
+    border-radius: 12px;
+    gap: 1px;
+  }
+  .m360-orbit-node-inner em { font-size: 8px; letter-spacing: 0.08em; }
+  .m360-orbit-node-inner strong { font-size: 13px; }
+  .m360-orbit-node-inner small { display: none; }
+  .m360-soon { font-size: 7px; padding: 1px 4px; top: -6px; right: -6px; }
+}
+
+/* ── Reduced motion ─────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .m360-cue-bar { animation: none; }
+  .m360-orbit-caption { opacity: 1; transform: none; }
+}
