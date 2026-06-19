@@ -1,3 +1,6 @@
+'use client';
+
+import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FamilyBar, FamilyBand, FamilyFooter } from '../../components/muscle-family';
@@ -110,10 +113,72 @@ function PhoneFrame({
 }
 
 export default function SorryGainsPage() {
+  const root = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const el = root.current;
+    if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    el.classList.add('js');
+    let cancelled = false;
+    let ctx: { revert: () => void } | undefined;
+
+    (async () => {
+      const gm = await import('gsap');
+      const sm = await import('gsap/ScrollTrigger');
+      if (cancelled || !root.current) return;
+      const gsap = (gm as { gsap?: typeof import('gsap').gsap }).gsap ?? gm.default;
+      const ScrollTrigger = (sm as { ScrollTrigger?: unknown }).ScrollTrigger ?? sm.default;
+      gsap.registerPlugin(ScrollTrigger as Parameters<typeof gsap.registerPlugin>[0]);
+
+      ctx = gsap.context(() => {
+        // playful, bouncy reveals (エンタメ)
+        gsap.utils.toArray<HTMLElement>('[data-rv]').forEach((n) => {
+          gsap.fromTo(n, { opacity: 0, y: 30, scale: 0.96 }, {
+            opacity: 1, y: 0, scale: 1, duration: 0.7, ease: 'back.out(1.5)',
+            delay: parseFloat(n.dataset.delay || '0'),
+            scrollTrigger: { trigger: n, start: 'top 88%' },
+          });
+        });
+
+        // signature: anger level rises lv1 → lv3 → lv5 as you scroll
+        const anger = el.querySelector<HTMLElement>('[data-anger]');
+        if (anger) {
+          const lv1 = anger.querySelector('[data-lv="1"]');
+          const lv3 = anger.querySelector('[data-lv="3"]');
+          const lv5 = anger.querySelector('[data-lv="5"]');
+          const gauge = anger.querySelector('[data-gauge]');
+          const lvEl = anger.querySelector('[data-anger-lv]');
+          const nameEl = anger.querySelector('[data-anger-name]');
+          const NAMES: Record<number, string> = { 1: 'ほろ酔い', 3: '反省どき', 5: '大激怒' };
+          gsap.set([lv3, lv5], { opacity: 0 });
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: anger, start: 'top top', end: '+=185%', scrub: 0.5, pin: true, anticipatePin: 1,
+              onUpdate: (self: { progress: number }) => {
+                const lv = self.progress < 0.36 ? 1 : self.progress < 0.72 ? 3 : 5;
+                if (lvEl) lvEl.textContent = `LV.${lv}`;
+                if (nameEl) nameEl.textContent = NAMES[lv];
+              },
+            },
+          });
+          tl.to(lv1, { opacity: 0, duration: 1 }, 0.9)
+            .to(lv3, { opacity: 1, duration: 1 }, 0.9)
+            .to(lv3, { opacity: 0, duration: 1 }, 2.3)
+            .to(lv5, { opacity: 1, duration: 1 }, 2.3)
+            .fromTo(gauge, { width: '12%' }, { width: '100%', duration: 3.3, ease: 'none' }, 0);
+        }
+
+        (ScrollTrigger as { refresh: () => void }).refresh();
+      }, root);
+    })();
+
+    return () => { cancelled = true; ctx?.revert(); };
+  }, []);
+
   return (
     <>
       <FamilyBar current="sorrygains" />
-      <main className="sg-page">
+      <main className="sg-page" ref={root}>
       <nav className="sg-nav" aria-label="サイトナビゲーション">
         <Link href="/sorrygains/" className="sg-brand">
           <Image src="/assets/media/sorrygains/icon.png" alt="" width={34} height={34} />
@@ -161,7 +226,7 @@ export default function SorryGainsPage() {
       </section>
 
       <section className="sg-section sg-concept" id="concept">
-        <div className="sg-section__head">
+        <div className="sg-section__head" data-rv>
           <p className="sg-eyebrow">Concept</p>
           <h2>罪悪感を、ちょっと笑える記録に。</h2>
         </div>
@@ -171,14 +236,41 @@ export default function SorryGainsPage() {
         </p>
       </section>
 
+      <section className="sg-anger" data-anger aria-label="怒りレベル">
+        <div className="sg-anger__inner">
+          <div className="sg-anger__copy">
+            <p className="sg-eyebrow">Anger Level</p>
+            <h2>飲むほど、<br />筋肉が怒る。</h2>
+            <p className="sg-anger__lead">
+              その日の飲み方を、5段階の怒りで返す。スクロールして、筋肉を怒らせてみてください。
+            </p>
+            <div className="sg-gauge"><span className="sg-gauge__fill" data-gauge /></div>
+            <div className="sg-anger__label">
+              <span className="sg-anger__lv" data-anger-lv>LV.1</span>
+              <em className="sg-anger__name" data-anger-name>ほろ酔い</em>
+            </div>
+          </div>
+          <div className="sg-anger__stage" aria-hidden="true">
+            <div className="sg-phone sg-phone--photo">
+              <div className="sg-phone__speaker" />
+              <div className="sg-phone__screen">
+                <Image className="sg-anger__shot" data-lv="1" src="/assets/media/sorrygains/home-lv1.png" alt="" width={1206} height={2622} />
+                <Image className="sg-anger__shot" data-lv="3" src="/assets/media/sorrygains/home-lv3.png" alt="" width={1206} height={2622} />
+                <Image className="sg-anger__shot" data-lv="5" src="/assets/media/sorrygains/home-lv5.png" alt="" width={1206} height={2622} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="sg-section" id="features">
-        <div className="sg-section__head">
+        <div className="sg-section__head" data-rv>
           <p className="sg-eyebrow">Features</p>
           <h2>まじめに記録して、まじめに謝る。</h2>
         </div>
         <div className="sg-feature-grid">
           {features.map((feature) => (
-            <article className="sg-feature" key={feature.title}>
+            <article className="sg-feature" key={feature.title} data-rv>
               <h3>{feature.title}</h3>
               <p>{feature.body}</p>
             </article>
@@ -187,13 +279,13 @@ export default function SorryGainsPage() {
       </section>
 
       <section className="sg-section sg-flow">
-        <div className="sg-section__head">
+        <div className="sg-section__head" data-rv>
           <p className="sg-eyebrow">How It Works</p>
           <h2>記録、結果、必要なときだけ同期。</h2>
         </div>
         <div className="sg-steps">
           {steps.map((step) => (
-            <article className="sg-step" key={step.label}>
+            <article className="sg-step" key={step.label} data-rv>
               <span>{step.label}</span>
               <h3>{step.title}</h3>
               <p>{step.body}</p>
@@ -236,7 +328,7 @@ export default function SorryGainsPage() {
       </section>
 
       <section className="sg-section" id="faq">
-        <div className="sg-section__head">
+        <div className="sg-section__head" data-rv>
           <p className="sg-eyebrow">FAQ</p>
           <h2>よくある質問</h2>
         </div>
