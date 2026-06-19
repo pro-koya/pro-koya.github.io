@@ -1,262 +1,419 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import { Suspense } from 'react';
+import { Suspense, useEffect, useRef } from 'react';
 import { FamilyBar, FamilyBand, FamilyFooter } from '../../components/muscle-family';
 
 const TRANSLATIONS = {
   ja: {
-    title: 'Liftly - シンプルで続く、筋トレ記録アプリ',
-    description: 'Liftly - シンプルで美しい筋トレ記録アプリ。トレーニングログ、種目別成長グラフ、体重管理を一つに。',
-    nav: { features: '機能', howto: '使い方', privacy: 'プライバシー', contact: 'お問い合わせ' },
+    nav: { features: '機能', howto: '使い方', video: '動画', contact: 'お問い合わせ' },
+    lang: { ja: '日本語', en: 'EN' },
     hero: {
       badge: '筋トレ記録アプリ',
-      tagline: 'シンプルで美しい。続けたくなるトレーニングログ。\n重量・回数・種目別の成長を、一つにまとめて。',
-      videoTitle: 'Liftlyアプリのプロモーション動画',
-      watchYoutube: 'YouTube で見る',
+      h1a: '記録は、シンプル。',
+      h1b: '成長は、確かに。',
+      tagline: '種目を選んで、重さと回数を入れるだけ。あなたの積み上げを、いちばん続く形で。',
       appStore: 'App Store でダウンロード',
+      video: '30秒で見る',
+      meta: ['無料', 'iOS 17+', '日本語 / English', 'オフライン対応'],
     },
-    features: {
-      title: 'トレーニングを、もっとシンプルに',
-      desc: 'Liftlyは、記録に悩まされず本気のトレーニングに集中できるアプリです。',
-      f1: { title: '直感的な記録', desc: '種目を選び、重量と回数を入力するだけ。前回の記録をワンタップで再現できるので、セット間の操作は最小限です。' },
-      f2: { title: '種目別の成長グラフ', desc: '重量・回数・ボリュームの推移をグラフで確認。1M〜5Yの期間で、あなたの成長を視覚的に把握できます。' },
-      f3: { title: 'セット間タイマー', desc: '休憩時間を計測。バックグラウンドでも動作するので、スマホを置いたまま次のセットに備えられます。' },
-      f4: { title: '体重管理', desc: '体重の推移を記録し、月間の変化を確認。トレーニング頻度と体重の関係をインサイトで把握できます。' },
-      f5: { title: 'バックアップ・復元', desc: 'JSON/CSV形式でエクスポート・インポート可能。データは端末内に保存され、あなたがコントロールできます。' },
-      f6: { title: 'カスタマイズ', desc: 'テーマや単位（kg/lb）、言語（日本語/English）を切り替え。あなた好みの環境で続けられます。' },
-      f7: { title: 'Muscle360 Pro', desc: 'Forge・筋肉ごめん・Liftly の Muscle360 ファミリー。Muscle360 Pro バンドルなら、1つの購読で3アプリの Pro 機能が使えます。' },
+    pillars: {
+      title: '記録に悩まず、トレーニングに集中。',
+      items: [
+        { t: '速く、記録', d: '種目を選んで重量と回数を入れるだけ。前回のセットはワンタップで再現。' },
+        { t: '成長が、見える', d: '種目別に重量・回数・ボリュームをグラフ化。1ヶ月から5年まで俯瞰できる。' },
+        { t: 'ずっと、続く', d: 'シンプルだから続く。データは端末内に保存され、あなたの手の中にある。' },
+      ],
     },
-    howto: {
-      title: 'はじめ方',
-      desc: '初回起動から最初のワークアウトまで、3ステップでスタート。',
-      s1: { title: 'アプリを起動し、トレーニング開始', desc: 'ホーム画面の「トレーニング開始」をタップ。種目を追加して、重量・回数を入力します。セットを追加するときは「セット追加」ボタンで簡単に記録できます。' },
-      s2: { title: '記録完了でセッションを保存', desc: 'トレーニングが終わったら「記録完了」をタップ。その日のワークアウトがカレンダーと履歴に保存されます。後から編集・削除も可能です。' },
-      s3: { title: '成長をグラフで確認', desc: '種目一覧から任意の種目をタップすると、成長グラフを表示。重量・回数・ボリュームの推移を期間（1M〜5Y）で切り替えて確認できます。' },
+    feats: [
+      {
+        eye: 'RECORD',
+        h: '考えずに、記録できる。',
+        p: 'ジムでスマホと格闘しない。前回の記録をワンタップで呼び出し、重さと回数を直すだけ。セット間の操作は最小限に。',
+        list: ['前回のセットをワンタップで再現', 'セット追加は1タップ', '種目はお気に入りに登録'],
+      },
+      {
+        eye: 'PROGRESS',
+        h: '数字が、伸びていく。',
+        p: '続けた成果は、グラフが教えてくれる。種目ごとに重量・回数・ボリュームの推移を、期間を切り替えて確認できる。',
+        list: ['種目別の成長グラフ', '重量・回数・ボリュームを切替', '1M〜5Y で期間を俯瞰'],
+      },
+      {
+        eye: 'FOCUS',
+        h: '休憩も、逃さない。',
+        p: 'セット間の休憩を自動で計測。バックグラウンドでも動くから、スマホを置いて、次のセットに集中できる。',
+        list: ['セット間タイマー', 'バックグラウンドでも動作', 'スマホを置いて次のセットへ'],
+      },
+    ],
+    mini: {
+      title: '続けるための、細部まで。',
+      items: [
+        { t: '体重管理', d: '体重の推移と月間の変化を記録。トレーニング頻度との関係も見える。' },
+        { t: 'バックアップ', d: 'JSON / CSV で書き出し・読み込み。データはいつでもあなたの手元に。' },
+        { t: 'カスタマイズ', d: 'テーマ・単位（kg/lb）・言語（日本語/English）を切り替え。' },
+      ],
     },
-    privacy: {
-      title: 'プライバシーポリシー',
-      p1: '本アプリのトレーニングデータは端末内に保存されます。任意で Muscle360 Pro バンドルをご利用の場合のみ、3アプリ間で Pro を共有するために Apple / Google / Supabase 認証によりメールアドレスとユーザーIDを扱います。',
-      p2: 'アプリ内課金、広告表示に関わる処理について、各サービス提供者のポリシーが適用されます。\n詳しくはアプリ内の利用規約・プライバシーポリシーをご確認ください。',
-    },
-    contact: { title: 'お問い合わせ', desc: 'ご質問・ご要望は以下のフォームよりお送りください。', btn: 'お問い合わせフォームを開く' },
-    footer: { features: '機能', howto: '使い方', privacy: 'プライバシー', contact: 'お問い合わせ', copyright: '© Liftly - Simple Fitness Log', creator: '制作: Miyabayasi Koya' },
-    lang: { ja: '日本語', en: 'English' },
+    video: { eye: 'IN ACTION', h: '30秒で、伝わる。', p: '実際の記録の流れを、動画でどうぞ。' },
+    final: { h: '今日から、記録を始める。', p: '無料。サインイン不要で、すぐに使えます。', cta: 'App Store でダウンロード' },
+    contact: { eye: 'CONTACT', h: 'ご質問・ご要望', p: '改善のヒントは、いつも使う人の声から。', btn: 'お問い合わせフォーム' },
     urls: {
       appStore: 'https://apps.apple.com/app/liftly-simple-workout-log/id6757798075',
       contactForm: 'https://forms.gle/kwtwF2FkEDE12ZcX8',
-      youtubeShort: 'https://youtube.com/shorts/HWuYU6D3kqw?feature=share',
+      youtube: 'https://www.youtube.com/embed/s2aB3qd8uTo',
     },
   },
   en: {
-    title: 'Liftly - Simple Workout Log',
-    description: 'Liftly - A simple, beautiful workout logger. Training log, progress by exercise, and weight tracking in one app.',
-    nav: { features: 'Features', howto: 'How to', privacy: 'Privacy', contact: 'Contact' },
+    nav: { features: 'Features', howto: 'How', video: 'Video', contact: 'Contact' },
+    lang: { ja: '日本語', en: 'EN' },
     hero: {
       badge: 'Workout Log App',
-      tagline: "Simple and clear. A training log you'll want to keep.\nTrack weight, reps, and progress by exercise in one place.",
-      videoTitle: 'Liftly app promotion video',
-      watchYoutube: 'Watch on YouTube',
+      h1a: 'Logging, made simple.',
+      h1b: 'Progress, made clear.',
+      tagline: 'Pick an exercise, enter weight and reps. Your hard work, in the form most likely to last.',
       appStore: 'Download on the App Store',
+      video: 'Watch 30s',
+      meta: ['Free', 'iOS 17+', 'JA / English', 'Works offline'],
     },
-    features: {
-      title: 'Training, made simpler',
-      desc: "Liftly lets you focus on your workout instead of wrestling with your log.",
-      f1: { title: 'Intuitive logging', desc: 'Pick an exercise, enter weight and reps. One tap to repeat your last set, so you spend less time on your phone between sets.' },
-      f2: { title: 'Progress by exercise', desc: "View trends for weight, reps, and volume in graphs. Switch between 1M and 5Y to see how you're growing." },
-      f3: { title: 'Rest timer', desc: 'Time your rest between sets. Runs in the background so you can put your phone down until the next set.' },
-      f4: { title: 'Weight tracking', desc: 'Log your weight and see monthly changes. See how training frequency and weight relate over time.' },
-      f5: { title: 'Backup & restore', desc: 'Export and import as JSON or CSV. Data stays on your device and under your control.' },
-      f6: { title: 'Customization', desc: 'Switch theme, units (kg/lb), and language (Japanese/English) to match your preference.' },
-      f7: { title: 'Muscle360 Pro', desc: 'Liftly is part of the Muscle360 family with Forge and SorryGains. One Muscle360 Pro subscription unlocks Pro features across all three apps.' },
+    pillars: {
+      title: 'Less fiddling with your log. More training.',
+      items: [
+        { t: 'Log fast', d: 'Pick an exercise, enter weight and reps. Repeat your last set in one tap.' },
+        { t: 'See progress', d: 'Charts for weight, reps and volume per exercise — from 1 month to 5 years.' },
+        { t: 'Keep going', d: 'Simple enough to stick with. Data stays on your device, in your hands.' },
+      ],
     },
-    howto: {
-      title: 'Getting started',
-      desc: 'From first launch to your first workout in three steps.',
-      s1: { title: 'Start a workout', desc: 'Tap "Start workout" on the home screen. Add exercises and enter weight and reps. Use "Add set" to log each set quickly.' },
-      s2: { title: 'Save your session', desc: "When you're done, tap \"Finish\". Your workout is saved to the calendar and history. You can edit or delete it later." },
-      s3: { title: 'Check your progress', desc: 'Tap any exercise in the list to open its progress graph. Switch between 1M and 5Y to view weight, reps, and volume over time.' },
+    feats: [
+      {
+        eye: 'RECORD',
+        h: 'Log without thinking.',
+        p: 'No wrestling with your phone at the gym. Recall your last set in one tap, adjust the numbers, done. Minimal taps between sets.',
+        list: ['One tap to repeat last set', 'Add a set in one tap', 'Save exercises as favorites'],
+      },
+      {
+        eye: 'PROGRESS',
+        h: 'Watch the numbers climb.',
+        p: 'Your consistency shows up in the graph. Track weight, reps and volume per exercise, switching the time range as you like.',
+        list: ['Progress graph per exercise', 'Switch weight / reps / volume', 'See 1M–5Y at a glance'],
+      },
+      {
+        eye: 'FOCUS',
+        h: "Don't miss your rest.",
+        p: 'Times your rest automatically and keeps running in the background — put the phone down and focus on the next set.',
+        list: ['Rest timer between sets', 'Runs in the background', 'Put it down, lift again'],
+      },
+    ],
+    mini: {
+      title: 'The details that keep you going.',
+      items: [
+        { t: 'Weight tracking', d: 'Log your weight and monthly changes, and how training relates to it.' },
+        { t: 'Backup', d: 'Export and import as JSON / CSV. Your data is always yours.' },
+        { t: 'Customization', d: 'Switch theme, units (kg/lb) and language (Japanese / English).' },
+      ],
     },
-    privacy: {
-      title: 'Privacy Policy',
-      p1: 'Your training data is stored on your device. Only when you use the optional Muscle360 Pro bundle, your email and user ID are handled via Apple / Google / Supabase sign-in to share Pro across the three apps.',
-      p2: "In-app purchases and ads are subject to the respective service providers' policies.\nSee the in-app terms and privacy policy for details.",
-    },
-    contact: { title: 'Contact', desc: 'Send questions or feedback using the form below.', btn: 'Open contact form' },
-    footer: { features: 'Features', howto: 'How to', privacy: 'Privacy', contact: 'Contact', copyright: '© Liftly - Simple Fitness Log', creator: 'Created by Miyabayasi Koya' },
-    lang: { ja: '日本語', en: 'English' },
+    video: { eye: 'IN ACTION', h: 'See it in 30 seconds.', p: 'The real logging flow, in a short clip.' },
+    final: { h: 'Start logging today.', p: 'Free. No sign-in required — just open and go.', cta: 'Download on the App Store' },
+    contact: { eye: 'CONTACT', h: 'Questions & feedback', p: 'The best improvements come from the people who use it.', btn: 'Open contact form' },
     urls: {
       appStore: 'https://apps.apple.com/app/liftly-simple-workout-log/id6757798075',
       contactForm: 'https://forms.gle/4xBiNdntNHTSyRWc6',
-      youtubeShort: 'https://youtube.com/shorts/HWuYU6D3kqw?feature=share',
+      youtube: 'https://www.youtube.com/embed/s2aB3qd8uTo',
     },
   },
 } as const;
 
 type Lang = keyof typeof TRANSLATIONS;
 
-function renderTagline(text: string) {
-  return text.split('\n').map((line, i, arr) => (
-    <span key={i}>{line}{i < arr.length - 1 ? <br /> : null}</span>
-  ));
-}
-
 function AppleSvg() {
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
     </svg>
   );
 }
 
+/* ── Crafted phone mockups (light UI) ── */
+function StatusBar() {
+  return (
+    <div className="lf-screen-status">
+      <span>9:41</span>
+      <span className="lf-dots">●●● ▾ ▮</span>
+    </div>
+  );
+}
+
+function LoggingPhone() {
+  return (
+    <div className="lf-phone" aria-hidden="true">
+      <div className="lf-screen">
+        <StatusBar />
+        <div className="lf-screen-body">
+          <div>
+            <div className="lf-sc-h">Today&apos;s Workout</div>
+            <div className="lf-sc-sub">Push Day · 3 exercises</div>
+          </div>
+          <div className="lf-ex">
+            <div className="lf-ex-top">
+              <span className="lf-ex-name">Bench Press</span>
+              <span className="lf-ex-pr">NEW PR</span>
+            </div>
+            <div className="lf-set"><i>1</i><b>60</b> kg × <b>10</b><em>prev 57.5</em></div>
+            <div className="lf-set"><i>2</i><b>62.5</b> kg × <b>8</b><em>prev 60</em></div>
+            <div className="lf-set"><i>3</i><b>65</b> kg × <b>6</b><em>prev 62.5</em></div>
+            <div className="lf-ex-add">＋ Add set</div>
+          </div>
+          <div className="lf-ex">
+            <div className="lf-ex-top"><span className="lf-ex-name">Incline DB Press</span></div>
+            <div className="lf-set"><i>1</i><b>22</b> kg × <b>12</b><em>prev 22</em></div>
+          </div>
+          <div className="lf-sc-cta">Finish workout</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function GraphPhone() {
+  return (
+    <div className="lf-phone" aria-hidden="true">
+      <div className="lf-screen">
+        <StatusBar />
+        <div className="lf-screen-body">
+          <div>
+            <div className="lf-sc-h">Progress</div>
+            <div className="lf-sc-sub">Bench Press · est. 1RM</div>
+          </div>
+          <div className="lf-graph">
+            <div className="lf-graph-top">
+              <span className="lf-graph-val">82.5<small>+14%</small></span>
+              <span className="lf-ex-pr">6M</span>
+            </div>
+            <svg className="lf-graph-svg" viewBox="0 0 240 84" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="lfArea" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="rgba(47,107,255,0.28)" />
+                  <stop offset="100%" stopColor="rgba(47,107,255,0)" />
+                </linearGradient>
+              </defs>
+              <path d="M0,70 L40,64 L80,58 L120,44 L160,40 L200,24 L240,14 L240,84 L0,84 Z" fill="url(#lfArea)" />
+              <path d="M0,70 L40,64 L80,58 L120,44 L160,40 L200,24 L240,14" fill="none" stroke="#2f6bff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+              <circle cx="240" cy="14" r="4" fill="#2f6bff" />
+            </svg>
+            <div className="lf-chips"><span>1M</span><span className="on">6M</span><span>1Y</span><span>5Y</span></div>
+          </div>
+          <div className="lf-graph">
+            <div className="lf-graph-top">
+              <span className="lf-graph-val" style={{ fontSize: 16 }}>Volume <small>+22%</small></span>
+            </div>
+            <div className="lf-set" style={{ marginTop: 6 }}><i>W</i><b>18,400</b> kg this week<em>+3,200</em></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function TimerPhone() {
+  const C = 2 * Math.PI * 70;
+  return (
+    <div className="lf-phone" aria-hidden="true">
+      <div className="lf-screen">
+        <StatusBar />
+        <div className="lf-screen-body">
+          <div>
+            <div className="lf-sc-h">Rest</div>
+            <div className="lf-sc-sub">Between sets · Bench Press</div>
+          </div>
+          <div className="lf-timer-wrap">
+            <div className="lf-timer">
+              <svg viewBox="0 0 158 158">
+                <circle cx="79" cy="79" r="70" fill="none" stroke="#eef1f7" strokeWidth="10" />
+                <circle cx="79" cy="79" r="70" fill="none" stroke="#2f6bff" strokeWidth="10" strokeLinecap="round"
+                  strokeDasharray={C} strokeDashoffset={C * 0.34} />
+              </svg>
+              <div style={{ textAlign: 'center' }}>
+                <div className="lf-timer-num">1:30</div>
+                <div className="lf-timer-lb">REST</div>
+              </div>
+            </div>
+          </div>
+          <div className="lf-sc-cta">Skip rest</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const FEAT_VISUALS = [<LoggingPhone key="l" />, <GraphPhone key="g" />, <TimerPhone key="t" />];
+
 function LiftlyContent() {
   const searchParams = useSearchParams();
-  const rawLang = searchParams.get('lang')?.toLowerCase();
-  const lang: Lang = rawLang === 'en' ? 'en' : 'ja';
+  const lang: Lang = searchParams.get('lang')?.toLowerCase() === 'en' ? 'en' : 'ja';
   const t = TRANSLATIONS[lang];
+  const root = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const el = root.current;
+    if (!el) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    el.classList.add('js');
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            (e.target as HTMLElement).style.transitionDelay =
+              (e.target as HTMLElement).dataset.delay || '0s';
+            e.target.classList.add('is-in');
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+    );
+    el.querySelectorAll('[data-rv]').forEach((n) => io.observe(n));
+    return () => io.disconnect();
+  }, []);
 
   const langUrl = (l: Lang) => `/liftly/?lang=${l}`;
 
   return (
-    <>
+    <main className="lf" ref={root}>
       <FamilyBar current="liftly" />
-      <nav className="nav" id="nav">
-        <div className="nav-inner">
-          <a href="#" className="nav-logo">Liftly</a>
-          <span className="nav-lang">
-            <a href={langUrl('ja')} className={`nav-lang-link${lang === 'ja' ? ' is-active' : ''}`}>{t.lang.ja}</a>
-            <span className="nav-lang-sep" aria-hidden="true">|</span>
-            <a href={langUrl('en')} className={`nav-lang-link${lang === 'en' ? ' is-active' : ''}`}>{t.lang.en}</a>
-          </span>
-          <div className="nav-right" id="nav-menu">
-            <div className="nav-links">
+
+      <nav className="lf-nav">
+        <div className="lf-nav-inner">
+          <a className="lf-logo" href="#top">
+            <img src="/assets/media/liftly-icon.png" alt="" width={26} height={26} />
+            Liftly
+          </a>
+          <div className="lf-nav-right">
+            <div className="lf-nav-links">
               <a href="#features">{t.nav.features}</a>
               <a href="#howto">{t.nav.howto}</a>
-              <a href="#privacy">{t.nav.privacy}</a>
-              <a href="#contact">{t.nav.contact}</a>
+              <a href="#video">{t.nav.video}</a>
+            </div>
+            <div className="lf-lang">
+              <a href={langUrl('ja')} className={lang === 'ja' ? 'is-active' : ''}>{t.lang.ja}</a>
+              <a href={langUrl('en')} className={lang === 'en' ? 'is-active' : ''}>{t.lang.en}</a>
             </div>
           </div>
         </div>
       </nav>
 
-      <header className="hero">
-        <div className="hero-content container">
-          <span className="hero-badge">{t.hero.badge}</span>
-          <h1>Liftly</h1>
-          <p className="hero-tagline">{renderTagline(t.hero.tagline)}</p>
-          <div className="hero-video-wrap">
-            <iframe
-              className="hero-video"
-              src="https://www.youtube.com/embed/s2aB3qd8uTo"
-              title={t.hero.videoTitle}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-            />
-            <a
-              href={t.urls.youtubeShort}
-              className="hero-video-link"
-              target="_blank"
-              rel="noopener"
-            >
-              {t.hero.watchYoutube}
+      {/* Hero */}
+      <header className="lf-hero" id="top">
+        <div className="lf-hero-copy">
+          <span className="lf-badge" data-rv>● {t.hero.badge}</span>
+          <h1 data-rv data-delay="0.05s">
+            {t.hero.h1a}<br />
+            <span className="lf-accent">{t.hero.h1b}</span>
+          </h1>
+          <p className="lf-hero-tagline" data-rv data-delay="0.1s">{t.hero.tagline}</p>
+          <div className="lf-hero-actions" data-rv data-delay="0.15s">
+            <a className="lf-btn lf-btn-primary" href={t.urls.appStore} target="_blank" rel="noopener">
+              <AppleSvg /> {t.hero.appStore}
             </a>
+            <a className="lf-btn lf-btn-ghost" href="#video">▶ {t.hero.video}</a>
           </div>
-          <div className="store-buttons">
-            <a
-              href={t.urls.appStore}
-              className="store-btn"
-              target="_blank"
-              rel="noopener"
-            >
-              <AppleSvg />
-              {t.hero.appStore}
-            </a>
+          <div className="lf-hero-meta" data-rv data-delay="0.2s">
+            {t.hero.meta.map((m) => <span key={m}>{m}</span>)}
           </div>
+        </div>
+        <div className="lf-hero-visual" data-rv data-delay="0.1s">
+          <LoggingPhone />
         </div>
       </header>
 
-      <main>
-        <section id="features" className="container">
-          <div className="section-header">
-            <h2>{t.features.title}</h2>
-            <p>{t.features.desc}</p>
-          </div>
-          <div className="features-grid">
-            {(
-              [
-                { key: 'f1', icon: <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/><path d="M18.5 2.5a2.12 2.12 0 013 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/></svg> },
-                { key: 'f2', icon: <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/></svg> },
-                { key: 'f3', icon: <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none"/><polyline points="12 6 12 12 16 14" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/></svg> },
-                { key: 'f4', icon: <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 3v18" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round"/><path d="M8 21h8" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round"/><path d="M6 8h12" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round"/><path d="M9 12h6" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round"/></svg> },
-                { key: 'f5', icon: <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 12a9 9 0 01-9 9 9 9 0 01-9-9 9 9 0 019-9 9 9 0 019 9z" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/><path d="M21 3v6h-6" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/></svg> },
-                { key: 'f6', icon: <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="2" fill="none"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round"/></svg> },
-                { key: 'f7', icon: <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l9 5-9 5-9-5 9-5z" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/><path d="M3 12l9 5 9-5" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/><path d="M3 17l9 5 9-5" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/></svg> },
-              ] as { key: 'f1'|'f2'|'f3'|'f4'|'f5'|'f6'|'f7'; icon: React.ReactNode }[]
-            ).map(({ key, icon }) => (
-              <article className="feature-card" key={key}>
-                <div className="feature-icon">{icon}</div>
-                <h3>{t.features[key].title}</h3>
-                <p>{t.features[key].desc}</p>
-              </article>
-            ))}
-          </div>
-        </section>
+      {/* spec strip */}
+      <div className="lf-spec" data-rv>
+        <div className="lf-spec-inner">
+          {t.hero.meta.map((m) => <span key={m}>{m}</span>)}
+          <span>JSON / CSV エクスポート</span>
+        </div>
+      </div>
 
-        <section id="howto">
-          <div className="container">
-            <div className="section-header">
-              <h2>{t.howto.title}</h2>
-              <p>{t.howto.desc}</p>
-            </div>
-            <div className="howto-steps">
-              {(['s1', 's2', 's3'] as const).map((key, i) => (
-                <div className="howto-step" key={key}>
-                  <span className="step-num">{i + 1}</span>
-                  <div>
-                    <h3>{t.howto[key].title}</h3>
-                    <p>{t.howto[key].desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+      {/* pillars */}
+      <section className="lf-section" id="features">
+        <p className="lf-eyebrow" data-rv>WHY LIFTLY</p>
+        <h2 className="lf-h2" data-rv data-delay="0.05s">{t.pillars.title}</h2>
+        <div className="lf-pillars">
+          {t.pillars.items.map((p, i) => (
+            <article className="lf-pillar" key={p.t} data-rv data-delay={`${i * 0.08}s`}>
+              <span className="lf-pillar-ic">{PILLAR_ICONS[i]}</span>
+              <h3>{p.t}</h3>
+              <p>{p.d}</p>
+            </article>
+          ))}
+        </div>
+      </section>
 
-        <section id="privacy">
-          <div className="container">
-            <div className="section-header">
-              <h2>{t.privacy.title}</h2>
+      {/* feature deep-dives */}
+      <section className="lf-section" id="howto" style={{ paddingTop: 0 }}>
+        {t.feats.map((f, i) => (
+          <div className={`lf-feat${i % 2 === 1 ? ' rev' : ''}`} key={f.eye}>
+            <div className="lf-feat-copy" data-rv>
+              <p className="lf-eyebrow">{f.eye}</p>
+              <h3 style={{ marginTop: 12 }}>{f.h}</h3>
+              <p>{f.p}</p>
+              <ul className="lf-feat-list">
+                {f.list.map((li) => <li key={li}>{li}</li>)}
+              </ul>
             </div>
-            <div className="legal-section">
-              <p>{t.privacy.p1}</p>
-              <p>{renderTagline(t.privacy.p2)}</p>
-            </div>
+            <div className="lf-feat-visual" data-rv data-delay="0.08s">{FEAT_VISUALS[i]}</div>
           </div>
-        </section>
+        ))}
 
-        <section id="contact">
-          <div className="container">
-            <div className="contact-cta">
-              <h3>{t.contact.title}</h3>
-              <p>{t.contact.desc}</p>
-              <a
-                href={t.urls.contactForm}
-                className="btn-primary"
-                target="_blank"
-                rel="noopener"
-              >
-                {t.contact.btn}
-              </a>
-            </div>
-          </div>
-        </section>
-      </main>
+        <div className="lf-mini">
+          {t.mini.items.map((m, i) => (
+            <article className="lf-mini-card" key={m.t} data-rv data-delay={`${i * 0.07}s`}>
+              <span className="lf-pillar-ic">{MINI_ICONS[i]}</span>
+              <h4>{m.t}</h4>
+              <p>{m.d}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* video */}
+      <section className="lf-section lf-video" id="video">
+        <p className="lf-eyebrow" data-rv>{t.video.eye}</p>
+        <h2 className="lf-h2" data-rv data-delay="0.05s">{t.video.h}</h2>
+        <div className="lf-video-frame" data-rv data-delay="0.1s">
+          <iframe
+            src={t.urls.youtube}
+            title="Liftly"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          />
+        </div>
+      </section>
+
+      {/* final CTA */}
+      <section className="lf-final" id="contact">
+        <div className="lf-final-inner">
+          <h2 data-rv>{t.final.h}</h2>
+          <p data-rv data-delay="0.05s">{t.final.p}</p>
+          <a className="lf-btn" href={t.urls.appStore} target="_blank" rel="noopener" data-rv data-delay="0.1s">
+            <AppleSvg /> {t.final.cta}
+          </a>
+        </div>
+      </section>
 
       <FamilyBand current="liftly" />
-      <FamilyFooter current="liftly" privacyHref="#privacy" />
-    </>
+      <FamilyFooter current="liftly" privacyHref="#features" />
+    </main>
   );
 }
+
+const PILLAR_ICONS = [
+  <svg key="0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z" /></svg>,
+  <svg key="1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3v18h18" /><path d="m7 14 4-4 3 3 5-6" /></svg>,
+  <svg key="2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z" /></svg>,
+];
+const MINI_ICONS = [
+  <svg key="0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3v18" /><path d="M6 8h12M9 12h6M8 21h8" /></svg>,
+  <svg key="1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 1 1-9-9" /><path d="M21 3v6h-6" /></svg>,
+  <svg key="2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3" /><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2" /></svg>,
+];
 
 export default function LiftlyPage() {
   return (
