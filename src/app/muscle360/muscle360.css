@@ -492,17 +492,24 @@ body:has(.m360) { background: #08080b; }
     radial-gradient(circle at 50% 36%, rgba(243, 168, 60, 0.18), transparent 60%),
     linear-gradient(180deg, var(--surface-2), var(--surface));
 }
+.m360-sage-figure {
+  transform-origin: 50% 88%;
+  animation: m360-sage-breathe 5.5s ease-in-out infinite;
+}
 .m360-sage-portrait img {
   display: block;
   width: 100%;
   height: auto;
-  transform-origin: 50% 86%;
-  animation: m360-sage-breathe 5.5s ease-in-out infinite, m360-sage-glow 3.7s ease-in-out infinite;
+  transform-origin: 50% 80%;
+  animation: m360-sage-glow 3.7s ease-in-out infinite;
 }
 @keyframes m360-sage-breathe {
   0%, 100% { transform: translateY(0) scale(1) rotate(0deg); }
-  50% { transform: translateY(-2.2%) scale(1.02) rotate(0.7deg); }
+  50% { transform: translateY(-2.4%) scale(1.022) rotate(0.9deg); }
 }
+
+/* hero particle canvas */
+.m360-hero-canvas { display: block; width: 100%; height: 100%; }
 @keyframes m360-sage-glow {
   0%, 100% { filter: drop-shadow(0 0 16px rgba(243, 168, 60, 0.16)); }
   50% { filter: drop-shadow(0 0 36px rgba(243, 168, 60, 0.42)); }
@@ -514,6 +521,7 @@ body:has(.m360) { background: #08080b; }
 }
 @media (prefers-reduced-motion: reduce) {
   .m360-sage-portrait img,
+  .m360-sage-figure,
   .m360-sage-portrait { animation: none; }
   .m360-sage-portrait img { filter: drop-shadow(0 0 22px rgba(243, 168, 60, 0.2)); }
 }

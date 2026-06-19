@@ -121,14 +121,6 @@ export default function Muscle360Page() {
           .from('[data-hero-sub]', { y: 24, opacity: 0, duration: 0.9 }, '-=0.6')
           .from('[data-hero-cue]', { opacity: 0, duration: 0.8 }, '-=0.4');
 
-        // Hero orb: dramatic assemble + scroll-reactive rotation (alive, dimensional)
-        gsap.from('.m360-hero-orb', { scale: 0.55, opacity: 0, duration: 1.5, ease: 'power3.out', delay: 0.15 });
-        gsap.to('.m360-hero-orb', {
-          rotate: 42,
-          ease: 'none',
-          scrollTrigger: { trigger: '.m360-hero', start: 'top top', end: 'bottom top', scrub: 1 },
-        });
-
         // Generic reveal-on-enter
         q('[data-reveal]').forEach((el) => {
           gsap.from(el, {
@@ -208,7 +200,7 @@ export default function Muscle360Page() {
           scrollTrigger: { trigger: '[data-sage]', start: 'top 70%' },
         });
 
-        // 筋トレ仙人 — appears with presence (then idle-breathes via CSS)
+        // 筋トレ仙人 — appears with presence, then gestures as it "speaks" each line
         const sagePortrait = root.current!.querySelector('[data-sage-portrait]');
         if (sagePortrait) {
           gsap.from(sagePortrait, {
@@ -218,8 +210,22 @@ export default function Muscle360Page() {
             rotate: -3,
             duration: 1.2,
             ease: 'back.out(1.5)',
-            scrollTrigger: { trigger: '[data-sage]', start: 'top 78%' },
+            scrollTrigger: { trigger: '[data-sage]', start: 'top 80%' },
           });
+        }
+        const sageImg = root.current!.querySelector('.m360-sage-figure img');
+        if (sageImg) {
+          const gt = gsap.timeline({
+            scrollTrigger: { trigger: '[data-sage]', start: 'top 60%' },
+            defaults: { transformOrigin: '50% 80%' },
+          });
+          gt.to(sageImg, { rotate: 3.2, y: -10, scale: 1.045, duration: 0.5, ease: 'power2.out' }) // leans in
+            .to(sageImg, { rotate: -2.2, y: -2, scale: 1.0, duration: 0.6, ease: 'power1.inOut' }, '+=0.45') // counters / explains
+            .to(sageImg, { rotate: 2.8, y: -8, scale: 1.05, duration: 0.42, ease: 'back.out(2.4)' }, '+=0.5') // emphatic nod
+            .to(sageImg, { rotate: 0, y: 0, scale: 1, duration: 0.8, ease: 'power2.inOut' }, '+=0.25') // settles
+            // a second, slower beat so it keeps "talking"
+            .to(sageImg, { rotate: 1.6, y: -5, scale: 1.03, duration: 0.6, ease: 'sine.inOut' }, '+=0.8')
+            .to(sageImg, { rotate: 0, y: 0, scale: 1, duration: 0.7, ease: 'sine.inOut' }, '+=0.2');
         }
 
         ScrollTrigger.refresh();
@@ -230,6 +236,111 @@ export default function Muscle360Page() {
       cancelled = true;
       ctx?.revert();
     };
+  }, []);
+
+  // Hero — scattered data converges into a rotating 360° sphere (the concept, alive)
+  useEffect(() => {
+    const canvas = root.current?.querySelector('[data-hero-canvas]') as HTMLCanvasElement | null;
+    const cx2d = canvas?.getContext('2d');
+    if (!canvas || !cx2d) return;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const COLORS = ['#e5443b', '#f3a83c', '#4c8dff', '#34d399', '#cfe0ff'];
+    const N = 170;
+    const ps = Array.from({ length: N }, (_, i) => {
+      const u = Math.random() * 2 - 1;
+      const t = Math.random() * Math.PI * 2;
+      const r = Math.sqrt(1 - u * u);
+      return {
+        bx: r * Math.cos(t), by: u, bz: r * Math.sin(t),
+        color: COLORS[i % COLORS.length],
+        sx: (Math.random() - 0.5) * 2.6, sy: (Math.random() - 0.5) * 2.6,
+        delay: Math.random() * 0.5,
+        sxv: 0, syv: 0, depth: 0, a: 0,
+      };
+    });
+    let W = 0, H = 0, cx = 0, cy = 0, R = 0;
+    const resize = () => {
+      const rect = canvas.getBoundingClientRect();
+      W = rect.width; H = rect.height;
+      canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+      cx2d.setTransform(dpr, 0, 0, dpr, 0, 0);
+      cx = W / 2; cy = H / 2; R = Math.min(W, H) * 0.4;
+    };
+    resize();
+    const ro = new ResizeObserver(resize); ro.observe(canvas);
+    const tilt = 0.42, cosT = Math.cos(tilt), sinT = Math.sin(tilt);
+    let raf = 0, start = 0, rotY = 0, visible = true;
+    const draw = (ts: number) => {
+      if (!start) start = ts;
+      const el = (ts - start) / 1000;
+      if (!reduce) rotY += 0.0025;
+      cx2d.clearRect(0, 0, W, H);
+      const g = cx2d.createRadialGradient(cx, cy, 0, cx, cy, R * 1.7);
+      g.addColorStop(0, 'rgba(255,255,255,0.10)');
+      g.addColorStop(0.45, 'rgba(76,141,255,0.06)');
+      g.addColorStop(1, 'transparent');
+      cx2d.fillStyle = g;
+      cx2d.fillRect(0, 0, W, H);
+      const cosA = Math.cos(rotY), sinA = Math.sin(rotY);
+      // project + converge (particles appear lit as they stream into the sphere)
+      for (const p of ps) {
+        const c = reduce ? 1 : Math.min(1, Math.max(0, (el - p.delay) / 1.9));
+        const ce = 1 - Math.pow(1 - c, 3);
+        const x = p.bx * cosA + p.bz * sinA;
+        const z = -p.bx * sinA + p.bz * cosA;
+        const yy = p.by * cosT - z * sinT;
+        const zz = p.by * sinT + z * cosT;
+        const tX = cx + x * R, tY = cy + yy * R;
+        const sX = cx + p.sx * W, sY = cy + p.sy * H;
+        p.sxv = sX + (tX - sX) * ce;
+        p.syv = sY + (tY - sY) * ce;
+        p.depth = (zz + 1) / 2;
+        p.a = Math.min(1, c * 3);
+      }
+      // sparse connection lines — "connected data"
+      cx2d.lineWidth = 0.6;
+      cx2d.strokeStyle = '#9fb6ff';
+      for (let i = 0; i < N; i++) {
+        const a = ps[i];
+        if (a.a <= 0.02) continue;
+        for (let j = i + 1; j < N; j++) {
+          const b = ps[j];
+          const dx = a.sxv - b.sxv, dy = a.syv - b.syv;
+          const d2 = dx * dx + dy * dy;
+          if (d2 < 1700) {
+            cx2d.globalAlpha = (1 - d2 / 1700) * 0.14 * a.a * b.a;
+            cx2d.beginPath();
+            cx2d.moveTo(a.sxv, a.syv);
+            cx2d.lineTo(b.sxv, b.syv);
+            cx2d.stroke();
+          }
+        }
+      }
+      // dots
+      for (const p of ps) {
+        cx2d.globalAlpha = (0.3 + p.depth * 0.7) * p.a;
+        cx2d.fillStyle = p.color;
+        cx2d.beginPath();
+        cx2d.arc(p.sxv, p.syv, 1.0 + p.depth * 2.2, 0, 6.2832);
+        cx2d.fill();
+      }
+      // pulsing core (= あなた / one)
+      const pulse = reduce ? 1 : 0.7 + 0.3 * Math.sin(el * 2.2);
+      cx2d.globalAlpha = 0.95;
+      cx2d.fillStyle = '#fff';
+      cx2d.beginPath(); cx2d.arc(cx, cy, 3.6 * pulse, 0, 6.2832); cx2d.fill();
+      cx2d.globalAlpha = 1;
+      if (!reduce && visible) raf = requestAnimationFrame(draw);
+    };
+    const io = new IntersectionObserver(([e]) => {
+      visible = e.isIntersecting;
+      if (visible && !reduce && !raf) { raf = requestAnimationFrame(draw); }
+      else if (!visible && raf) { cancelAnimationFrame(raf); raf = 0; }
+    });
+    io.observe(canvas);
+    raf = requestAnimationFrame(draw);
+    return () => { cancelAnimationFrame(raf); ro.disconnect(); io.disconnect(); };
   }, []);
 
   return (
@@ -244,37 +355,7 @@ export default function Muscle360Page() {
       {/* ── HERO ────────────────────────────── */}
       <section className="m360-hero" aria-labelledby="m360-hero-title">
         <div className="m360-hero-orb-wrap" data-hero-cue aria-hidden="true">
-          <svg className="m360-hero-orb" viewBox="0 0 400 400" role="presentation">
-            <defs>
-              <radialGradient id="m360OrbGlow" cx="50%" cy="44%" r="55%">
-                <stop offset="0%" stopColor="rgba(255,255,255,0.16)" />
-                <stop offset="38%" stopColor="rgba(76,141,255,0.16)" />
-                <stop offset="72%" stopColor="rgba(229,68,59,0.1)" />
-                <stop offset="100%" stopColor="transparent" />
-              </radialGradient>
-              <linearGradient id="m360Ring" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stopColor="#e5443b" />
-                <stop offset="38%" stopColor="#f3a83c" />
-                <stop offset="70%" stopColor="#4c8dff" />
-                <stop offset="100%" stopColor="#34d399" />
-              </linearGradient>
-            </defs>
-            <circle cx="200" cy="200" r="168" fill="url(#m360OrbGlow)" />
-            <circle className="m360-orb-core" cx="200" cy="200" r="9" fill="#fff" />
-            <circle cx="200" cy="200" r="150" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
-            <g className="m360-ring m360-ring--1">
-              <ellipse cx="200" cy="200" rx="150" ry="54" fill="none" stroke="url(#m360Ring)" strokeWidth="1.2" opacity="0.85" />
-              <circle className="m360-orb-node" cx="350" cy="200" r="4.5" fill="#f3a83c" />
-            </g>
-            <g className="m360-ring m360-ring--2">
-              <ellipse cx="200" cy="200" rx="150" ry="112" fill="none" stroke="url(#m360Ring)" strokeWidth="1.1" opacity="0.6" />
-              <circle className="m360-orb-node" cx="50" cy="200" r="4" fill="#4c8dff" />
-            </g>
-            <g className="m360-ring m360-ring--3">
-              <ellipse cx="200" cy="200" rx="116" ry="150" fill="none" stroke="url(#m360Ring)" strokeWidth="1" opacity="0.5" />
-              <circle className="m360-orb-node" cx="200" cy="50" r="3.5" fill="#34d399" />
-            </g>
-          </svg>
+          <canvas className="m360-hero-canvas" data-hero-canvas />
         </div>
         <p className="m360-kicker" data-hero-cue>
           <span className="m360-dot" /> MUSCLE360 — 統合構想
@@ -450,12 +531,14 @@ export default function Muscle360Page() {
       {/* ── 筋トレ仙人 (解釈レイヤー) ────────── */}
       <section className="m360-section m360-sage" data-sage aria-labelledby="m360-sage-title">
         <div className="m360-sage-portrait" data-sage-portrait>
-          <Image
-            src="/assets/media/muscle360/sage-dark.png"
-            alt="筋トレ仙人"
-            width={561}
-            height={701}
-          />
+          <div className="m360-sage-figure">
+            <Image
+              src="/assets/media/muscle360/sage-dark.png"
+              alt="筋トレ仙人"
+              width={561}
+              height={701}
+            />
+          </div>
         </div>
         <div className="m360-sage-copy">
           <p className="m360-eyebrow">THE INTERPRETATION LAYER</p>
