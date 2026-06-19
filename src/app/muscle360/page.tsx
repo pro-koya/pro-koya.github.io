@@ -164,21 +164,25 @@ export default function Muscle360Page() {
             scrollTrigger: {
               trigger: orbitSection,
               start: 'top top',
-              end: '+=185%',
+              end: '+=210%',
               scrub: 1,
               pin: true,
               anticipatePin: 1,
             },
           });
-          tl.to(ring, { rotate: 300, ease: 'none', duration: 6 }, 0)
+          // ring makes a FULL turn (ends upright = labels readable) and decelerates to a stop
+          tl.to(ring, { rotate: 360, ease: 'power2.out', duration: 4.8 }, 0)
             .from('[data-orbit-center]', { opacity: 0, scale: 0.5, duration: 1.1, ease: 'power3.out' }, 0.1)
             // connection lines draw from あなた outward, one per domain
             .to(spokes, { strokeDashoffset: 0, ease: 'power2.out', stagger: 0.5, duration: 1.3 }, 0.35)
             // domains snap into place with a back-ease pop, in sync with their spoke
             .to(nodes, { opacity: 1, scale: 1, ease: 'back.out(1.5)', stagger: 0.5, duration: 1.2 }, 0.5)
             // YOU intensifies as the system completes
-            .to('[data-orbit-center]', { scale: 1.06, ease: 'power1.inOut', duration: 4.5 }, 0.4)
-            .to('[data-orbit-caption]', { opacity: 1, y: 0, duration: 1 }, 3.2);
+            .to('[data-orbit-center]', { scale: 1.06, ease: 'power1.inOut', duration: 4.2 }, 0.4)
+            // caption appears once everything has settled upright…
+            .to('[data-orbit-caption]', { opacity: 1, y: 0, duration: 0.9 }, 5.0)
+            // …then hold the readable, upright state before releasing the pin
+            .to({}, { duration: 1.1 }, 5.9);
         }
 
         // App panels — screenshot parallax
@@ -203,6 +207,20 @@ export default function Muscle360Page() {
           stagger: 0.5,
           scrollTrigger: { trigger: '[data-sage]', start: 'top 70%' },
         });
+
+        // 筋トレ仙人 — appears with presence (then idle-breathes via CSS)
+        const sagePortrait = root.current!.querySelector('[data-sage-portrait]');
+        if (sagePortrait) {
+          gsap.from(sagePortrait, {
+            opacity: 0,
+            y: 56,
+            scale: 0.9,
+            rotate: -3,
+            duration: 1.2,
+            ease: 'back.out(1.5)',
+            scrollTrigger: { trigger: '[data-sage]', start: 'top 78%' },
+          });
+        }
 
         ScrollTrigger.refresh();
       }, root);
@@ -431,7 +449,7 @@ export default function Muscle360Page() {
 
       {/* ── 筋トレ仙人 (解釈レイヤー) ────────── */}
       <section className="m360-section m360-sage" data-sage aria-labelledby="m360-sage-title">
-        <div className="m360-sage-portrait" data-reveal>
+        <div className="m360-sage-portrait" data-sage-portrait>
           <Image
             src="/assets/media/muscle360/sage-dark.png"
             alt="筋トレ仙人"

@@ -496,7 +496,26 @@ body:has(.m360) { background: #08080b; }
   display: block;
   width: 100%;
   height: auto;
-  filter: drop-shadow(0 0 26px rgba(243, 168, 60, 0.22));
+  transform-origin: 50% 86%;
+  animation: m360-sage-breathe 5.5s ease-in-out infinite, m360-sage-glow 3.7s ease-in-out infinite;
+}
+@keyframes m360-sage-breathe {
+  0%, 100% { transform: translateY(0) scale(1) rotate(0deg); }
+  50% { transform: translateY(-2.2%) scale(1.02) rotate(0.7deg); }
+}
+@keyframes m360-sage-glow {
+  0%, 100% { filter: drop-shadow(0 0 16px rgba(243, 168, 60, 0.16)); }
+  50% { filter: drop-shadow(0 0 36px rgba(243, 168, 60, 0.42)); }
+}
+.m360-sage-portrait { animation: m360-sage-aura 4.2s ease-in-out infinite; }
+@keyframes m360-sage-aura {
+  0%, 100% { box-shadow: inset 0 0 60px rgba(243, 168, 60, 0); }
+  50% { box-shadow: inset 0 0 90px rgba(243, 168, 60, 0.14); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .m360-sage-portrait img,
+  .m360-sage-portrait { animation: none; }
+  .m360-sage-portrait img { filter: drop-shadow(0 0 22px rgba(243, 168, 60, 0.2)); }
 }
 .m360-sage-portrait::after {
   content: "";
