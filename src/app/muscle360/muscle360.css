@@ -639,3 +639,43 @@ body:has(.m360) { background: #08080b; }
   .m360-cue-bar { animation: none; }
   .m360-orbit-caption { opacity: 1; transform: none; }
 }
+
+/* ═══ Flagship animation enhancements ═══ */
+/* connection spokes: あなた → each domain (rotate with the ring) */
+.m360-orbit-spokes {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(var(--orbit-r) * 2);
+  height: calc(var(--orbit-r) * 2);
+  transform: translate(-50%, -50%);
+  overflow: visible;
+  pointer-events: none;
+  z-index: 1;
+}
+.m360-spoke { mix-blend-mode: screen; }
+.m360-orbit-ring .m360-orbit-node { z-index: 2; }
+
+/* hero orb living core */
+.m360-orb-core {
+  transform-box: fill-box;
+  transform-origin: center;
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.9));
+  animation: m360-core-pulse 2.6s ease-in-out infinite;
+}
+@keyframes m360-core-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.55); opacity: 1; }
+}
+.m360-hero-orb { transform-origin: 50% 50%; }
+
+/* living spectrum: the gradient text flows */
+.m360-grad {
+  background-size: 220% auto;
+  animation: m360-grad-flow 7s linear infinite;
+}
+@keyframes m360-grad-flow { to { background-position: 220% center; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .m360-orb-core, .m360-grad { animation: none; }
+}

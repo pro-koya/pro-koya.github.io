@@ -121,6 +121,14 @@ export default function Muscle360Page() {
           .from('[data-hero-sub]', { y: 24, opacity: 0, duration: 0.9 }, '-=0.6')
           .from('[data-hero-cue]', { opacity: 0, duration: 0.8 }, '-=0.4');
 
+        // Hero orb: dramatic assemble + scroll-reactive rotation (alive, dimensional)
+        gsap.from('.m360-hero-orb', { scale: 0.55, opacity: 0, duration: 1.5, ease: 'power3.out', delay: 0.15 });
+        gsap.to('.m360-hero-orb', {
+          rotate: 42,
+          ease: 'none',
+          scrollTrigger: { trigger: '.m360-hero', start: 'top top', end: 'bottom top', scrub: 1 },
+        });
+
         // Generic reveal-on-enter
         q('[data-reveal]').forEach((el) => {
           gsap.from(el, {
@@ -144,30 +152,33 @@ export default function Muscle360Page() {
           });
         });
 
-        // Signature: the 360° orbit — pinned + scrubbed assembly & rotation
+        // Signature: the 360° orbit — scattered data unifies around YOU
         const orbitSection = root.current!.querySelector('[data-orbit-section]');
         const ring = root.current!.querySelector('[data-orbit-ring]');
         if (orbitSection && ring) {
           const nodes = Array.from(orbitSection.querySelectorAll('[data-orbit-node]'));
-          gsap.set(nodes, { opacity: 0, scale: 0.4 });
+          const spokes = Array.from(orbitSection.querySelectorAll('[data-spoke]'));
+          gsap.set(nodes, { opacity: 0, scale: 0.35 });
+          gsap.set(spokes, { strokeDasharray: 50, strokeDashoffset: 50 });
           const tl = gsap.timeline({
             scrollTrigger: {
               trigger: orbitSection,
               start: 'top top',
-              end: '+=160%',
+              end: '+=185%',
               scrub: 1,
               pin: true,
               anticipatePin: 1,
             },
           });
-          tl.to(ring, { rotate: 360, ease: 'none', duration: 6 }, 0)
-            .to(
-              nodes,
-              { opacity: 1, scale: 1, ease: 'power2.out', stagger: 0.5, duration: 1.4 },
-              0.2
-            )
-            .from('[data-orbit-center]', { opacity: 0, scale: 0.6, duration: 1.2 }, 0.2)
-            .to('[data-orbit-caption]', { opacity: 1, y: 0, duration: 1 }, 2.5);
+          tl.to(ring, { rotate: 300, ease: 'none', duration: 6 }, 0)
+            .from('[data-orbit-center]', { opacity: 0, scale: 0.5, duration: 1.1, ease: 'power3.out' }, 0.1)
+            // connection lines draw from あなた outward, one per domain
+            .to(spokes, { strokeDashoffset: 0, ease: 'power2.out', stagger: 0.5, duration: 1.3 }, 0.35)
+            // domains snap into place with a back-ease pop, in sync with their spoke
+            .to(nodes, { opacity: 1, scale: 1, ease: 'back.out(1.5)', stagger: 0.5, duration: 1.2 }, 0.5)
+            // YOU intensifies as the system completes
+            .to('[data-orbit-center]', { scale: 1.06, ease: 'power1.inOut', duration: 4.5 }, 0.4)
+            .to('[data-orbit-caption]', { opacity: 1, y: 0, duration: 1 }, 3.2);
         }
 
         // App panels — screenshot parallax
@@ -231,6 +242,7 @@ export default function Muscle360Page() {
               </linearGradient>
             </defs>
             <circle cx="200" cy="200" r="168" fill="url(#m360OrbGlow)" />
+            <circle className="m360-orb-core" cx="200" cy="200" r="9" fill="#fff" />
             <circle cx="200" cy="200" r="150" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
             <g className="m360-ring m360-ring--1">
               <ellipse cx="200" cy="200" rx="150" ry="54" fill="none" stroke="url(#m360Ring)" strokeWidth="1.2" opacity="0.85" />
@@ -319,6 +331,31 @@ export default function Muscle360Page() {
             </div>
             <div className="m360-orbit-ring" data-orbit-ring>
               <span className="m360-orbit-track" aria-hidden="true" />
+              <svg className="m360-orbit-spokes" viewBox="0 0 100 100" aria-hidden="true">
+                <defs>
+                  <radialGradient id="m360Spoke" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stopColor="rgba(255,255,255,0.6)" />
+                    <stop offset="55%" stopColor="rgba(160,180,255,0.28)" />
+                    <stop offset="100%" stopColor="rgba(255,255,255,0.04)" />
+                  </radialGradient>
+                </defs>
+                {DOMAINS.map((d, i) => {
+                  const a = ((360 / DOMAINS.length) * i * Math.PI) / 180;
+                  return (
+                    <line
+                      key={d.key}
+                      className="m360-spoke"
+                      data-spoke
+                      x1="50"
+                      y1="50"
+                      x2={(50 + 50 * Math.cos(a)).toFixed(2)}
+                      y2={(50 + 50 * Math.sin(a)).toFixed(2)}
+                      stroke="url(#m360Spoke)"
+                      strokeWidth="0.5"
+                    />
+                  );
+                })}
+              </svg>
               {DOMAINS.map((d, i) => {
                 const angle = (360 / DOMAINS.length) * i;
                 return (
