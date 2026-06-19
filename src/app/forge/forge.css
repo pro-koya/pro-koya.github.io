@@ -1296,3 +1296,10 @@
     display: grid;
   }
 }
+
+/* ── Scroll animation hooks (GSAP; pre-hide to avoid FOUC) ── */
+.forge-page [data-rv] { opacity: 1; }
+.forge-page.js [data-rv] { opacity: 0; }
+.forge-page.js [data-rule] { transform: scaleX(0); transform-origin: left center; }
+.forge-page.js [data-split-row] { opacity: 0; }
+.forge-page.js [data-progress] { width: 0; }

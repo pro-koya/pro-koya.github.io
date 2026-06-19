@@ -1,3 +1,6 @@
+'use client';
+
+import { useEffect, useRef } from 'react';
 import { FamilyBar, FamilyBand, FamilyFooter } from '../../components/muscle-family';
 
 const APP_STORE_URL = 'https://apps.apple.com/app/id6766134975';
@@ -116,12 +119,12 @@ function DocSection({ num, title, jp, children }: DocSectionProps) {
   return (
     <section className="forge-doc-section" aria-labelledby={`forge-section-${num}`}>
       <div className="forge-section-head">
-        <span className="forge-section-num">{num}</span>
-        <div className="forge-section-title-wrap">
+        <span className="forge-section-num" data-rv>{num}</span>
+        <div className="forge-section-title-wrap" data-rv>
           <h2 id={`forge-section-${num}`}>{title}</h2>
           <p>- {jp}</p>
         </div>
-        <span className="forge-rule" aria-hidden="true" />
+        <span className="forge-rule" data-rule aria-hidden="true" />
       </div>
       {children}
     </section>
@@ -137,8 +140,8 @@ function TimerPhone() {
         <div className="timer-screen">
           <div className="phone-line"><span>AMRAP / 20:00</span><span className="rec">REC</span></div>
           <div className="round">ROUND 3 / 5</div>
-          <div className="timer-digits">08:42</div>
-          <div className="progress"><span /></div>
+          <div className="timer-digits" data-timer>08:42</div>
+          <div className="progress"><span data-progress /></div>
           <div className="pace">PACE 1:24 / RD / AVG +0:03</div>
           <div className="phone-actions">
             <span>PAUSE</span>
@@ -171,9 +174,9 @@ function HyroxPhone() {
           <div className="hyrox-kicker">HYROX / STATION 6 / 8</div>
           <div className="hyrox-total"><span>32:07</span><em>-0:14 vs PR</em></div>
           <div className="hyrox-rox">ROXZONE 0:42 / AVG</div>
-          <div className="hyrox-list">
+          <div className="hyrox-list" data-split-group>
             {rows.map(([n, label, time, delta, tag]) => (
-              <div className={`hyrox-row${tag === 'muted' ? ' is-muted' : ''}`} key={`${n}-${label}`}>
+              <div className={`hyrox-row${tag === 'muted' ? ' is-muted' : ''}`} data-split-row key={`${n}-${label}`}>
                 <span>{n}</span>
                 <strong>{label}</strong>
                 <b>{time}</b>
@@ -189,10 +192,77 @@ function HyroxPhone() {
 }
 
 export default function ForgePage() {
+  const root = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const el = root.current;
+    if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    el.classList.add('js');
+    let cancelled = false;
+    let ctx: { revert: () => void } | undefined;
+
+    (async () => {
+      const gm = await import('gsap');
+      const sm = await import('gsap/ScrollTrigger');
+      if (cancelled || !root.current) return;
+      const gsap = (gm as { gsap?: typeof import('gsap').gsap }).gsap ?? gm.default;
+      const ScrollTrigger = (sm as { ScrollTrigger?: unknown }).ScrollTrigger ?? sm.default;
+      gsap.registerPlugin(ScrollTrigger as Parameters<typeof gsap.registerPlugin>[0]);
+
+      ctx = gsap.context(() => {
+        // sharp, fast reveals (硬派)
+        gsap.utils.toArray<HTMLElement>('[data-rv]').forEach((n) => {
+          gsap.fromTo(n, { opacity: 0, y: 16 }, {
+            opacity: 1, y: 0, duration: 0.5, ease: 'power4.out',
+            scrollTrigger: { trigger: n, start: 'top 90%' },
+          });
+        });
+        // crimson rule lines draw across
+        gsap.utils.toArray<HTMLElement>('[data-rule]').forEach((n) => {
+          gsap.fromTo(n, { scaleX: 0 }, {
+            scaleX: 1, duration: 0.7, ease: 'power3.inOut', transformOrigin: 'left center',
+            scrollTrigger: { trigger: n, start: 'top 94%' },
+          });
+        });
+        // the timer RUNS: count up to 08:42 + progress fills
+        const timer = el.querySelector<HTMLElement>('[data-timer]');
+        if (timer) {
+          const o = { s: 0 };
+          gsap.to(o, {
+            s: 8 * 60 + 42, duration: 2.4, ease: 'power1.inOut',
+            scrollTrigger: { trigger: timer, start: 'top 82%' },
+            onUpdate: () => {
+              const m = Math.floor(o.s / 60), sec = Math.floor(o.s % 60);
+              timer.textContent = `${String(m).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
+            },
+          });
+        }
+        const prog = el.querySelector<HTMLElement>('[data-progress]');
+        if (prog) {
+          gsap.fromTo(prog, { width: '0%' }, {
+            width: '64%', duration: 2.4, ease: 'power1.inOut',
+            scrollTrigger: { trigger: prog, start: 'top 84%' },
+          });
+        }
+        // Hyrox splits stamp in, one row at a time (like live race data)
+        gsap.utils.toArray<HTMLElement>('[data-split-group]').forEach((group) => {
+          gsap.fromTo(group.querySelectorAll('[data-split-row]'), { opacity: 0, x: -14 }, {
+            opacity: 1, x: 0, duration: 0.34, ease: 'power3.out', stagger: 0.085,
+            scrollTrigger: { trigger: group, start: 'top 82%' },
+          });
+        });
+
+        (ScrollTrigger as { refresh: () => void }).refresh();
+      }, root);
+    })();
+
+    return () => { cancelled = true; ctx?.revert(); };
+  }, []);
+
   return (
     <>
       <FamilyBar current="forge" />
-      <main className="forge-page" id="top">
+      <main className="forge-page" id="top" ref={root}>
       <div className="forge-shell">
         <header className="forge-topbar">
           <div><span className="dot">●</span><span>FORGE.LP / DOCUMENT v1.0</span></div>
@@ -212,11 +282,11 @@ export default function ForgePage() {
               SUPABASE / STOREKIT2
             </p>
           </div>
-          <h1 id="forge-hero-title">
+          <h1 id="forge-hero-title" data-rv>
             RECORD WOD.<br />
             <span>CRUSH HYROX.</span>
           </h1>
-          <div className="hero-bottom">
+          <div className="hero-bottom" data-rv data-delay="0.08s">
             <p>
               タイマーを止めたら、そのまま記録。CrossFit と Hyrox の履歴、PR、Roxzone まで一つにまとめる iPhone アプリ。
             </p>
@@ -235,7 +305,7 @@ export default function ForgePage() {
 
         <section className="value-strip" aria-label="Forge の主な価値">
           {valueCards.map(([label, title, body]) => (
-            <article key={label}>
+            <article key={label} data-rv>
               <span>{label}</span>
               <h2>{title}</h2>
               <p>{body}</p>
@@ -272,10 +342,10 @@ export default function ForgePage() {
         <DocSection num="03" title="HYROX DATA MODEL" jp="ハイロックス / 24+ データポイント">
           <div className="hyrox-layout">
             <div>
-              <div className="forge-table split-table">
+              <div className="forge-table split-table" data-split-group>
                 <div className="forge-table-head">FIG.03 - HYROX SPLIT TABLE</div>
                 {splitRows.map(([num, label, time, delta], index) => (
-                  <div className={`split-row${index === splitRows.length - 1 ? ' is-total' : ''}`} key={`${num}-${label}`}>
+                  <div className={`split-row${index === splitRows.length - 1 ? ' is-total' : ''}`} data-split-row key={`${num}-${label}`}>
                     <span>{num}</span>
                     <strong>{label}</strong>
                     <b>{time}</b>
