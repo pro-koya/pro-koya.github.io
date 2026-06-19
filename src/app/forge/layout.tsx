@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter, JetBrains_Mono, Noto_Sans_JP } from 'next/font/google';
+import '../muscle-family.css';
 import './forge.css';
 
 const inter = Inter({

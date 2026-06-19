@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import '../muscle-family.css';
 import './sorrygains.css';
 
 export const metadata: Metadata = {

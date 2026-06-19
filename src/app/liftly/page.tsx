@@ -2,6 +2,7 @@
 
 import { useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
+import { FamilyBar, FamilyBand, FamilyFooter } from '../../components/muscle-family';
 
 const TRANSLATIONS = {
   ja: {
@@ -118,6 +119,7 @@ function LiftlyContent() {
 
   return (
     <>
+      <FamilyBar current="liftly" />
       <nav className="nav" id="nav">
         <div className="nav-inner">
           <a href="#" className="nav-logo">Liftly</a>
@@ -132,7 +134,6 @@ function LiftlyContent() {
               <a href="#howto">{t.nav.howto}</a>
               <a href="#privacy">{t.nav.privacy}</a>
               <a href="#contact">{t.nav.contact}</a>
-              <a href="/muscle360/">Muscle360</a>
             </div>
           </div>
         </div>
@@ -251,23 +252,8 @@ function LiftlyContent() {
         </section>
       </main>
 
-      <footer className="footer">
-        <div className="footer-inner container">
-          <div className="footer-links">
-            <a href="#features">{t.footer.features}</a>
-            <a href="#howto">{t.footer.howto}</a>
-            <a href="#privacy">{t.footer.privacy}</a>
-            <a href="#contact">{t.footer.contact}</a>
-            <a href="/muscle360/">Muscle360</a>
-          </div>
-          <div className="footer-meta">
-            <span className="footer-copy">{t.footer.copyright}</span>
-            <a className="footer-creator" href="/">
-              {t.footer.creator}
-            </a>
-          </div>
-        </div>
-      </footer>
+      <FamilyBand current="liftly" />
+      <FamilyFooter current="liftly" privacyHref="#privacy" />
     </>
   );
 }

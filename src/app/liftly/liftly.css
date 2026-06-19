@@ -473,10 +473,7 @@ section {
 
 /* Nav */
 .nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  position: static;
   z-index: 100;
   padding: 16px 24px;
   padding-top: calc(16px + env(safe-area-inset-top, 0px));

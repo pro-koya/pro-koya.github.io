@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { FamilyBar, FamilyBand, FamilyFooter } from '../../components/muscle-family';
 
 const CONTACT_FORM_URL = 'https://forms.gle/7FKcm5zv6F6Ci8Wa6';
 const APP_STORE_URL = 'https://apps.apple.com/app/id6763986050';
@@ -110,7 +111,9 @@ function PhoneFrame({
 
 export default function SorryGainsPage() {
   return (
-    <main className="sg-page">
+    <>
+      <FamilyBar current="sorrygains" />
+      <main className="sg-page">
       <nav className="sg-nav" aria-label="サイトナビゲーション">
         <Link href="/sorrygains/" className="sg-brand">
           <Image src="/assets/media/sorrygains/icon.png" alt="" width={34} height={34} />
@@ -120,7 +123,6 @@ export default function SorryGainsPage() {
           <a href="#features">機能</a>
           <a href="#privacy">プライバシー</a>
           <a href="#faq">FAQ</a>
-          <Link href="/muscle360/">Muscle360</Link>
           <Link href="/sorrygains/privacy/">Privacy Policy</Link>
         </div>
       </nav>
@@ -258,17 +260,9 @@ export default function SorryGainsPage() {
         </div>
       </section>
 
-      <footer className="sg-footer">
-        <span>© 2026 筋肉ごめん</span>
-        <div>
-          <Link href="/muscle360/">Muscle360</Link>
-          <Link href="/sorrygains/privacy/">Privacy Policy</Link>
-          <Link href="/">制作: Miyabayasi Koya</Link>
-          <a href={CONTACT_FORM_URL} target="_blank" rel="noreferrer">
-            Contact
-          </a>
-        </div>
-      </footer>
-    </main>
+      </main>
+      <FamilyBand current="sorrygains" />
+      <FamilyFooter current="sorrygains" privacyHref="/sorrygains/privacy/" />
+    </>
   );
 }

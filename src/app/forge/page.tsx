@@ -1,3 +1,5 @@
+import { FamilyBar, FamilyBand, FamilyFooter } from '../../components/muscle-family';
+
 const APP_STORE_URL = 'https://apps.apple.com/app/id6766134975';
 
 type DocSectionProps = {
@@ -188,7 +190,9 @@ function HyroxPhone() {
 
 export default function ForgePage() {
   return (
-    <main className="forge-page" id="top">
+    <>
+      <FamilyBar current="forge" />
+      <main className="forge-page" id="top">
       <div className="forge-shell">
         <header className="forge-topbar">
           <div><span className="dot">●</span><span>FORGE.LP / DOCUMENT v1.0</span></div>
@@ -353,15 +357,10 @@ export default function ForgePage() {
           </div>
         </section>
 
-        <footer className="forge-footer">
-          <span>FORGE.LP / DOC v1.0 / COMPILED 2026.05.04</span>
-          <nav aria-label="Forge footer">
-            <a href="/muscle360/">// MUSCLE360</a>
-            <a href="/forge/privacy/">// PRIVACY</a>
-            <a href="/">// PORTFOLIO TOP</a>
-          </nav>
-        </footer>
       </div>
-    </main>
+      </main>
+      <FamilyBand current="forge" />
+      <FamilyFooter current="forge" privacyHref="/forge/privacy/" />
+    </>
   );
 }

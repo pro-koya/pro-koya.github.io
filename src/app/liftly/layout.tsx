@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Outfit } from 'next/font/google';
+import '../muscle-family.css';
 import './liftly.css';
 
 const outfit = Outfit({

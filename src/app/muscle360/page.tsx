@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import Image from 'next/image';
+import { FamilyBar } from '../../components/muscle-family';
 
 /* ────────────────────────────────────────────────
    Muscle360 — 統合構想 LP
@@ -204,6 +205,7 @@ export default function Muscle360Page() {
 
   return (
     <main className="m360" ref={root} id="top">
+      <FamilyBar />
       <div className="m360-bg" aria-hidden="true">
         <span className="m360-bg-grid" />
         <span className="m360-bg-glow m360-bg-glow--a" />
