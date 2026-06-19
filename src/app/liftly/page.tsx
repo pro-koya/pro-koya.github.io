@@ -20,6 +20,7 @@ const TRANSLATIONS = {
       meta: ['無料', 'iOS 17+', '日本語 / English', 'オフライン対応'],
     },
     gallery: { eye: 'THE APP', h: '実際の画面で、確かめてください。', p: '記録・履歴・成長グラフ・タイマーまで。実際のアプリ画面です。' },
+    growth: { eye: 'PROGRESS', h: '続けるほど、\n線は上を向く。', p: '種目別の推移をグラフで。続けた成果が、ひと目で分かる。', stat: '半年で 1RM', unit: '%' },
     pillars: {
       title: '記録に悩まず、トレーニングに集中。',
       items: [
@@ -59,6 +60,7 @@ const TRANSLATIONS = {
       meta: ['Free', 'iOS 17+', 'JA / English', 'Works offline'],
     },
     gallery: { eye: 'THE APP', h: 'See it in the real screens.', p: 'Logging, history, progress graphs and timers — actual screens from the app.' },
+    growth: { eye: 'PROGRESS', h: 'Keep going.\nThe line goes up.', p: 'Your trend per exercise, in a graph. Consistency you can see at a glance.', stat: '1RM in 6 months', unit: '%' },
     pillars: {
       title: 'Less fiddling with your log. More training.',
       items: [
@@ -119,22 +121,91 @@ function LiftlyContent() {
 
   useEffect(() => {
     const el = root.current;
-    if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    el.classList.add('js');
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            (e.target as HTMLElement).style.transitionDelay = (e.target as HTMLElement).dataset.delay || '0s';
-            e.target.classList.add('is-in');
-            io.unobserve(e.target);
-          }
+    if (!el) return;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return; // CSS shows everything; no .js hiding
+    el.classList.add('js'); // hide [data-rv] immediately (avoid FOUC) before gsap loads
+
+    let cancelled = false;
+    let ctx: { revert: () => void } | undefined;
+
+    (async () => {
+      const gm = await import('gsap');
+      const sm = await import('gsap/ScrollTrigger');
+      if (cancelled || !root.current) return;
+      const gsap = (gm as { gsap?: typeof import('gsap').gsap }).gsap ?? gm.default;
+      const ScrollTrigger = (sm as { ScrollTrigger?: unknown }).ScrollTrigger ?? sm.default;
+      gsap.registerPlugin(ScrollTrigger as Parameters<typeof gsap.registerPlugin>[0]);
+
+      ctx = gsap.context(() => {
+        // refined reveals
+        gsap.utils.toArray<HTMLElement>('[data-rv]').forEach((n) => {
+          gsap.fromTo(
+            n,
+            { opacity: 0, y: 26 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.85,
+              ease: 'power3.out',
+              delay: parseFloat(n.dataset.delay || '0'),
+              scrollTrigger: { trigger: n, start: 'top 88%' },
+            }
+          );
         });
-      },
-      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
-    );
-    el.querySelectorAll('[data-rv]').forEach((n) => io.observe(n));
-    return () => io.disconnect();
+
+        // count-up numbers
+        gsap.utils.toArray<HTMLElement>('[data-count]').forEach((n) => {
+          const target = parseFloat(n.dataset.count || '0');
+          const o = { v: 0 };
+          gsap.to(o, {
+            v: target,
+            duration: 1.6,
+            ease: 'power2.out',
+            scrollTrigger: { trigger: n, start: 'top 85%' },
+            onUpdate: () => { n.textContent = Math.round(o.v).toString(); },
+          });
+        });
+
+        // signature: pinned horizontal screenshot gallery
+        const gal = el.querySelector<HTMLElement>('[data-gallery]');
+        const track = el.querySelector<HTMLElement>('[data-gallery-track]');
+        if (gal && track) {
+          gal.classList.add('is-pinned');
+          const amount = () => Math.max(0, track.scrollWidth - el.clientWidth + 40);
+          gsap.to(track, {
+            x: () => -amount(),
+            ease: 'none',
+            scrollTrigger: {
+              trigger: gal,
+              start: 'top top',
+              end: () => `+=${amount()}`,
+              scrub: 0.6,
+              pin: true,
+              anticipatePin: 1,
+              invalidateOnRefresh: true,
+            },
+          });
+        }
+
+        // signature: growth line draws itself on scroll
+        const path = el.querySelector<SVGPathElement>('[data-draw]');
+        const growth = el.querySelector<HTMLElement>('[data-growth]');
+        if (path && growth) {
+          const len = path.getTotalLength();
+          gsap.set(path, { strokeDasharray: len, strokeDashoffset: len });
+          gsap.to(path, {
+            strokeDashoffset: 0,
+            ease: 'none',
+            scrollTrigger: { trigger: growth, start: 'top 72%', end: 'bottom 65%', scrub: 0.8 },
+          });
+        }
+
+        (ScrollTrigger as { refresh: () => void }).refresh();
+      }, root);
+    })();
+
+    return () => { cancelled = true; ctx?.revert(); };
   }, []);
 
   const langUrl = (l: Lang) => `/liftly/?lang=${l}`;
@@ -182,14 +253,14 @@ function LiftlyContent() {
           </div>
         </header>
 
-        {/* Real screenshots gallery */}
-        <section className="lf-gallery" id="screens">
+        {/* Real screenshots gallery — pinned horizontal scroll */}
+        <section className="lf-gallery" id="screens" data-gallery>
           <div className="lf-gallery-head" data-rv>
             <p className="lf-eyebrow">{t.gallery.eye}</p>
             <h2 className="lf-h2">{t.gallery.h}</h2>
             <p className="lf-lead">{t.gallery.p}</p>
           </div>
-          <div className="lf-gallery-track" data-rv data-delay="0.05s">
+          <div className="lf-gallery-track" data-gallery-track>
             {SHOTS.map((n, i) => (
               <figure className="lf-shot" key={n}>
                 <img
@@ -216,6 +287,40 @@ function LiftlyContent() {
                 <p>{p.d}</p>
               </article>
             ))}
+          </div>
+        </section>
+
+        {/* signature: growth line draws on scroll */}
+        <section className="lf-growth" data-growth>
+          <div className="lf-growth-inner">
+            <div className="lf-growth-copy" data-rv>
+              <p className="lf-eyebrow">{t.growth.eye}</p>
+              <h2 className="lf-h2 lf-pre">{t.growth.h}</h2>
+              <p className="lf-lead">{t.growth.p}</p>
+              <div className="lf-growth-stat">
+                <span className="lf-growth-plus">+</span>
+                <span className="lf-count" data-count="30">0</span>
+                <em>{t.growth.unit}</em>
+                <small>{t.growth.stat}</small>
+              </div>
+            </div>
+            <div className="lf-growth-chart" data-rv data-delay="0.1s" aria-hidden="true">
+              <svg viewBox="0 0 520 300" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="lfGrowthArea" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="rgba(47,107,255,0.26)" />
+                    <stop offset="100%" stopColor="rgba(47,107,255,0)" />
+                  </linearGradient>
+                </defs>
+                {[60, 120, 180, 240].map((y) => (
+                  <line key={y} x1="0" y1={y} x2="520" y2={y} stroke="rgba(12,14,20,0.06)" strokeWidth="1" />
+                ))}
+                <path d="M8,258 L98,232 L178,242 L262,182 L344,150 L430,92 L512,38 L512,300 L8,300 Z" fill="url(#lfGrowthArea)" />
+                <path className="lf-growth-line" data-draw d="M8,258 L98,232 L178,242 L262,182 L344,150 L430,92 L512,38"
+                  fill="none" stroke="#2f6bff" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
+                <circle className="lf-growth-dot" cx="512" cy="38" r="7" fill="#2f6bff" />
+              </svg>
+            </div>
           </div>
         </section>
 
