@@ -125,29 +125,30 @@
 }
 .lf-lead { margin-top: 16px; color: var(--lf-ink-2); font-size: clamp(15px, 1.9vw, 19px); max-width: 34em; }
 
-/* ── Hero ── */
+/* ── Hero (centered) ── */
 .lf-hero {
   position: relative;
-  max-width: var(--lf-maxw);
+  max-width: 900px;
   margin: 0 auto;
-  padding: clamp(40px, 7vw, 88px) var(--lf-pad) clamp(60px, 9vw, 110px);
-  display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
+  padding: clamp(36px, 7vw, 84px) var(--lf-pad) clamp(30px, 5vw, 56px);
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: clamp(30px, 5vw, 70px);
+  text-align: center;
 }
 .lf-hero::before {
   content: "";
   position: absolute;
-  top: -10%;
-  right: -6%;
-  width: 60%;
-  height: 120%;
-  background: radial-gradient(circle, rgba(47, 107, 255, 0.14), transparent 66%);
+  top: -8%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 88%;
+  height: 96%;
+  background: radial-gradient(circle at 50% 30%, rgba(47, 107, 255, 0.16), transparent 64%);
   pointer-events: none;
   z-index: 0;
 }
-.lf-hero-copy { position: relative; z-index: 1; }
+.lf-hero > * { position: relative; z-index: 1; }
 .lf-badge {
   display: inline-flex;
   align-items: center;
@@ -175,12 +176,53 @@
   background-clip: text;
   color: transparent;
 }
-.lf-hero-tagline { margin-top: 20px; font-size: clamp(16px, 2.1vw, 21px); color: var(--lf-ink-2); line-height: 1.7; max-width: 22em; }
-.lf-hero-actions { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 12px; }
-.lf-hero-meta { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 8px 18px; color: var(--lf-ink-3); font-size: 13px; font-weight: 500; }
+.lf-hero-tagline { margin-top: 20px; font-size: clamp(16px, 2.1vw, 21px); color: var(--lf-ink-2); line-height: 1.7; max-width: 28em; }
+.lf-hero-actions { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+.lf-hero-meta { margin-top: 22px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 18px; color: var(--lf-ink-3); font-size: 13px; font-weight: 500; }
 .lf-hero-meta span { display: inline-flex; align-items: center; gap: 6px; }
-.lf-hero-meta b { color: var(--lf-blue); }
-.lf-hero-visual { position: relative; z-index: 1; display: grid; place-items: center; }
+
+/* ── Real screenshots gallery ── */
+.lf-gallery { padding: clamp(8px, 2vw, 24px) 0 clamp(36px, 6vw, 72px); }
+.lf-gallery-head { max-width: var(--lf-maxw); margin: 0 auto; padding: 0 var(--lf-pad); text-align: center; }
+.lf-gallery-head .lf-lead { margin-left: auto; margin-right: auto; }
+.lf-gallery-track {
+  display: flex;
+  gap: 18px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: clamp(22px, 4vw, 40px) max(var(--lf-pad), calc((100vw - var(--lf-maxw)) / 2 + var(--lf-pad)));
+  scrollbar-width: thin;
+  scrollbar-color: rgba(12, 14, 20, 0.2) transparent;
+}
+.lf-gallery-track::-webkit-scrollbar { height: 8px; }
+.lf-gallery-track::-webkit-scrollbar-thumb { background: rgba(12, 14, 20, 0.18); border-radius: 999px; }
+.lf-shot {
+  flex: 0 0 auto;
+  width: min(86vw, 680px);
+  margin: 0;
+  scroll-snap-align: center;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid var(--lf-line);
+  box-shadow: var(--lf-shadow);
+  background: #0c0e14;
+}
+.lf-shot img { width: 100%; height: auto; display: block; }
+
+/* ── Feature grid ── */
+.lf-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 44px; }
+.lf-grid-card {
+  background: var(--lf-surface);
+  border: 1px solid var(--lf-line);
+  border-radius: 20px;
+  padding: 26px;
+  box-shadow: var(--lf-shadow-sm);
+  transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.4s;
+}
+.lf-grid-card:hover { transform: translateY(-4px); box-shadow: var(--lf-shadow); }
+.lf-grid-card .lf-pillar-ic { width: 42px; height: 42px; border-radius: 12px; }
+.lf-grid-card h4 { margin-top: 16px; font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
+.lf-grid-card p { margin-top: 8px; font-size: 14px; color: var(--lf-ink-2); }
 
 /* ── Phone mockup (crafted, light UI) ── */
 .lf-phone {
@@ -374,16 +416,8 @@
 
 /* ── responsive ── */
 @media (max-width: 880px) {
-  .lf-hero { grid-template-columns: 1fr; text-align: center; padding-top: 28px; }
-  .lf-hero::before { left: 50%; right: auto; transform: translateX(-50%); width: 120%; }
-  .lf-hero-copy { display: flex; flex-direction: column; align-items: center; }
   .lf-hero-tagline { max-width: none; }
-  .lf-hero-actions { justify-content: center; }
-  .lf-hero-visual { order: -1; }
   .lf-pillars { grid-template-columns: 1fr; }
-  .lf-feat { grid-template-columns: 1fr; gap: 30px; }
-  .lf-feat.rev .lf-feat-visual { order: -1; }
-  .lf-feat-visual { order: -1; }
-  .lf-mini { grid-template-columns: 1fr; }
+  .lf-grid { grid-template-columns: 1fr; }
   .lf-nav-links { display: none; }
 }
