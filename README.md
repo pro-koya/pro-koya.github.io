@@ -122,20 +122,31 @@ draft: false                       # true の間は本番非公開
 
 ---
 
-## GitHub Pages へのデプロイ
+## Cloudflare Pages へのデプロイ
 
-リポジトリ `pro-koya/pro-koya.github.io` の `main` に push すると、`.github/workflows/deploy.yml` が
-`npm run build:all`（Astro + Next 合成）を実行し、`dist/` を Pages へ自動デプロイします。
+GitHub リポジトリ `pro-koya/pro-koya.github.io` を Cloudflare Pages に接続し、`main` への push で自動デプロイします。
 
-- リポジトリ Settings → Pages → Source は「GitHub Actions」。
-- 現在は **独自ドメイン未取得のため `https://pro-koya.github.io/` で配信**（CNAMEファイルは置かない）。
+### Cloudflare Pages のビルド設定（ダッシュボードで入力）
 
-### 独自ドメイン `miya-koya.com` に切り替えるとき
+| 項目 | 値 |
+|---|---|
+| Production branch | `main` |
+| Framework preset | None（または Astro） |
+| **Build command** | **`npm run build:all`** ←★必須。`npm run build` だと個人ポートフォリオが含まれません |
+| Build output directory | `dist` |
+| Root directory | （空欄／リポジトリ直下） |
+| 環境変数 | 不要 |
 
-1. ドメインを取得し、DNS（Cloudflare等）を GitHub Pages 向けに設定
-2. リポジトリ Settings → Pages → Custom domain に `miya-koya.com` を設定（CNAMEファイルが自動生成される）
-   - 手動の場合は `CNAME.future` の内容（`miya-koya.com`）を `public/CNAME` に作成
-3. ユーザーページ＝ルート配信のため base は不変。**コード修正は不要**でそのまま動きます。
+- ビルドは「Astro 会社サイト＋Next.js ポートフォリオ」を合成します。`build:all` が portfolio の依存インストール（`npm --prefix portfolio ci`）まで自己完結で行うため、Cloudflare 側はこの 1 コマンドでOK。
+- Node バージョンは `.nvmrc`（`20`）で固定。
+- `www → miya-koya.com` の 301 は `public/_redirects` に同梱（Cloudflare の Redirect Rules で管理する場合はこのファイルを削除可）。
+
+### カスタムドメイン（ダッシュボード作業）
+
+1. Pages プロジェクト → Custom domains → `miya-koya.com` と `www.miya-koya.com` を追加（同一 Cloudflare アカウントのゾーンなら DNS は自動）
+2. 旧 GitHub Pages 用 DNS（`185.199.108-111.153` の A / AAAA、`CNAME www → pro-koya.github.io`）があれば削除
+3. **Google Workspace のメール系（MX / SPF / DKIM / DMARC / google-site-verification）は残す**
+4. 正規URL は `https://miya-koya.com`（canonical / OGP / sitemap は実装済みでこのドメイン基準）
 
 ---
 

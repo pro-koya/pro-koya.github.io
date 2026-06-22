@@ -1,0 +1,4 @@
+# Cloudflare Pages リダイレクト
+# www → apex（正規URL https://miya-koya.com に統一）
+# ※ Cloudflare の Redirect Rules で管理する場合はこの行を削除してOK
+https://www.miya-koya.com/* https://miya-koya.com/:splat 301!

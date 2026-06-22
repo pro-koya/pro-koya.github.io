@@ -10,7 +10,7 @@
     "build": "astro build",
     "build:portfolio": "npm --prefix portfolio run build",
     "integrate": "node scripts/integrate.mjs",
-    "build:all": "npm run build && npm run build:portfolio && npm run integrate",
+    "build:all": "npm --prefix portfolio ci && npm run build && npm run build:portfolio && npm run integrate",
     "preview": "astro preview",
     "astro": "astro"
   },
