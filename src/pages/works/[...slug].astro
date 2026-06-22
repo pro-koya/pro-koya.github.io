@@ -1,0 +1,87 @@
+---
+import Base from "../../layouts/Base.astro";
+import Roof from "../../components/Roof.astro";
+import CTA from "../../components/CTA.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const works = await getCollection("works", ({ data }) => import.meta.env.PROD ? !data.draft : true);
+  return works.map((w) => ({ params: { slug: w.id }, props: { work: w } }));
+}
+
+const { work } = Astro.props;
+const { Content } = await render(work);
+const d = work.data;
+const fmt = (x: Date) => `${x.getFullYear()}年${x.getMonth() + 1}月`;
+---
+
+<Base title={d.title} description={d.summary}>
+  <article class="article">
+    <header class="article-head">
+      <div class="container narrow reveal">
+        <a href="/works" class="back-link">← 導入事例の一覧へ</a>
+        <div class="article-meta">
+          <span class="article-industry">{d.industry}</span>
+          {d.area && <span>{d.area}</span>}
+          <span>{fmt(d.date)}</span>
+        </div>
+        <h1 class="display article-title">{d.title}</h1>
+        <p class="article-client">{d.client}{d.interviewee ? `　／　${d.interviewee}` : ""}</p>
+        <p class="article-summary lead">{d.summary}</p>
+        <div class="article-tags">{d.services.map((s) => <span>{s}</span>)}</div>
+      </div>
+    </header>
+
+    {d.heroImage && (
+      <div class="container hero-img reveal">
+        <img src={typeof d.heroImage === "string" ? d.heroImage : d.heroImage.src} alt={d.title} />
+      </div>
+    )}
+
+    <div class="container narrow article-body reveal">
+      {d.draft && <p class="draft-flag">下書き（draft）状態です。本番公開時は frontmatter の <code>draft: true</code> を削除してください。</p>}
+      <Content />
+      <div class="article-foot">
+        <Roof class="roof--center" />
+        <p>同じようなお困りごと、ありませんか？</p>
+        <a href="/contact" class="btn btn--primary">相談してみる<span class="arrow">→</span></a>
+      </div>
+    </div>
+  </article>
+
+  <CTA />
+</Base>
+
+<style>
+  .article-head { padding-block: clamp(2.5rem, 7vw, 4.5rem) clamp(1.5rem, 4vw, 2.5rem); }
+  .back-link { font-size: 0.85rem; color: var(--ink-faint); transition: color 0.3s; }
+  .back-link:hover { color: var(--brand); }
+  .article-meta { display: flex; gap: 1rem; font-size: 0.78rem; letter-spacing: 0.08em; color: var(--ink-faint); margin-top: 1.4rem; }
+  .article-industry { color: var(--brand); font-weight: 500; }
+  .article-title { margin-top: 1rem; }
+  .article-client { color: var(--ink-faint); margin-top: 0.8rem; font-size: 0.92rem; }
+  .article-summary { margin-top: 1.4rem; }
+  .article-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.6rem; }
+  .article-tags span { font-size: 0.78rem; color: var(--ink-soft); border: 1px solid var(--line); border-radius: 999px; padding: 0.3em 0.9em; }
+
+  .hero-img { margin-block: 1.5rem; }
+  .hero-img img { width: 100%; border-radius: var(--radius-lg); aspect-ratio: 16/8; object-fit: cover; }
+
+  .draft-flag { background: color-mix(in srgb, var(--brand) 12%, var(--paper)); border: 1px solid var(--line); border-radius: var(--radius); padding: 0.9rem 1.1rem; font-size: 0.85rem; color: var(--brand-deep); margin-bottom: 2rem; }
+  .draft-flag code { background: var(--paper-3); padding: 0.1em 0.4em; border-radius: 4px; }
+
+  /* Markdown 本文 */
+  .article-body :global(h2) { font-size: clamp(1.3rem, 2.6vw, 1.7rem); margin-top: 2.8rem; margin-bottom: 1rem; padding-left: 1rem; border-left: 3px solid var(--brand); }
+  .article-body :global(h3) { font-size: 1.15rem; margin-top: 2rem; margin-bottom: 0.8rem; }
+  .article-body :global(p) { margin-bottom: 1.3rem; line-height: 2; }
+  .article-body :global(ul) { list-style: none; margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 0.6rem; }
+  .article-body :global(ul li) { position: relative; padding-left: 1.4rem; color: var(--ink-soft); }
+  .article-body :global(ul li)::before { content: ""; position: absolute; left: 0; top: 0.7em; width: 7px; height: 7px; border-radius: 50%; background: var(--sage); }
+  .article-body :global(blockquote) { margin: 1.8rem 0; padding: 1.4rem 1.6rem; background: var(--paper-2); border-radius: var(--radius); font-family: var(--font-round); color: var(--ink); }
+  .article-body :global(blockquote p) { margin: 0; }
+  .article-body :global(strong) { color: var(--ink); font-weight: 700; }
+
+  .article-foot { text-align: center; margin-top: clamp(3rem, 6vw, 4.5rem); padding-top: clamp(2.5rem, 5vw, 3.5rem); border-top: 1px solid var(--line); }
+  .article-foot .roof { color: var(--brand); margin-bottom: 1.2rem; }
+  .article-foot p { margin-bottom: 1.4rem; font-family: var(--font-round); font-size: 1.1rem; color: var(--ink); }
+</style>

@@ -1,0 +1,193 @@
+---
+import Base from "../layouts/Base.astro";
+import Roof from "../components/Roof.astro";
+import Icon from "../components/Icon.astro";
+import { SITE, FORM_ACTION } from "../data/site";
+
+const topics = ["ホームページ・ECサイトの制作", "Web・スマホアプリの開発", "AI活用・業務の自動化", "予約・決済・業務システム", "業務改善・DXの相談", "お見積もりの依頼", "その他"];
+---
+
+<Base title="相談・お問い合わせ" description="みや小屋へのご相談・お見積もり・お問い合わせ。「何から始めればいいか分からない」段階からお気軽にどうぞ。相談・見積もりは無料です。">
+  <section class="section page-intro">
+    <div class="container narrow reveal">
+      <Roof width={60} />
+      <p class="eyebrow" style="margin-top:1rem">Contact</p>
+      <h1 class="display intro-title">まずは、無料で話してみませんか。</h1>
+      <p class="lead" style="margin-top:1.6rem">
+        「何から始めればいいか分からない」で大丈夫です。現場のお困りごとを、一緒に整理するところから。
+        <strong class="lead-strong">初回のご相談・ヒアリング・お見積もりは無料</strong>。売り込みはしませんので、お気軽にご連絡ください。
+      </p>
+    </div>
+  </section>
+
+  <!-- 無料相談の流れ -->
+  <section class="section flow-section" style="padding-top:0">
+    <div class="container">
+      <p class="eyebrow eyebrow--center flow-label reveal">ご相談の流れ</p>
+      <div class="flow reveal">
+        <div class="flow-step">
+          <span class="flow-num">01</span>
+          <h3>お問い合わせ</h3>
+          <p>下のフォーム・メール・電話・LINEから。1〜2営業日以内にご返信します。</p>
+        </div>
+        <span class="flow-arrow" aria-hidden="true">→</span>
+        <div class="flow-step">
+          <span class="flow-num">02</span>
+          <h3>無料ヒアリング</h3>
+          <p>オンラインまたは対面で30分ほど。お困りごとや、やりたいことをお聞きします。</p>
+        </div>
+        <span class="flow-arrow" aria-hidden="true">→</span>
+        <div class="flow-step">
+          <span class="flow-num">03</span>
+          <h3>ご提案・お見積もり</h3>
+          <p>必要な進め方と費用を無料でご提案。ここで終わっても、もちろん大丈夫です。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="container contact-grid">
+      <!-- フォーム -->
+      <div class="contact-form-wrap reveal">
+        <form class="contact-form" action={FORM_ACTION} method="POST">
+          <input type="hidden" name="_subject" value="【みや小屋】サイトからのお問い合わせ" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_captcha" value="true" />
+          <input type="text" name="_honey" style="display:none" />
+
+          <div class="field">
+            <label for="name">お名前 <span>必須</span></label>
+            <input id="name" type="text" name="お名前" required placeholder="山田 太郎" />
+          </div>
+          <div class="field">
+            <label for="company">会社名・屋号</label>
+            <input id="company" type="text" name="会社名" placeholder="株式会社◯◯ / 個人事業主" />
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="email">メールアドレス <span>必須</span></label>
+              <input id="email" type="email" name="メールアドレス" required placeholder="you@example.com" />
+            </div>
+            <div class="field">
+              <label for="tel">電話番号</label>
+              <input id="tel" type="tel" name="電話番号" placeholder="090-0000-0000" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="topic">ご相談内容</label>
+            <select id="topic" name="ご相談の種類">
+              {topics.map((t) => <option value={t}>{t}</option>)}
+            </select>
+          </div>
+          <div class="field">
+            <label for="message">ご相談・お問い合わせ内容 <span>必須</span></label>
+            <textarea id="message" name="内容" rows="6" required placeholder="現在のお困りごとや、やってみたいことを、分かる範囲でお書きください。"></textarea>
+          </div>
+          <p class="form-agree">
+            送信により <a href="/privacy">プライバシーポリシー</a> に同意したものとみなします。
+          </p>
+          <button type="submit" class="btn btn--primary form-submit">送信する<span class="arrow">→</span></button>
+        </form>
+      </div>
+
+      <!-- 連絡先 -->
+      <aside class="contact-side reveal">
+        <h2 class="h3">直接のご連絡も。</h2>
+        {SITE.booking && (
+          <a href={SITE.booking} target="_blank" rel="noopener" class="book-btn">
+            <Icon name="chart" size={20} />日程を選んで予約する
+          </a>
+        )}
+        <a href={SITE.line} target="_blank" rel="noopener" class="line-btn">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 5.69 2 10.23c0 4.07 3.55 7.48 8.35 8.12.32.07.77.21.88.49.1.25.07.64.03.9l-.14.86c-.04.25-.2.99.87.54 1.07-.45 5.76-3.39 7.86-5.81C21.36 13.66 22 12.02 22 10.23 22 5.69 17.52 2 12 2z"/></svg>
+          LINEで相談する
+        </a>
+        <ul class="contact-list">
+          <li>
+            <span class="ci"><Icon name="mail" size={22} /></span>
+            <div><span class="cl">メール</span><a href={`mailto:${SITE.email}`}>{SITE.email}</a></div>
+          </li>
+          <li>
+            <span class="ci"><Icon name="phone" size={22} /></span>
+            <div><span class="cl">電話</span><a href={`tel:${SITE.telLink}`}>{SITE.tel}</a></div>
+          </li>
+          <li>
+            <span class="ci"><Icon name="pin" size={22} /></span>
+            <div><span class="cl">所在地</span><span class="cv">{SITE.address}</span></div>
+          </li>
+          <li>
+            <span class="ci"><Icon name="leaf" size={22} /></span>
+            <div><span class="cl">Instagram</span><a href={SITE.instagram} target="_blank" rel="noopener">畑の様子を見る</a></div>
+          </li>
+        </ul>
+        <div class="contact-hours">
+          <p>大阪・北摂を起点に、オンラインでも全国対応します。<br />まずはお気軽にどうぞ。</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page-intro { padding-top: clamp(3.5rem, 9vw, 6rem); padding-bottom: clamp(2rem, 4vw, 3rem); }
+  .page-intro .roof { color: var(--brand); }
+  .intro-title { margin-top: 1.2rem; }
+  .lead-strong { color: var(--brand-deep); font-weight: 700; }
+
+  .flow-label { display: flex; justify-content: center; margin-bottom: 1.8rem; }
+  .flow { display: flex; align-items: stretch; gap: clamp(0.4rem, 1.2vw, 1rem); }
+  .flow-step {
+    flex: 1; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius-lg);
+    padding: clamp(1.6rem, 2.8vw, 2.2rem); transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease), border-color 0.4s var(--ease);
+  }
+  .flow-step:hover { transform: translateY(-3px); box-shadow: 0 18px 38px -26px rgba(58,50,43,0.4); border-color: rgba(138,119,99,0.4); }
+  .flow-num {
+    display: inline-grid; place-items: center; width: 52px; height: 52px; border-radius: 50%;
+    background: color-mix(in srgb, var(--brand) 12%, var(--paper)); color: var(--brand-deep);
+    font-family: var(--font-round); font-size: 1.25rem; letter-spacing: 0.04em; margin-bottom: 1.2rem;
+  }
+  .flow-step h3 { font-size: 1.12rem; margin-bottom: 0.5rem; }
+  .flow-step p { font-size: 0.88rem; line-height: 1.85; }
+  .flow-arrow { flex: none; align-self: center; color: var(--brand); font-size: 1.5rem; opacity: 0.7; }
+  @media (max-width: 820px) {
+    .flow { flex-direction: column; }
+    .flow-arrow { transform: rotate(90deg); align-self: center; margin-block: -0.2rem; }
+  }
+
+  .contact-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  @media (max-width: 860px) { .contact-grid { grid-template-columns: 1fr; } }
+
+  .contact-form { display: flex; flex-direction: column; gap: 1.3rem; }
+  .field { display: flex; flex-direction: column; gap: 0.5rem; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.3rem; }
+  @media (max-width: 560px) { .field-row { grid-template-columns: 1fr; } }
+  .field label { font-size: 0.86rem; font-weight: 500; color: var(--ink); display: flex; align-items: center; gap: 0.5rem; }
+  .field label span { font-size: 0.66rem; color: #fff; background: var(--brand); border-radius: 4px; padding: 0.1em 0.5em; letter-spacing: 0.06em; }
+  .field input, .field select, .field textarea {
+    border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper);
+    padding: 0.85em 1em; font-size: 0.95rem; color: var(--ink); transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: var(--brand); box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand) 16%, transparent);
+  }
+  .field textarea { resize: vertical; }
+  .form-agree { font-size: 0.82rem; color: var(--ink-faint); }
+  .form-agree a { color: var(--brand); text-decoration: underline; }
+  .form-submit { align-self: flex-start; margin-top: 0.4rem; }
+
+  .contact-side { background: var(--paper-2); border-radius: var(--radius-lg); padding: clamp(1.6rem, 3.5vw, 2.4rem); }
+  .contact-side .h3 { margin-bottom: 1.2rem; }
+  .line-btn { display: flex; align-items: center; justify-content: center; gap: 0.6rem; width: 100%; background: #06c755; color: #fff; font-weight: 700; padding: 0.85em 1em; border-radius: 999px; margin-bottom: 1.6rem; transition: filter 0.3s, transform 0.3s; }
+  .line-btn:hover { filter: brightness(1.05); transform: translateY(-2px); color: #fff; }
+  .book-btn { display: flex; align-items: center; justify-content: center; gap: 0.6rem; width: 100%; background: var(--brand); color: #fff; font-weight: 700; padding: 0.85em 1em; border-radius: 999px; margin-bottom: 0.9rem; transition: background 0.3s, transform 0.3s; }
+  .book-btn:hover { background: var(--brand-deep); transform: translateY(-2px); color: #fff; }
+  .contact-list { display: flex; flex-direction: column; gap: 1.3rem; }
+  .contact-list li { display: flex; gap: 1rem; align-items: center; }
+  .ci { flex: none; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: var(--paper); color: var(--brand); border: 1px solid var(--line); }
+  .cl { display: block; font-size: 0.72rem; letter-spacing: 0.12em; color: var(--ink-faint); text-transform: uppercase; }
+  .contact-list a, .cv { font-weight: 500; color: var(--ink); word-break: break-all; }
+  .contact-list a:hover { color: var(--brand); }
+  .contact-hours { margin-top: 1.8rem; padding-top: 1.4rem; border-top: 1px solid var(--line); }
+  .contact-hours p { font-size: 0.86rem; }
+</style>

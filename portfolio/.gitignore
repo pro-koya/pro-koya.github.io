@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Next.js
+.next/
+node_modules/
+out/
+docs/
+tsconfig.tsbuildinfo
+*.tsbuildinfo
+npm-debug.log*
+
+# Local verification artifacts
+.playwright-cli/
+output/
+test-results/

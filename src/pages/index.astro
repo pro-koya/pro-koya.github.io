@@ -1,0 +1,234 @@
+---
+import Base from "../layouts/Base.astro";
+import Roof from "../components/Roof.astro";
+import Icon from "../components/Icon.astro";
+import CTA from "../components/CTA.astro";
+import { SITE } from "../data/site";
+
+const consults = [
+  { icon: "web", text: "ホームページ・ECサイトの制作" },
+  { icon: "code", text: "Web・スマホアプリの開発" },
+  { icon: "doc", text: "予約・決済システムの導入" },
+  { icon: "chart", text: "顧客・予約・売上の一元管理" },
+  { icon: "ai", text: "AI活用・業務の自動化" },
+  { icon: "gear", text: "紙・Excel管理の見直し" },
+];
+
+const pillars = [
+  {
+    no: "01",
+    icon: "web",
+    title: "サイト・EC・アプリ開発",
+    text: "ホームページ、ECサイト、予約・決済システム、スマホアプリまで。集客から運用まで、必要な分を一気通貫でつくります。",
+  },
+  {
+    no: "02",
+    icon: "ai",
+    title: "AI活用・自動化",
+    text: "入力・転記・集計といった繰り返し作業を、AIと自動化で軽くします。「使う人の判断」は残したまま、道具として導入します。",
+  },
+  {
+    no: "03",
+    icon: "chart",
+    title: "業務改善・DX",
+    text: "紙やExcel、属人化した作業を一緒に棚卸しし、現場が無理なく続けられる仕組みへ。予約・顧客・売上の一元管理まで。",
+  },
+];
+
+const personas = [
+  { icon: "web", title: "飲食店・小売・サロン", text: "ホームページや予約・SNSがアナログで、忙しくて手が回らない。" },
+  { icon: "hand", title: "福祉事業所", text: "タスク・シフト・記録・広報が属人化していて、止まると困る。" },
+  { icon: "leaf", title: "農家・農業法人", text: "記録や販路、補助金の活用が手つかずのままになっている。" },
+  { icon: "doc", title: "個人事業主・士業", text: "一人で何でもやっていて、事務作業に時間を取られている。" },
+  { icon: "gear", title: "これから起業する方", text: "最初の仕組みづくりや、何から始めるかを相談したい。" },
+];
+
+const reasons = [
+  { icon: "hand", title: "導入して終わりにしない", text: "つくるのは入口です。使いこなし、育てるところまで隣で伴走します。月額でいつでも相談できる関係を基本にしています。" },
+  { icon: "leaf", title: "現場の言葉で話す", text: "専門用語を押しつけません。畑にも立つ作り手だからこそ、現場の手触りに合わせて、分かる言葉で進めます。" },
+  { icon: "gear", title: "小さく始めて確かめる", text: "大きな投資の前に、いちばん困っている一点から。効果を確かめながら広げるので、失敗の少ない進め方です。" },
+];
+---
+
+<Base>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true">
+      <img src="/brand/logo-mark.png" alt="" />
+    </div>
+    <div class="container hero-inner">
+      <p class="eyebrow reveal">{SITE.service}</p>
+      <h1 class="hero-title display reveal">つくる、そだてる、<br />つながる。</h1>
+      <p class="hero-lead lead reveal">
+        ホームページ・ECサイト・アプリの制作から、AI活用・業務改善まで。<br />
+        現場の仕事を、使われ続ける仕組みに整える、あなたの町のIT屋です。
+      </p>
+      <div class="hero-actions reveal">
+        <a href="/contact" class="btn btn--primary">無料で相談する<span class="arrow">→</span></a>
+        <a href="/services" class="btn btn--ghost">できることを見る</a>
+      </div>
+      <p class="hero-free reveal">
+        <span class="hero-free-dot" aria-hidden="true"></span>
+        初回のご相談・ヒアリング・お見積もりは<strong>無料</strong>です。
+      </p>
+    </div>
+    <a href="#consult" class="hero-scroll" aria-label="下へ"><span></span></a>
+  </section>
+
+  <!-- 相談できること -->
+  <section class="section" id="consult">
+    <div class="container">
+      <div class="section-head section-head--center reveal">
+        <Roof class="roof--center" />
+        <p class="eyebrow eyebrow--center" style="margin-top:1rem">まずは、こんなことから</p>
+        <h2 class="h2">「何から始めればいいか分からない」<br class="sp-br" />で、大丈夫です。</h2>
+        <p>みや小屋は、現場のお困りごとを一緒に整理するところから始めます。たとえば、こんな相談から。</p>
+      </div>
+      <ul class="consult-grid">
+        {consults.map((c) => (
+          <li class="consult-item reveal">
+            <span class="consult-icon"><Icon name={c.icon} size={24} /></span>
+            <span>{c.text}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- こんな方へ -->
+  <section class="section section--tan">
+    <div class="container">
+      <div class="section-head section-head--center reveal">
+        <p class="eyebrow eyebrow--center" style="justify-content:center">For You</p>
+        <h2 class="h2">こんな方の、力になれます。</h2>
+        <p>ひとつでも当てはまったら、お気軽にご相談ください。</p>
+      </div>
+      <ul class="persona-grid">
+        {personas.map((p) => (
+          <li class="persona reveal">
+            <span class="persona-icon"><Icon name={p.icon} size={26} /></span>
+            <div>
+              <h3 class="persona-title">{p.title}</h3>
+              <p>{p.text}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- サービス3本柱 -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Service — BUILD</p>
+        <h2 class="h2">仕組み化で、現場を軽くする。</h2>
+        <p>業務改善・自動化・AI活用を、3つの形でご提供します。組み合わせも、一部だけでも構いません。</p>
+      </div>
+      <div class="grid grid-3">
+        {pillars.map((p) => (
+          <article class="card pillar reveal">
+            <div class="pillar-head">
+              <span class="pillar-no">{p.no}</span>
+              <span class="pillar-icon"><Icon name={p.icon} size={26} /></span>
+            </div>
+            <h3 class="h3">{p.title}</h3>
+            <p>{p.text}</p>
+          </article>
+        ))}
+      </div>
+      <div class="center-link reveal">
+        <a href="/services" class="btn btn--ghost">サービスの詳細・料金の考え方<span class="arrow">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- なぜみや小屋か -->
+  <section class="section section--tan">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Why MIYA-KOYA</p>
+        <h2 class="h2">隣に座り続ける、IT屋。</h2>
+      </div>
+      <div class="grid grid-3">
+        {reasons.map((r) => (
+          <div class="reason reveal">
+            <span class="reason-icon"><Icon name={r.icon} size={28} /></span>
+            <h3 class="h3">{r.title}</h3>
+            <p>{r.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 事例 teaser -->
+  <section class="section section--tan">
+    <div class="container works-teaser">
+      <div class="reveal">
+        <p class="eyebrow">Voice</p>
+        <h2 class="h2">導入いただいた現場の声。</h2>
+        <p style="margin-top:1rem; max-width:42ch">実際に仕組みを導入した事業者の方へのインタビューを、事例として少しずつ掲載していきます。</p>
+        <a href="/works" class="btn btn--ghost" style="margin-top:1.6rem">導入事例を見る<span class="arrow">→</span></a>
+      </div>
+      <div class="works-mark reveal" aria-hidden="true">
+        <img src="/brand/logo-vertical.png" alt="" />
+      </div>
+    </div>
+  </section>
+
+  <CTA />
+</Base>
+
+<style>
+  /* HERO */
+  .hero { position: relative; overflow: hidden; padding-block: clamp(5rem, 16vh, 11rem) clamp(4rem, 10vh, 8rem); }
+  .hero-bg { position: absolute; inset: 0; display: flex; justify-content: flex-end; align-items: center; pointer-events: none; }
+  .hero-bg img { width: min(60vw, 620px); opacity: 0.06; transform: translateX(14%); }
+  .hero-inner { position: relative; max-width: 760px; }
+  .hero-title { margin-top: 1.4rem; color: var(--ink); }
+  .hero-lead { margin-top: 1.8rem; }
+  .hero-actions { display: flex; gap: 1rem; margin-top: 2.6rem; flex-wrap: wrap; }
+  .hero-free { display: inline-flex; align-items: center; gap: 0.6rem; margin-top: 1.4rem; font-size: 0.92rem; color: var(--ink-soft); }
+  .hero-free strong { color: var(--brand-deep); font-weight: 700; }
+  .hero-free-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--sage); box-shadow: 0 0 0 4px color-mix(in srgb, var(--sage) 22%, transparent); flex: none; }
+  .hero-scroll { position: absolute; left: 50%; bottom: 1.6rem; transform: translateX(-50%); width: 24px; height: 38px; border: 1.5px solid var(--line); border-radius: 14px; display: grid; place-items: start center; }
+  .hero-scroll span { width: 3px; height: 8px; background: var(--brand); border-radius: 2px; margin-top: 7px; animation: scroll 1.8s var(--ease) infinite; }
+  @keyframes scroll { 0% { opacity: 0; transform: translateY(0); } 40% { opacity: 1; } 100% { opacity: 0; transform: translateY(12px); } }
+
+  /* 相談できること */
+  .consult-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; }
+  .consult-item { display: flex; align-items: center; gap: 1rem; padding: clamp(1.3rem, 2.6vw, 1.9rem); background: var(--paper); font-weight: 500; color: var(--ink); transition: background 0.4s var(--ease); }
+  .consult-item:hover { background: var(--paper-2); }
+  .consult-icon { flex: none; width: 48px; height: 48px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--line); color: var(--brand); }
+  @media (max-width: 820px) { .consult-grid { grid-template-columns: 1fr; } }
+
+  /* personas */
+  .persona-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2vw, 1.4rem); }
+  .persona { display: flex; gap: 1rem; align-items: flex-start; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.3rem, 2.4vw, 1.7rem); transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease); }
+  .persona:hover { transform: translateY(-3px); box-shadow: 0 18px 38px -28px rgba(58,50,43,0.4); }
+  .persona-icon { flex: none; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: var(--paper-2); color: var(--brand-deep); }
+  .persona-title { font-size: 1rem; margin-bottom: 0.35rem; }
+  .persona p { font-size: 0.86rem; line-height: 1.8; }
+  @media (max-width: 900px) { .persona-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .persona-grid { grid-template-columns: 1fr; } }
+
+  /* pillars */
+  .pillar-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.2rem; }
+  .pillar-no { font-family: var(--font-round); font-size: 1.1rem; letter-spacing: 0.1em; color: var(--brand); }
+  .pillar-icon { width: 52px; height: 52px; display: grid; place-items: center; border-radius: 50%; background: var(--paper-2); color: var(--brand-deep); }
+  .pillar .h3 { margin-bottom: 0.7rem; }
+  .center-link { text-align: center; margin-top: clamp(2rem, 4vw, 3rem); }
+
+  /* reasons */
+  .reason { padding-block: 0.5rem; }
+  .reason-icon { display: inline-grid; place-items: center; width: 56px; height: 56px; border-radius: 16px; background: var(--paper-2); color: var(--brand-deep); margin-bottom: 1.2rem; }
+  .reason .h3 { margin-bottom: 0.6rem; }
+
+  /* works teaser */
+  .works-teaser { display: grid; grid-template-columns: 1.3fr 1fr; align-items: center; gap: 2rem; }
+  .works-mark { display: flex; justify-content: center; }
+  .works-mark img { width: min(40vw, 240px); opacity: 0.85; }
+  @media (max-width: 820px) { .works-teaser { grid-template-columns: 1fr; } .works-mark { display: none; } }
+  @media (min-width: 560px) { .sp-br { display: none; } }
+</style>

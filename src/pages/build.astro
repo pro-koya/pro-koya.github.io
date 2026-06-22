@@ -1,0 +1,18 @@
+---
+// 名刺・印刷物に miya-koya.com/build を載せた場合の保険リダイレクト。
+// サービス紹介ページへ転送します（相談導線に変えたい場合は /contact に変更）。
+const target = "/services";
+---
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <link rel="canonical" href={target} />
+    <title>みや小屋｜サービス</title>
+    <script is:inline define:vars={{ target }}>location.replace(target);</script>
+  </head>
+  <body>
+    <p>サービスページへ移動します。<a href={target}>こちら</a></p>
+  </body>
+</html>

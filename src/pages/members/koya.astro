@@ -1,0 +1,129 @@
+---
+import Base from "../../layouts/Base.astro";
+import Roof from "../../components/Roof.astro";
+import Icon from "../../components/Icon.astro";
+import CTA from "../../components/CTA.astro";
+import { SITE } from "../../data/site";
+
+const axes = [
+  { icon: "leaf", title: "畑", text: "野菜づくりに取り組む作り手。土に触れ、育てる時間が、現場に寄り添う姿勢の源になっています。" },
+  { icon: "hand", title: "身体", text: "身体を動かすことを大切に。実践と継続を、頭でなく身体で理解することを信条にしています。" },
+  { icon: "code", title: "IT", text: "Web・アプリ・AI・業務システム。手を動かしてものをつくり、現場の困りごとを仕組みに変えます。" },
+];
+
+const skills = [
+  { area: "サイト・アプリ", items: ["ホームページ・ECサイト", "Next.js / React", "iOS・スマホアプリ"] },
+  { area: "AI・自動化", items: ["生成AIの業務活用", "Claude Code / 開発自動化", "業務フローの自動化設計"] },
+  { area: "業務システム", items: ["要件定義・業務設計", "プロジェクト推進", "Salesforce 等の構築経験"] },
+];
+
+---
+
+<Base title="宮林 幸也" description="みや小屋 代表 宮林幸也のプロフィール。畑｜身体｜IT。現場の困りごとを、使われ続ける仕組みに変える作り手。">
+  <!-- イントロ -->
+  <section class="section profile-hero">
+    <div class="container profile-top">
+      <div class="profile-mark reveal" aria-hidden="true"><img src="/brand/logo-vertical.png" alt="" /></div>
+      <div class="reveal">
+        <a href="/members" class="back-link">← メンバー一覧へ</a>
+        <p class="eyebrow" style="margin-top:1.2rem">Representative</p>
+        <h1 class="display profile-name">宮林 幸也</h1>
+        <p class="profile-en">Miyabayasi Koya</p>
+        <p class="profile-role">代表 / System Builder</p>
+        <p class="profile-axes">畑｜身体｜IT</p>
+        <p style="margin-top:1.4rem; max-width:48ch">
+          大手メーカー向けの業務システム構築やプロジェクト推進に、エンジニアとして従事。
+          開発・PM・管理の役割を横断する中で、「現場で本当に使われる仕組み」をつくる難しさと面白さに向き合ってきました。
+          2026年に独立し、みや小屋として、地域の事業者の伴走を始めます。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3軸 -->
+  <section class="section section--tan">
+    <div class="container">
+      <div class="section-head section-head--center reveal">
+        <p class="eyebrow eyebrow--center" style="justify-content:center">3 Axes</p>
+        <h2 class="h2">畑｜身体｜IT</h2>
+        <p>3つの軸が、ものづくりと現場感覚を支えています。</p>
+      </div>
+      <div class="grid grid-3">
+        {axes.map((a) => (
+          <div class="axis card reveal">
+            <span class="axis-icon"><Icon name={a.icon} size={28} /></span>
+            <h3 class="h3">{a.title}</h3>
+            <p>{a.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- スキル -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Skills</p>
+        <h2 class="h2">できること。</h2>
+      </div>
+      <div class="grid grid-3">
+        {skills.map((s) => (
+          <div class="skill reveal">
+            <h3 class="skill-area">{s.area}</h3>
+            <ul>{s.items.map((i) => <li><Icon name="leaf" size={15} />{i}</li>)}</ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ポートフォリオへの誘導 -->
+  <section class="section section--tan">
+    <div class="container">
+      <a href={SITE.portfolio} class="portfolio-cta reveal">
+        <div class="portfolio-cta-body">
+          <p class="eyebrow">Portfolio</p>
+          <h2 class="h2">宮林幸也の、作品と活動。</h2>
+          <p>これまでにつくったサイト・アプリ、考えていること、日々の記録まで。個人のポートフォリオサイトにまとめています。</p>
+          <span class="btn btn--primary portfolio-cta-btn">ポートフォリオを見る<span class="arrow">→</span></span>
+        </div>
+        <div class="portfolio-cta-mark" aria-hidden="true"><img src="/brand/logo-mark.png" alt="" /></div>
+      </a>
+    </div>
+  </section>
+
+  <CTA title="まずは、話してみませんか。" text="現場のお困りごとを、宮林が直接うかがいます。相談・お見積もりは無料です。" />
+</Base>
+
+<style>
+  .profile-hero { padding-top: clamp(3rem, 8vw, 5rem); }
+  .profile-top { display: grid; grid-template-columns: 0.8fr 1.4fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+  .profile-mark { display: flex; justify-content: center; }
+  .profile-mark img { width: min(45vw, 230px); opacity: 0.9; }
+  .back-link { font-size: 0.85rem; color: var(--ink-faint); transition: color 0.3s; }
+  .back-link:hover { color: var(--brand); }
+  .profile-name { margin-top: 1rem; }
+  .profile-en { font-size: 0.82rem; letter-spacing: 0.18em; color: var(--ink-faint); text-transform: uppercase; margin-top: 0.4rem; }
+  .profile-role { color: var(--brand); font-weight: 500; margin-top: 0.8rem; letter-spacing: 0.06em; }
+  .profile-axes { font-family: var(--font-round); color: var(--brand-deep); margin-top: 0.5rem; font-size: 1.1rem; letter-spacing: 0.1em; }
+  @media (max-width: 760px) { .profile-top { grid-template-columns: 1fr; } .profile-mark img { width: 150px; } }
+
+  .axis-icon { color: var(--brand-deep); display: inline-grid; place-items: center; width: 56px; height: 56px; border-radius: 16px; background: var(--paper); margin-bottom: 1.1rem; }
+  .axis .h3 { font-family: var(--font-round); margin-bottom: 0.5rem; }
+
+  .skill-area { font-size: 1.05rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--line); margin-bottom: 1rem; }
+  .skill ul { display: flex; flex-direction: column; gap: 0.7rem; }
+  .skill li { display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; color: var(--ink-soft); }
+  .skill li svg { color: var(--sage-deep); flex: none; }
+
+  /* ポートフォリオ誘導 */
+  .portfolio-cta { display: grid; grid-template-columns: 1.6fr 1fr; align-items: center; gap: clamp(1.5rem, 4vw, 3rem); background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: clamp(1.8rem, 4vw, 3rem); transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease), border-color 0.4s var(--ease); }
+  .portfolio-cta:hover { transform: translateY(-4px); box-shadow: 0 26px 50px -30px rgba(58,50,43,0.45); border-color: rgba(138,119,99,0.4); }
+  .portfolio-cta-body .h2 { margin: 0.7rem 0 0.9rem; }
+  .portfolio-cta-body p { max-width: 46ch; }
+  .portfolio-cta-btn { margin-top: 1.6rem; }
+  .portfolio-cta-mark { display: flex; justify-content: center; }
+  .portfolio-cta-mark img { width: min(38vw, 170px); opacity: 0.85; }
+  @media (max-width: 720px) { .portfolio-cta { grid-template-columns: 1fr; } .portfolio-cta-mark { display: none; } }
+</style>

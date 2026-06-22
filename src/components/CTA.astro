@@ -1,0 +1,30 @@
+---
+import Roof from "./Roof.astro";
+interface Props { title?: string; text?: string; }
+const {
+  title = "まずは、無料で話してみませんか。",
+  text = "「何から始めればいいか分からない」で大丈夫です。初回のご相談・ヒアリング・お見積もりは無料。売り込みはしません。現場のお困りごとを、一緒に整理するところから始めます。",
+} = Astro.props;
+---
+<section class="section section--deep cta">
+  <div class="container narrow cta-inner reveal">
+    <Roof class="roof--center cta-roof" width={64} />
+    <h2 class="display cta-title">{title}</h2>
+    <p class="cta-text">{text}</p>
+    <div class="cta-actions">
+      <a href="/contact" class="btn btn--on-dark">無料で相談する<span class="arrow">→</span></a>
+      <a href="/services" class="btn btn--ghost cta-ghost">サービスを見る</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta { text-align: center; }
+  .cta-inner { display: flex; flex-direction: column; align-items: center; }
+  .cta-roof { color: var(--brand); opacity: 0.9; margin-bottom: 1.6rem; }
+  .cta-title { color: var(--on-dark); }
+  .cta-text { color: var(--on-dark-soft); margin-top: 1.2rem; max-width: 48ch; }
+  .cta-actions { display: flex; gap: 1rem; margin-top: 2.4rem; flex-wrap: wrap; justify-content: center; }
+  .cta-ghost { color: var(--on-dark); border-color: rgba(239,231,218,0.3); }
+  .cta-ghost:hover { color: #fff; border-color: var(--on-dark); }
+</style>

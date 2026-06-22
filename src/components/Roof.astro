@@ -1,0 +1,10 @@
+---
+// 小屋の屋根モチーフ（ブランドの象徴）。装飾的な区切りに使う。
+interface Props { class?: string; width?: number; }
+const { class: cls = "", width = 56 } = Astro.props;
+---
+<svg class={`roof ${cls}`} width={width} viewBox="0 0 120 44" fill="none"
+     stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+     aria-hidden="true">
+  <path d="M6 40 L60 8 Q60 6 62 8 L114 40" />
+</svg>

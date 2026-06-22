@@ -1,25 +1,21 @@
 {
-  "name": "portfolio",
+  "name": "miya-koya-site",
+  "type": "module",
   "version": "0.1.0",
   "private": true,
+  "description": "みや小屋 / MIYA-KOYA 会社ホームページ",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "build:portfolio": "npm --prefix portfolio run build",
+    "integrate": "node scripts/integrate.mjs",
+    "build:all": "npm run build && npm run build:portfolio && npm run integrate",
+    "preview": "astro preview",
+    "astro": "astro"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.102.1",
-    "gsap": "^3.12.5",
-    "next": "^15.3.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "sharp": "^0.34.5"
-  },
-  "devDependencies": {
-    "@types/node": "^22.0.0",
-    "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0",
-    "typescript": "^5.7.0"
+    "@astrojs/sitemap": "^3.7.3",
+    "astro": "^5.6.1"
   }
 }

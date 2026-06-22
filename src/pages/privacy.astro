@@ -1,0 +1,64 @@
+---
+import Base from "../layouts/Base.astro";
+import { SITE } from "../data/site";
+const updated = "2026年8月";
+---
+
+<Base title="プライバシーポリシー" description="みや小屋のプライバシーポリシー（個人情報の取り扱いについて）。">
+  <section class="section page-intro">
+    <div class="container narrow">
+      <p class="eyebrow">Privacy Policy</p>
+      <h1 class="display intro-title">プライバシーポリシー</h1>
+      <p class="muted" style="margin-top:1rem">最終更新日：{updated}</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="container narrow legal">
+      <p>みや小屋（以下「当方」）は、お客さまの個人情報を適切に取り扱うことを重要な責務と考え、以下のとおりプライバシーポリシーを定めます。</p>
+
+      <h2>1. 取得する情報</h2>
+      <p>当方は、お問い合わせフォーム等を通じて、お名前、会社名・屋号、メールアドレス、電話番号、ご相談内容などの情報を取得することがあります。</p>
+
+      <h2>2. 利用目的</h2>
+      <ul>
+        <li>お問い合わせ・ご相談への回答、お見積もりのご連絡のため</li>
+        <li>ご依頼いただいた業務の遂行のため</li>
+        <li>サービス向上のための分析のため</li>
+      </ul>
+
+      <h2>3. 第三者への提供</h2>
+      <p>当方は、法令に基づく場合を除き、ご本人の同意なく個人情報を第三者に提供しません。</p>
+
+      <h2>4. 外部サービスの利用</h2>
+      <p>当方のお問い合わせフォームは、送信処理のために外部サービスを利用しています。また、サイトの利用状況の把握のためにアクセス解析ツールを利用する場合があります。これらのサービスにおける情報の取り扱いは、各サービスの定めによります。</p>
+
+      <h2>5. 個人情報の管理</h2>
+      <p>当方は、取得した個人情報の漏えい、滅失またはき損の防止に努め、適切に管理します。</p>
+
+      <h2>6. 開示・訂正・削除</h2>
+      <p>ご本人から個人情報の開示・訂正・削除のご請求があった場合、合理的な範囲で速やかに対応します。下記の連絡先までお問い合わせください。</p>
+
+      <h2>7. お問い合わせ窓口</h2>
+      <p>
+        みや小屋 / MIYA-KOYA<br />
+        メール：<a href={`mailto:${SITE.email}`}>{SITE.email}</a><br />
+        所在地：{SITE.address}
+      </p>
+
+      <h2>8. 改定</h2>
+      <p>本ポリシーの内容は、必要に応じて改定することがあります。改定後の内容は本ページに掲載した時点から効力を生じます。</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page-intro { padding-top: clamp(3.5rem, 9vw, 6rem); }
+  .intro-title { margin-top: 1.2rem; }
+  .legal h2 { font-size: 1.15rem; margin-top: 2.4rem; margin-bottom: 0.8rem; }
+  .legal p { margin-bottom: 1rem; }
+  .legal ul { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
+  .legal li { position: relative; padding-left: 1.4rem; color: var(--ink-soft); }
+  .legal li::before { content: ""; position: absolute; left: 0; top: 0.7em; width: 6px; height: 6px; border-radius: 50%; background: var(--brand); }
+  .legal a { color: var(--brand); text-decoration: underline; }
+</style>

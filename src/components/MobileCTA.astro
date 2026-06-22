@@ -1,0 +1,35 @@
+---
+// スマホ用・画面下に追従する相談導線。PCでは非表示。
+import { SITE } from "../data/site";
+---
+<div class="mobile-cta" id="mobile-cta">
+  <a href={SITE.line} target="_blank" rel="noopener" class="mcta mcta--line">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 5.69 2 10.23c0 4.07 3.55 7.48 8.35 8.12.32.07.77.21.88.49.1.25.07.64.03.9l-.14.86c-.04.25-.2.99.87.54 1.07-.45 5.76-3.39 7.86-5.81C21.36 13.66 22 12.02 22 10.23 22 5.69 17.52 2 12 2z"/></svg>
+    LINEで相談
+  </a>
+  <a href="/contact" class="mcta mcta--primary">無料で相談する</a>
+</div>
+
+<style>
+  .mobile-cta { display: none; }
+  @media (max-width: 820px) {
+    .mobile-cta {
+      display: flex; gap: 0.6rem; position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
+      padding: 0.7rem 0.9rem calc(0.7rem + env(safe-area-inset-bottom));
+      background: color-mix(in srgb, var(--paper) 92%, transparent);
+      backdrop-filter: blur(10px); border-top: 1px solid var(--line);
+      transform: translateY(120%); transition: transform 0.4s var(--ease);
+    }
+    .mobile-cta.show { transform: translateY(0); }
+    .mcta { flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.85em; border-radius: 999px; font-weight: 700; font-size: 0.92rem; }
+    .mcta--line { background: #06c755; color: #fff; flex: 0 0 42%; }
+    .mcta--primary { background: var(--brand); color: #fff; }
+  }
+</style>
+
+<script>
+  const bar = document.getElementById("mobile-cta");
+  const onScroll = () => bar?.classList.toggle("show", window.scrollY > 480);
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+</script>

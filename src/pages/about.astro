@@ -1,0 +1,158 @@
+---
+import Base from "../layouts/Base.astro";
+import Roof from "../components/Roof.astro";
+import Icon from "../components/Icon.astro";
+import CTA from "../components/CTA.astro";
+import { SITE } from "../data/site";
+
+const tsunagaru = [
+  { word: "つくる", en: "MAKE", text: "現場に合わせて、ホームページも仕組みも手を動かしてつくります。机上の空論ではなく、実際に動くものを。" },
+  { word: "そだてる", en: "GROW", text: "つくって終わりにしません。使いながら直し、現場になじむまで育てます。畑と同じで、手をかけ続けます。" },
+  { word: "つながる", en: "CONNECT", text: "一度の仕事で離れず、隣に座り続けます。地域の事業者と長くつながり、一緒に良くしていきます。" },
+];
+
+const overview = [
+  { k: "屋号", v: "みや小屋 / MIYA-KOYA" },
+  { k: "代表", v: SITE.representative },
+  { k: "事業内容", v: "業務改善・自動化・AI活用支援／Web・アプリ受託開発／DX導入・内製化支援" },
+  { k: "拠点", v: SITE.address },
+  { k: "開業", v: SITE.founded },
+  { k: "連絡先", v: `${SITE.email}　/　${SITE.tel}` },
+];
+---
+
+<Base title="会社について" description="みや小屋の理念とストーリー。導入して終わりにせず、現場に伴走する『もう一人の仲間』として。つくる、そだてる、つながる。">
+  <!-- イントロ -->
+  <section class="section page-intro">
+    <div class="container narrow reveal">
+      <p class="eyebrow">About</p>
+      <h1 class="display intro-title">ITが分からない現場に、<br />もう一人の仲間として。</h1>
+      <p class="lead" style="margin-top:1.8rem">
+        みや小屋は、大阪・北摂を起点に、中小企業・個人事業・地域の事業者の「仕組み化」を手伝う小さなIT屋です。
+        新しい道具を売って終わりではなく、現場が自分たちで回せるようになるまで、隣で伴走します。
+      </p>
+    </div>
+  </section>
+
+  <!-- 理念 -->
+  <section class="section section--deep">
+    <div class="container narrow philosophy reveal">
+      <Roof class="roof--center" width={64} />
+      <p class="eyebrow eyebrow--center" style="justify-content:center; margin-top:1.2rem">理念 / Mission</p>
+      <blockquote class="philosophy-quote display">
+        導入して終わりではなく、<br />使いこなし、育てるところまで。
+      </blockquote>
+      <p class="philosophy-text">
+        ITやAIは「詳しい人だけのもの」になりがちです。便利なはずの道具が、現場ではかえって負担になることも少なくありません。
+        みや小屋は、事業者の隣に座り続ける存在でありたいと思っています。分からないことを、分からないまま放っておかない。
+        小さく始めて、確かめながら、現場になじむ仕組みを一緒に育てていきます。
+      </p>
+    </div>
+  </section>
+
+  <!-- つくる そだてる つながる -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head section-head--center reveal">
+        <p class="eyebrow eyebrow--center" style="justify-content:center">Our Words</p>
+        <h2 class="h2">つくる、そだてる、つながる。</h2>
+        <p>屋号にこめた、3つの姿勢です。</p>
+      </div>
+      <div class="grid grid-3">
+        {tsunagaru.map((t) => (
+          <div class="word-card card reveal">
+            <span class="word-en">{t.en}</span>
+            <h3 class="word-jp">{t.word}</h3>
+            <p>{t.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 代表 -->
+  <section class="section section--tan">
+    <div class="container rep">
+      <div class="rep-mark reveal" aria-hidden="true"><img src="/brand/logo-vertical.png" alt="" /></div>
+      <div class="rep-body reveal">
+        <p class="eyebrow">Representative</p>
+        <h2 class="h2" style="margin-top:0.8rem">{SITE.representative}</h2>
+        <p class="rep-role">代表 / System Builder</p>
+        <p style="margin-top:1.2rem">
+          大手メーカー向けの業務システム構築やプロジェクト推進に、エンジニアとして携わってきました。
+          その経験を土台に2026年に独立し、「現場の困りごとを、使われ続ける仕組みに変える」ことを仕事にしています。
+        </p>
+        <p style="margin-top:1rem">
+          畑に立ち、身体を動かし、ものをつくる。そんな暮らしの感覚を持った作り手だからこそ、現場の手触りに寄り添えると考えています。
+        </p>
+        <a href="/members/koya" class="btn btn--ghost" style="margin-top:1.6rem">プロフィールを見る<span class="arrow">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- みや小屋ファーム -->
+  <section class="section">
+    <div class="container narrow farm reveal">
+      <span class="farm-icon"><Icon name="leaf" size={30} /></span>
+      <h2 class="h3">みや小屋ファーム</h2>
+      <p>
+        みや小屋には、農業・野菜づくりに取り組む「みや小屋ファーム」という顔もあります。
+        土に触れ、育てる時間が、ものづくりの感覚と、現場に寄り添う姿勢の源になっています。
+        畑の様子は Instagram で発信しています。
+      </p>
+      <a href={SITE.instagram} target="_blank" rel="noopener" class="farm-link">Instagram で畑の様子を見る →</a>
+    </div>
+  </section>
+
+  <!-- 会社概要 -->
+  <section class="section section--tan">
+    <div class="container narrow">
+      <div class="section-head reveal">
+        <p class="eyebrow">Overview</p>
+        <h2 class="h2">会社概要</h2>
+      </div>
+      <dl class="overview reveal">
+        {overview.map((o) => (
+          <div class="overview-row">
+            <dt>{o.k}</dt>
+            <dd>{o.v}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <CTA />
+</Base>
+
+<style>
+  .page-intro { padding-top: clamp(3.5rem, 9vw, 6rem); }
+  .intro-title { margin-top: 1.2rem; }
+
+  .philosophy { text-align: center; display: flex; flex-direction: column; align-items: center; }
+  .philosophy .roof { color: var(--brand); }
+  .philosophy-quote { color: var(--on-dark); margin-top: 1.4rem; font-size: clamp(1.5rem, 4vw, 2.4rem); }
+  .philosophy-text { color: var(--on-dark-soft); margin-top: 1.8rem; max-width: 54ch; }
+
+  .word-card { text-align: left; }
+  .word-en { font-size: 0.72rem; letter-spacing: 0.3em; color: var(--brand); }
+  .word-jp { font-family: var(--font-round); font-size: 1.7rem; margin: 0.5rem 0 0.9rem; color: var(--ink); letter-spacing: 0.08em; }
+
+  .rep { display: grid; grid-template-columns: 0.8fr 1.4fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+  .rep-mark { display: flex; justify-content: center; }
+  .rep-mark img { width: min(45vw, 220px); opacity: 0.9; }
+  .rep-role { color: var(--brand); font-weight: 500; margin-top: 0.4rem; letter-spacing: 0.06em; }
+  @media (max-width: 760px) { .rep { grid-template-columns: 1fr; } .rep-mark img { width: 150px; } }
+
+  .farm { text-align: center; display: flex; flex-direction: column; align-items: center; }
+  .farm-icon { display: inline-grid; place-items: center; width: 60px; height: 60px; border-radius: 50%; background: color-mix(in srgb, var(--sage) 22%, var(--paper)); color: var(--sage-deep); margin-bottom: 1.2rem; }
+  .farm .h3 { margin-bottom: 0.8rem; }
+  .farm p { max-width: 52ch; }
+  .farm-link { display: inline-block; margin-top: 1.4rem; color: var(--sage-deep); font-weight: 500; border-bottom: 1px solid currentColor; padding-bottom: 2px; }
+
+  .overview { border-top: 1px solid var(--line); }
+  .overview-row { display: grid; grid-template-columns: 160px 1fr; gap: 1.5rem; padding: 1.2rem 0.4rem; border-bottom: 1px solid var(--line); }
+  .overview-row dt { font-weight: 500; color: var(--ink); font-size: 0.92rem; }
+  .overview-row dd { color: var(--ink-soft); }
+  @media (max-width: 640px) { .overview-row { grid-template-columns: 1fr; gap: 0.3rem; } }
+</style>

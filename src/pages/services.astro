@@ -1,0 +1,294 @@
+---
+import Base from "../layouts/Base.astro";
+import Roof from "../components/Roof.astro";
+import Icon from "../components/Icon.astro";
+import CTA from "../components/CTA.astro";
+
+const consults = [
+  { icon: "web", text: "ホームページ・ECサイトの制作" },
+  { icon: "code", text: "Web・スマホアプリの開発" },
+  { icon: "doc", text: "予約・決済システムの導入" },
+  { icon: "chart", text: "顧客・予約・売上の一元管理" },
+  { icon: "ai", text: "AI活用・業務の自動化" },
+  { icon: "gear", text: "紙・Excel管理の見直し" },
+];
+
+const menus = [
+  {
+    tag: "Spot",
+    title: "業務整理の相談",
+    price: "5万円〜",
+    unit: "初回ヒアリングは無料",
+    term: "目安 2〜4週間",
+    text: "「何から始めればいいか分からない」方へ。まずは無料でお話を伺います。その上で、本格的に整理する場合は、課題マップと改善ロードマップをご提案します。",
+    points: ["初回ヒアリングは無料", "課題の可視化", "改善ロードマップの提案"],
+  },
+  {
+    tag: "Build",
+    title: "サイト・EC・アプリ・システム構築",
+    price: "30万円〜",
+    unit: "規模に応じてお見積もり",
+    term: "目安 1〜4ヶ月",
+    text: "ホームページ、ECサイト、予約・決済システム、業務システム、スマホアプリまで。要件整理から設計・開発・公開、運用まで一貫して担います。",
+    points: ["ホームページ・ECサイト", "予約・決済・業務システム", "スマホアプリ開発"],
+    featured: true,
+  },
+  {
+    tag: "Monthly",
+    title: "月額AI伴走サポート",
+    price: "3万円〜",
+    unit: "／月",
+    term: "継続契約",
+    text: "つくった後も、いつでも相談できる関係を。月次のヒアリングとAI活用レクチャー、運用改善の提案を継続します。みや小屋が最も大事にしている形です。",
+    points: ["月次の相談・改善提案", "AI活用レクチャー", "発信・運用の支援"],
+  },
+];
+
+const steps = [
+  { no: "Phase 0", title: "無料ヒアリング", text: "まずは無料で、いまの業務やお困りごとを一緒に書き出し、どこに時間がかかっているかを可視化します。" },
+  { no: "Phase 1", title: "業務設計", text: "現場が無理なく続けられる形に、業務の流れを再設計します。" },
+  { no: "Phase 2", title: "最小プロトタイプ", text: "いちばん負担の大きい作業から、小さく仕組み化して効果を確かめます。" },
+  { no: "Phase 3", title: "AI伴走・改善", text: "運用しながら、月次で改善を継続。現場になじむまで育てます。" },
+];
+
+const changes = [
+  { before: "予約は電話とノート。営業中に手が止まり、ダブルブッキングも。", after: "スマホからWeb予約。電話対応が減り、接客に集中できる。" },
+  { before: "売上や顧客を紙・Excelに二重入力。集計に時間がかかる。", after: "入力は一度だけ。集計は自動になり、毎月の事務時間が減る。" },
+  { before: "発信したいのに、何を載せればいいか分からず手が回らない。", after: "AIで下書きを用意。無理なく続けられる発信の型ができる。" },
+];
+
+const faqs = [
+  { q: "ITにまったく詳しくないのですが、大丈夫ですか？", a: "もちろんです。専門用語を使わず、現場の言葉で進めます。「何が分からないかも分からない」状態からのご相談が、いちばん多いです。" },
+  { q: "費用はどのくらいかかりますか？", a: "内容によって変わりますが、業務整理の相談は5〜15万円、開発・導入は20〜80万円、月額の伴走は3〜20万円／月が目安です。まずは無料のご相談で、必要な範囲とおおよその費用感をお伝えします。" },
+  { q: "補助金は使えますか？", a: "IT導入補助金やものづくり補助金など、活用できる場合があります。対象になりそうかの確認から、申請のサポートまでご相談いただけます。" },
+  { q: "小さな相談でも依頼できますか？", a: "はい。「Excelのこの作業だけ楽にしたい」といった一点のご相談から歓迎します。小さく始めて、必要に応じて広げていきましょう。" },
+  { q: "対応エリアは？", a: "大阪・北摂を起点に、オンラインでも対応します。地域の事業者さまには、できるだけ直接お会いして進めます。" },
+];
+---
+
+<Base title="サービス" description="みや小屋のサービス（BUILD）。業務整理の相談、DX導入・開発、月額AI伴走サポート。料金の考え方・進め方・補助金活用・よくある質問。">
+  <!-- イントロ -->
+  <section class="section page-intro">
+    <div class="container narrow reveal">
+      <p class="eyebrow">Service — BUILD</p>
+      <h1 class="display intro-title">仕組み化で、<br />現場を軽くする。</h1>
+      <p class="lead" style="margin-top:1.8rem">
+        業務改善・自動化・AI活用支援。みや小屋のサービスは「BUILD — 仕組み化」のひとことに集約されます。
+        現場のお困りごとに合わせて、必要な分だけ、無理のない形でご提供します。
+      </p>
+    </div>
+  </section>
+
+  <!-- 相談できること -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <Roof />
+        <p class="eyebrow" style="margin-top:1rem">相談できること</p>
+        <h2 class="h2">たとえば、こんなことから。</h2>
+      </div>
+      <ul class="consult-grid">
+        {consults.map((c) => (
+          <li class="consult-item reveal">
+            <span class="consult-icon"><Icon name={c.icon} size={24} /></span>
+            <span>{c.text}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- メニュー -->
+  <section class="section section--tan">
+    <div class="container">
+      <div class="section-head section-head--center reveal">
+        <p class="eyebrow eyebrow--center" style="justify-content:center">Menu</p>
+        <h2 class="h2">3つの関わり方。</h2>
+        <p>単発でも、継続でも。組み合わせてもご利用いただけます。</p>
+      </div>
+      <div class="free-banner reveal">
+        <span class="free-banner-icon"><Icon name="hand" size={26} /></span>
+        <div>
+          <strong>初回のご相談・ヒアリング・お見積もりは無料です。</strong>
+          <span>まずは話を聞くだけでも大丈夫。売り込みはしません。</span>
+        </div>
+        <a href="/contact" class="btn btn--primary free-banner-btn">無料で相談する<span class="arrow">→</span></a>
+      </div>
+      <div class="grid grid-3 menu-grid">
+        {menus.map((m) => (
+          <article class={`card menu ${m.featured ? "menu--featured" : ""} reveal`}>
+            {m.featured && <span class="menu-badge">おすすめ</span>}
+            <span class="menu-tag">{m.tag}</span>
+            <h3 class="h3 menu-title">{m.title}</h3>
+            <p class="menu-price"><strong>{m.price}</strong><span>{m.unit}</span></p>
+            <p class="menu-term">{m.term}</p>
+            <p class="menu-text">{m.text}</p>
+            <ul class="menu-points">
+              {m.points.map((p) => <li><Icon name="leaf" size={16} />{p}</li>)}
+            </ul>
+          </article>
+        ))}
+      </div>
+      <p class="menu-note reveal">
+        ※ 金額は目安です。ECサイトや業務システム、アプリなど、規模・機能の大きい開発は、<br class="pc-br" />内容をうかがった上で個別にお見積もりします（無料）。
+      </p>
+    </div>
+  </section>
+
+  <!-- 進め方 -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">How we work</p>
+        <h2 class="h2">小さく始めて、確かめながら。</h2>
+        <p>いきなり大きく作りません。困っている一点から、効果を確かめて広げます。</p>
+      </div>
+      <ol class="steps">
+        {steps.map((s) => (
+          <li class="step reveal">
+            <span class="step-no">{s.no}</span>
+            <div>
+              <h3 class="h3">{s.title}</h3>
+              <p>{s.text}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- 導入後の変化 -->
+  <section class="section section--tan">
+    <div class="container">
+      <div class="section-head section-head--center reveal">
+        <p class="eyebrow eyebrow--center" style="justify-content:center">Before → After</p>
+        <h2 class="h2">導入すると、こんな変化が。</h2>
+        <p>たとえば、こんなふうに現場が軽くなります。</p>
+      </div>
+      <div class="changes">
+        {changes.map((c) => (
+          <div class="change reveal">
+            <div class="change-before">
+              <span class="change-tag">Before</span>
+              <p>{c.before}</p>
+            </div>
+            <span class="change-arrow" aria-hidden="true">→</span>
+            <div class="change-after">
+              <span class="change-tag change-tag--after">After</span>
+              <p>{c.after}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 補助金 -->
+  <section class="section">
+    <div class="container narrow subsidy reveal">
+      <span class="subsidy-icon"><Icon name="chart" size={30} /></span>
+      <h2 class="h3">補助金の活用も、一緒に。</h2>
+      <p>
+        IT導入補助金・ものづくり補助金など、デジタル化に使える補助金があります。
+        「自社が対象になるか分からない」段階から、確認・申請のサポートまでご相談いただけます。
+        負担を抑えて、必要な仕組みを導入しましょう。
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="container narrow">
+      <div class="section-head reveal">
+        <p class="eyebrow">FAQ</p>
+        <h2 class="h2">よくある質問</h2>
+      </div>
+      <div class="faq-list">
+        {faqs.map((f) => (
+          <details class="faq reveal">
+            <summary>{f.q}<span class="faq-mark" aria-hidden="true"></span></summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTA />
+</Base>
+
+<style>
+  .page-intro { padding-top: clamp(3.5rem, 9vw, 6rem); }
+  .intro-title { margin-top: 1.2rem; }
+
+  .consult-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; }
+  .consult-item { display: flex; align-items: center; gap: 1rem; padding: clamp(1.3rem, 2.6vw, 1.9rem); background: var(--paper); font-weight: 500; color: var(--ink); transition: background 0.4s var(--ease); }
+  .consult-item:hover { background: var(--paper-2); }
+  .consult-icon { flex: none; width: 48px; height: 48px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--line); color: var(--brand); }
+  @media (max-width: 820px) { .consult-grid { grid-template-columns: 1fr; } }
+
+  /* 無料バナー */
+  .free-banner { display: flex; align-items: center; gap: 1.2rem; background: color-mix(in srgb, var(--sage) 16%, var(--paper)); border: 1px solid color-mix(in srgb, var(--sage) 35%, transparent); border-radius: var(--radius-lg); padding: 1.2rem 1.6rem; margin-bottom: clamp(2rem, 4vw, 3rem); }
+  .free-banner-icon { flex: none; width: 52px; height: 52px; border-radius: 50%; background: var(--paper); color: var(--sage-deep); display: grid; place-items: center; }
+  .free-banner strong { display: block; color: var(--ink); font-size: 1.02rem; }
+  .free-banner span { display: block; font-size: 0.86rem; color: var(--ink-soft); margin-top: 0.2rem; }
+  .free-banner-btn { flex: none; margin-left: auto; }
+  @media (max-width: 720px) { .free-banner { flex-direction: column; align-items: flex-start; text-align: left; } .free-banner-btn { margin-left: 0; } }
+
+  /* menu */
+  .menu-grid { align-items: stretch; }
+  .menu { position: relative; display: flex; flex-direction: column; }
+  .menu--featured { border-color: var(--brand); box-shadow: 0 22px 44px -30px rgba(108,91,72,0.55); }
+  .menu-badge { position: absolute; top: -12px; left: 1.6rem; background: var(--brand); color: #fff; font-size: 0.72rem; letter-spacing: 0.12em; padding: 0.3em 0.9em; border-radius: 999px; }
+  .menu-tag { font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--brand); }
+  .menu-title { margin: 0.6rem 0 1rem; }
+  .menu-price { display: flex; align-items: baseline; gap: 0.4rem; color: var(--ink); }
+  .menu-price strong { font-family: var(--font-round); font-size: 1.7rem; font-weight: 500; white-space: nowrap; }
+  .menu-price span { font-size: 0.85rem; color: var(--ink-faint); }
+  .menu-term { font-size: 0.82rem; color: var(--ink-faint); margin-top: 0.2rem; }
+  .menu-text { margin-top: 1rem; font-size: 0.92rem; }
+  .menu-points { margin-top: 1.3rem; padding-top: 1.3rem; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 0.7rem; }
+  .menu-points li { display: flex; align-items: center; gap: 0.6rem; font-size: 0.88rem; color: var(--ink); }
+  .menu-points svg { color: var(--sage-deep); flex: none; }
+  .menu-note { text-align: center; margin-top: 2rem; color: var(--ink-faint); font-size: 0.85rem; }
+
+  /* steps */
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; counter-reset: step; }
+  .step { display: flex; flex-direction: column; gap: 0.8rem; padding: 1.6rem; border-radius: var(--radius); background: var(--paper-2); position: relative; }
+  .step-no { font-family: var(--font-round); font-size: 0.95rem; color: var(--brand); letter-spacing: 0.06em; }
+  .step .h3 { font-size: 1.05rem; margin-bottom: 0.3rem; }
+  @media (max-width: 820px) { .steps { grid-template-columns: 1fr; } }
+
+  /* Before -> After */
+  .changes { display: flex; flex-direction: column; gap: 1rem; max-width: 920px; margin-inline: auto; }
+  .change { display: grid; grid-template-columns: 1fr auto 1fr; align-items: stretch; gap: clamp(0.6rem, 1.6vw, 1.2rem); }
+  .change-before, .change-after { border-radius: var(--radius); padding: 1.2rem 1.4rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .change-before { background: var(--paper); border: 1px solid var(--line); }
+  .change-after { background: color-mix(in srgb, var(--sage) 16%, var(--paper)); border: 1px solid color-mix(in srgb, var(--sage) 35%, transparent); }
+  .change-tag { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-faint); font-weight: 500; }
+  .change-tag--after { color: var(--sage-deep); }
+  .change p { font-size: 0.9rem; line-height: 1.8; color: var(--ink); }
+  .change-arrow { align-self: center; color: var(--brand); font-size: 1.4rem; opacity: 0.7; }
+  @media (max-width: 760px) {
+    .change { grid-template-columns: 1fr; }
+    .change-arrow { transform: rotate(90deg); justify-self: center; margin-block: -0.1rem; }
+  }
+
+  /* subsidy */
+  .subsidy { text-align: center; display: flex; flex-direction: column; align-items: center; background: var(--paper-2); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: clamp(2rem, 4vw, 3rem); }
+  .subsidy-icon { display: inline-grid; place-items: center; width: 60px; height: 60px; border-radius: 50%; background: var(--paper); color: var(--brand-deep); margin-bottom: 1.2rem; }
+  .subsidy .h3 { margin-bottom: 0.8rem; }
+  .subsidy p { max-width: 54ch; }
+
+  /* faq */
+  .faq-list { border-top: 1px solid var(--line); }
+  .faq { border-bottom: 1px solid var(--line); }
+  .faq summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.3rem 0.4rem; font-weight: 500; color: var(--ink); cursor: pointer; list-style: none; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq-mark { position: relative; flex: none; width: 16px; height: 16px; }
+  .faq-mark::before, .faq-mark::after { content: ""; position: absolute; background: var(--brand); border-radius: 2px; transition: transform 0.3s var(--ease); }
+  .faq-mark::before { top: 7px; left: 0; width: 16px; height: 2px; }
+  .faq-mark::after { top: 0; left: 7px; width: 2px; height: 16px; }
+  .faq[open] .faq-mark::after { transform: scaleY(0); }
+  .faq p { padding: 0 0.4rem 1.4rem; max-width: 60ch; }
+</style>

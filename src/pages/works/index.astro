@@ -1,0 +1,88 @@
+---
+import Base from "../../layouts/Base.astro";
+import Roof from "../../components/Roof.astro";
+import CTA from "../../components/CTA.astro";
+import { getCollection } from "astro:content";
+
+const all = await getCollection("works", ({ data }) => import.meta.env.PROD ? !data.draft : true);
+const works = all.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const fmt = (d: Date) => `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, "0")}`;
+---
+
+<Base title="導入事例" description="みや小屋の導入事例。実際に仕組みを導入した事業者の方へのインタビューを、事例として掲載しています。">
+  <section class="section page-intro">
+    <div class="container reveal">
+      <p class="eyebrow">Works</p>
+      <h1 class="display intro-title">導入いただいた、現場の声。</h1>
+      <p class="lead" style="margin-top:1.8rem; max-width:56ch">
+        実際に仕組みを導入した事業者の方へインタビューし、どんな課題を、どう一緒に解いていったかを記事にしています。
+      </p>
+    </div>
+  </section>
+
+  <!-- 導入事例 -->
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      {works.length === 0 ? (
+        <div class="empty reveal">
+          <Roof class="roof--center" width={60} />
+          <h2 class="h3" style="margin-top:1.2rem">事例を準備中です。</h2>
+          <p>導入いただいた事業者さまへのインタビューを、これから少しずつ掲載していきます。<br />最初の事例になっていただける方も、お待ちしています。</p>
+          <a href="/contact" class="btn btn--primary" style="margin-top:1.6rem">相談する<span class="arrow">→</span></a>
+        </div>
+      ) : (
+        <div class="works-list">
+          {works.map((w) => (
+            <a href={`/works/${w.id}/`} class="work-card reveal">
+              {w.data.heroImage ? (
+                <div class="work-thumb"><img src={typeof w.data.heroImage === "string" ? w.data.heroImage : w.data.heroImage.src} alt="" /></div>
+              ) : (
+                <div class="work-thumb work-thumb--mark"><img src="/brand/logo-mark.png" alt="" /></div>
+              )}
+              <div class="work-body">
+                <div class="work-meta">
+                  <span class="work-industry">{w.data.industry}</span>
+                  <span class="work-date">{fmt(w.data.date)}</span>
+                </div>
+                <h2 class="work-title">{w.data.title}</h2>
+                <p class="work-client">{w.data.client}{w.data.area ? `・${w.data.area}` : ""}</p>
+                <p class="work-summary">{w.data.summary}</p>
+                {w.data.result && <p class="work-result">{w.data.result}</p>}
+                <div class="work-tags">{w.data.services.map((s) => <span>{s}</span>)}</div>
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <CTA />
+</Base>
+
+<style>
+  .page-intro { padding-top: clamp(3.5rem, 9vw, 6rem); }
+  .intro-title { margin-top: 1.2rem; }
+
+  .empty { text-align: center; padding: clamp(2rem, 6vw, 4rem); border: 1px dashed var(--line); border-radius: var(--radius-lg); display: flex; flex-direction: column; align-items: center; }
+  .empty .roof { color: var(--brand); }
+  .empty p { max-width: 46ch; margin-top: 0.8rem; }
+
+  .works-list { display: grid; gap: clamp(1.4rem, 3vw, 2rem); }
+  .work-card { display: grid; grid-template-columns: 320px 1fr; gap: clamp(1.5rem, 3vw, 2.5rem); align-items: center; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease), border-color 0.4s var(--ease); }
+  .work-card:hover { transform: translateY(-4px); box-shadow: 0 22px 44px -30px rgba(58,50,43,0.4); border-color: rgba(138,119,99,0.4); }
+  .work-thumb { aspect-ratio: 4/3; background: var(--paper-2); overflow: hidden; }
+  .work-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .work-thumb--mark { display: grid; place-items: center; }
+  .work-thumb--mark img { width: 45%; height: auto; opacity: 0.7; object-fit: contain; }
+  .work-body { padding: clamp(1.2rem, 2.5vw, 1.6rem) clamp(1.4rem,3vw,2rem) clamp(1.4rem,3vw,2rem) 0; }
+  .work-meta { display: flex; align-items: center; gap: 1rem; font-size: 0.76rem; letter-spacing: 0.1em; color: var(--ink-faint); }
+  .work-industry { color: var(--brand); font-weight: 500; }
+  .work-title { font-size: clamp(1.2rem, 2.4vw, 1.5rem); margin: 0.6rem 0 0.3rem; }
+  .work-client { font-size: 0.86rem; color: var(--ink-faint); }
+  .work-summary { margin-top: 0.9rem; font-size: 0.94rem; }
+  .work-result { margin-top: 0.7rem; display: inline-block; background: color-mix(in srgb, var(--sage) 18%, var(--paper)); color: var(--sage-deep); font-size: 0.82rem; font-weight: 500; padding: 0.3em 0.9em; border-radius: 999px; }
+  .work-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+  .work-tags span { font-size: 0.76rem; color: var(--ink-soft); border: 1px solid var(--line); border-radius: 999px; padding: 0.25em 0.8em; }
+  @media (max-width: 720px) { .work-card { grid-template-columns: 1fr; } .work-body { padding: 0 clamp(1.3rem,5vw,1.6rem) clamp(1.4rem,5vw,1.8rem); } }
+</style>

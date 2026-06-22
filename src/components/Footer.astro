@@ -1,0 +1,60 @@
+---
+import { SITE } from "../data/site";
+const year = 2026;
+const nav = [
+  { href: "/about", label: "会社について" },
+  { href: "/services", label: "サービス" },
+  { href: "/works", label: "導入事例" },
+  { href: "/members", label: "メンバー" },
+  { href: "/contact", label: "相談・お問い合わせ" },
+  { href: "/privacy", label: "プライバシーポリシー" },
+];
+---
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <img src="/brand/logo-mark-light.png" alt="みや小屋" width="80" height="69" />
+      <p class="footer-tag">つくる、そだてる、つながる。</p>
+      <p class="footer-note">現場の仕事を、使われ続ける仕組みに整えます。<br />業務改善・自動化・AI活用支援。</p>
+    </div>
+
+    <nav class="footer-nav" aria-label="フッターナビゲーション">
+      <h3>サイトマップ</h3>
+      <ul>{nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}</ul>
+    </nav>
+
+    <div class="footer-contact">
+      <h3>お問い合わせ</h3>
+      <ul>
+        <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+        <li><a href={`tel:${SITE.telLink}`}>{SITE.tel}</a></li>
+        <li>{SITE.address}</li>
+      </ul>
+      <div class="footer-social">
+        <a href={SITE.line} target="_blank" rel="noopener">LINE</a>
+        <a href={SITE.instagram} target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container footer-bottom">
+    <span>© {year} みや小屋 / MIYA-KOYA</span>
+    <span>{SITE.domain}</span>
+  </div>
+</footer>
+
+<style>
+  .site-footer { background: var(--dark); color: var(--on-dark); padding-block: clamp(3.5rem, 7vw, 5.5rem) 2rem; }
+  .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1.2fr; gap: clamp(2rem, 5vw, 4rem); }
+  .footer-brand img { height: 56px; width: auto; margin-bottom: 1.2rem; }
+  .footer-tag { font-family: var(--font-round); color: var(--on-dark); font-size: 1.1rem; letter-spacing: 0.08em; margin-bottom: 0.7rem; }
+  .footer-note { color: var(--on-dark-soft); font-size: 0.86rem; line-height: 1.9; }
+  .site-footer h3 { font-size: 0.74rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--brand); margin-bottom: 1.2rem; font-weight: 500; }
+  .footer-nav ul, .footer-contact ul { display: flex; flex-direction: column; gap: 0.7rem; }
+  .footer-nav a, .footer-contact a, .footer-contact li { color: var(--on-dark-soft); font-size: 0.9rem; transition: color 0.3s; }
+  .footer-nav a:hover, .footer-contact a:hover { color: var(--on-dark); }
+  .footer-social { margin-top: 1.3rem; display: flex; gap: 1rem; }
+  .footer-social a { color: var(--on-dark); font-size: 0.84rem; letter-spacing: 0.1em; border-bottom: 1px solid rgba(239,231,218,0.3); padding-bottom: 2px; }
+  .footer-bottom { margin-top: clamp(2.5rem, 5vw, 4rem); padding-top: 1.6rem; border-top: 1px solid rgba(239,231,218,0.12); display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; color: var(--on-dark-soft); font-size: 0.78rem; letter-spacing: 0.06em; }
+  @media (max-width: 820px) { .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+</style>

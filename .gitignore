@@ -1,17 +1,11 @@
-# macOS
+node_modules
+dist
+.astro
 .DS_Store
-**/.DS_Store
+.env
+.env.production
 
-# Next.js
-.next/
-node_modules/
-out/
-docs/
-tsconfig.tsbuildinfo
-*.tsbuildinfo
-npm-debug.log*
-
-# Local verification artifacts
-.playwright-cli/
-output/
-test-results/
+# portfolio (Next.js) build artifacts
+portfolio/node_modules
+portfolio/.next
+portfolio/out

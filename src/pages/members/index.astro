@@ -1,0 +1,65 @@
+---
+import Base from "../../layouts/Base.astro";
+import CTA from "../../components/CTA.astro";
+import { MEMBERS } from "../../data/members";
+---
+
+<Base title="メンバー" description="みや小屋のメンバー紹介。現場に寄り添う作り手たち。">
+  <section class="section page-intro">
+    <div class="container reveal">
+      <p class="eyebrow">Members</p>
+      <h1 class="display intro-title">現場に寄り添う、作り手。</h1>
+      <p class="lead" style="margin-top:1.8rem; max-width:54ch">
+        みや小屋のメンバーを紹介します。技術はもちろん、現場の手触りを大事にする人が集まる場所にしていきます。
+      </p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <div class="member-grid">
+        {MEMBERS.map((m) => (
+          <article class="member-card reveal">
+            <div class="member-photo" aria-hidden="true"><img src="/brand/logo-mark.png" alt="" /></div>
+            <div class="member-info">
+              <p class="member-role">{m.role}</p>
+              <h2 class="member-name">{m.name}</h2>
+              <p class="member-en">{m.nameEn}</p>
+              <p class="member-axes">{m.axes}</p>
+              <p class="member-summary">{m.summary}</p>
+              {m.page && <a href={m.page} class="btn btn--ghost member-btn">プロフィールを見る<span class="arrow">→</span></a>}
+            </div>
+          </article>
+        ))}
+        <article class="member-card member-card--join">
+          <div class="join-inner">
+            <p class="join-title">仲間を募集していくかもしれません。</p>
+            <p>現場に寄り添うものづくりに共感する方とは、いつかご一緒できればと思っています。</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <CTA />
+</Base>
+
+<style>
+  .page-intro { padding-top: clamp(3.5rem, 9vw, 6rem); }
+  .intro-title { margin-top: 1.2rem; }
+  .member-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(1.4rem, 3vw, 2rem); }
+  .member-card { display: grid; grid-template-columns: 150px 1fr; gap: 1.6rem; align-items: center; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: clamp(1.4rem, 3vw, 2rem); }
+  .member-photo { aspect-ratio: 1; border-radius: 18px; background: var(--paper-2); display: grid; place-items: center; }
+  .member-photo img { width: 60%; opacity: 0.7; }
+  .member-role { font-size: 0.78rem; letter-spacing: 0.1em; color: var(--brand); font-weight: 500; }
+  .member-name { font-size: 1.4rem; margin: 0.4rem 0 0.2rem; }
+  .member-en { font-size: 0.78rem; letter-spacing: 0.16em; color: var(--ink-faint); text-transform: uppercase; }
+  .member-axes { font-family: var(--font-round); color: var(--brand-deep); margin-top: 0.6rem; letter-spacing: 0.08em; }
+  .member-summary { font-size: 0.9rem; margin-top: 0.8rem; }
+  .member-btn { margin-top: 1.2rem; }
+  .member-card--join { display: grid; place-items: center; text-align: center; border-style: dashed; background: transparent; }
+  .join-title { font-family: var(--font-round); font-size: 1.1rem; color: var(--ink); margin-bottom: 0.6rem; }
+  .join-inner p { max-width: 36ch; }
+  @media (max-width: 860px) { .member-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 520px) { .member-card { grid-template-columns: 1fr; text-align: center; } .member-photo { width: 120px; margin-inline: auto; } }
+</style>
