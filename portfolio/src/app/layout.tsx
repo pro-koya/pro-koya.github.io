@@ -43,10 +43,11 @@ export const metadata: Metadata = {
     locale: 'ja_JP',
     type: 'website',
   },
+  // Next の metadata.icons は basePath を自動付与しないため明示的にサブパスを指定
   icons: {
-    icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
-    shortcut: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
-    apple: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
+    icon: [{ url: '/members/koya/portfolio/favicon.svg', type: 'image/svg+xml' }],
+    shortcut: [{ url: '/members/koya/portfolio/favicon.svg', type: 'image/svg+xml' }],
+    apple: [{ url: '/members/koya/portfolio/favicon.svg', type: 'image/svg+xml' }],
   },
 };
 

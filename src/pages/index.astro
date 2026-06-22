@@ -36,11 +36,12 @@ const pillars = [
 ];
 
 const personas = [
-  { icon: "web", title: "飲食店・小売・サロン", text: "ホームページや予約・SNSがアナログで、忙しくて手が回らない。" },
-  { icon: "hand", title: "福祉事業所", text: "タスク・シフト・記録・広報が属人化していて、止まると困る。" },
-  { icon: "leaf", title: "農家・農業法人", text: "記録や販路、補助金の活用が手つかずのままになっている。" },
-  { icon: "doc", title: "個人事業主・士業", text: "一人で何でもやっていて、事務作業に時間を取られている。" },
-  { icon: "gear", title: "これから起業する方", text: "最初の仕組みづくりや、何から始めるかを相談したい。" },
+  { icon: "web", title: "店舗・サービス業", text: "予約・決済・ホームページ・SNSをまとめたい。飲食、小売、サロン、教室など。" },
+  { icon: "doc", title: "中小企業・各種事業者", text: "紙やExcelの管理、二重入力、属人化した業務を、無理なく仕組み化したい。" },
+  { icon: "hand", title: "福祉・医療・士業", text: "タスク・シフト・顧客・記録の管理を整理し、本来の仕事に時間を使いたい。" },
+  { icon: "leaf", title: "農業・一次産業", text: "記録や販路、補助金の活用、ネット販売（EC）まで一緒に進めたい。" },
+  { icon: "gear", title: "これから始める方", text: "起業・開業にあたって、最初の仕組みづくりを相談したい。" },
+  { icon: "ai", title: "業種を問わず", text: "予約・販売・事務・発信・AI活用まで。「うちでもできる？」をまず聞いてみたい。" },
 ];
 
 const reasons = [
@@ -69,7 +70,7 @@ const reasons = [
       </div>
       <p class="hero-free reveal">
         <span class="hero-free-dot" aria-hidden="true"></span>
-        初回のご相談・ヒアリング・お見積もりは<strong>無料</strong>です。
+        <span class="hero-free-text">初回のご相談・ヒアリング・お見積もりは<strong style="white-space:nowrap">無料です。</strong></span>
       </p>
     </div>
     <a href="#consult" class="hero-scroll" aria-label="下へ"><span></span></a>
@@ -100,8 +101,8 @@ const reasons = [
     <div class="container">
       <div class="section-head section-head--center reveal">
         <p class="eyebrow eyebrow--center" style="justify-content:center">For You</p>
-        <h2 class="h2">こんな方の、力になれます。</h2>
-        <p>ひとつでも当てはまったら、お気軽にご相談ください。</p>
+        <h2 class="h2">業種・規模を問わず、力になれます。</h2>
+        <p>下記はほんの一例です。「自分のところでもできる？」と思ったら、まずはご相談ください。</p>
       </div>
       <ul class="persona-grid">
         {personas.map((p) => (
@@ -189,9 +190,10 @@ const reasons = [
   .hero-title { margin-top: 1.4rem; color: var(--ink); }
   .hero-lead { margin-top: 1.8rem; }
   .hero-actions { display: flex; gap: 1rem; margin-top: 2.6rem; flex-wrap: wrap; }
-  .hero-free { display: inline-flex; align-items: center; gap: 0.6rem; margin-top: 1.4rem; font-size: 0.92rem; color: var(--ink-soft); }
+  .hero-free { display: flex; align-items: baseline; gap: 0.6rem; margin-top: 1.5rem; font-size: 0.92rem; color: var(--ink-soft); }
   .hero-free strong { color: var(--brand-deep); font-weight: 700; }
-  .hero-free-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--sage); box-shadow: 0 0 0 4px color-mix(in srgb, var(--sage) 22%, transparent); flex: none; }
+  .hero-free-text { flex: 1; }
+  .hero-free-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--sage); box-shadow: 0 0 0 4px color-mix(in srgb, var(--sage) 22%, transparent); flex: none; position: relative; top: -1px; }
   .hero-scroll { position: absolute; left: 50%; bottom: 1.6rem; transform: translateX(-50%); width: 24px; height: 38px; border: 1.5px solid var(--line); border-radius: 14px; display: grid; place-items: start center; }
   .hero-scroll span { width: 3px; height: 8px; background: var(--brand); border-radius: 2px; margin-top: 7px; animation: scroll 1.8s var(--ease) infinite; }
   @keyframes scroll { 0% { opacity: 0; transform: translateY(0); } 40% { opacity: 1; } 100% { opacity: 0; transform: translateY(12px); } }

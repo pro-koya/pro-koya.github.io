@@ -59,7 +59,7 @@ const changes = [
 
 const faqs = [
   { q: "ITにまったく詳しくないのですが、大丈夫ですか？", a: "もちろんです。専門用語を使わず、現場の言葉で進めます。「何が分からないかも分からない」状態からのご相談が、いちばん多いです。" },
-  { q: "費用はどのくらいかかりますか？", a: "内容によって変わりますが、業務整理の相談は5〜15万円、開発・導入は20〜80万円、月額の伴走は3〜20万円／月が目安です。まずは無料のご相談で、必要な範囲とおおよその費用感をお伝えします。" },
+  { q: "費用はどのくらいかかりますか？", a: "内容によって変わりますが、業務整理の相談は5万円〜、サイト・EC・アプリ等の制作は30万円〜（規模に応じて）、月額の伴走は3万円〜／月が目安です。初回のご相談・お見積もりは無料。必要な範囲とおおよその費用感を先にお伝えします。" },
   { q: "補助金は使えますか？", a: "IT導入補助金やものづくり補助金など、活用できる場合があります。対象になりそうかの確認から、申請のサポートまでご相談いただけます。" },
   { q: "小さな相談でも依頼できますか？", a: "はい。「Excelのこの作業だけ楽にしたい」といった一点のご相談から歓迎します。小さく始めて、必要に応じて広げていきましょう。" },
   { q: "対応エリアは？", a: "大阪・北摂を起点に、オンラインでも対応します。地域の事業者さまには、できるだけ直接お会いして進めます。" },
@@ -163,21 +163,24 @@ const faqs = [
       <div class="section-head section-head--center reveal">
         <p class="eyebrow eyebrow--center" style="justify-content:center">Before → After</p>
         <h2 class="h2">導入すると、こんな変化が。</h2>
-        <p>たとえば、こんなふうに現場が軽くなります。</p>
+        <p>カードをタップすると、Afterが見られます。</p>
       </div>
-      <div class="changes">
-        {changes.map((c) => (
-          <div class="change reveal">
-            <div class="change-before">
-              <span class="change-tag">Before</span>
-              <p>{c.before}</p>
-            </div>
-            <span class="change-arrow" aria-hidden="true">→</span>
-            <div class="change-after">
-              <span class="change-tag change-tag--after">After</span>
-              <p>{c.after}</p>
-            </div>
-          </div>
+      <div class="ba-grid">
+        {changes.map((c, i) => (
+          <button type="button" class="ba-card reveal" data-ba aria-pressed="false" aria-label={`変化の例 ${i + 1}。タップでAfterを表示`}>
+            <span class="ba-inner">
+              <span class="ba-face ba-front">
+                <span class="ba-label">Before</span>
+                <span class="ba-text">{c.before}</span>
+                <span class="ba-hint"><span class="ba-hint-icon">＋</span>タップでAfterを見る</span>
+              </span>
+              <span class="ba-face ba-back">
+                <span class="ba-label ba-label--after">After</span>
+                <span class="ba-text">{c.after}</span>
+                <span class="ba-hint ba-hint--back">↩ Beforeに戻す</span>
+              </span>
+            </span>
+          </button>
         ))}
       </div>
     </div>
@@ -259,20 +262,37 @@ const faqs = [
   .step .h3 { font-size: 1.05rem; margin-bottom: 0.3rem; }
   @media (max-width: 820px) { .steps { grid-template-columns: 1fr; } }
 
-  /* Before -> After */
-  .changes { display: flex; flex-direction: column; gap: 1rem; max-width: 920px; margin-inline: auto; }
-  .change { display: grid; grid-template-columns: 1fr auto 1fr; align-items: stretch; gap: clamp(0.6rem, 1.6vw, 1.2rem); }
-  .change-before, .change-after { border-radius: var(--radius); padding: 1.2rem 1.4rem; display: flex; flex-direction: column; gap: 0.5rem; }
-  .change-before { background: var(--paper); border: 1px solid var(--line); }
-  .change-after { background: color-mix(in srgb, var(--sage) 16%, var(--paper)); border: 1px solid color-mix(in srgb, var(--sage) 35%, transparent); }
-  .change-tag { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-faint); font-weight: 500; }
-  .change-tag--after { color: var(--sage-deep); }
-  .change p { font-size: 0.9rem; line-height: 1.8; color: var(--ink); }
-  .change-arrow { align-self: center; color: var(--brand); font-size: 1.4rem; opacity: 0.7; }
-  @media (max-width: 760px) {
-    .change { grid-template-columns: 1fr; }
-    .change-arrow { transform: rotate(90deg); justify-self: center; margin-block: -0.1rem; }
+  /* Before -> After（クリックで3Dフリップ） */
+  .ba-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2vw, 1.5rem); }
+  @media (max-width: 820px) { .ba-grid { grid-template-columns: 1fr; max-width: 460px; margin-inline: auto; } }
+  .ba-card {
+    appearance: none; border: 0; padding: 0; background: transparent; cursor: pointer;
+    perspective: 1400px; min-height: 240px; text-align: left; font: inherit; color: inherit;
   }
+  .ba-inner {
+    position: relative; display: block; width: 100%; height: 100%; min-height: 240px;
+    transition: transform 0.75s cubic-bezier(0.2, 0.75, 0.2, 1);
+    transform-style: preserve-3d;
+  }
+  .ba-card[aria-pressed="true"] .ba-inner { transform: rotateY(180deg); }
+  .ba-face {
+    position: absolute; inset: 0; -webkit-backface-visibility: hidden; backface-visibility: hidden;
+    display: flex; flex-direction: column; gap: 0.7rem;
+    padding: clamp(1.4rem, 2.6vw, 1.8rem); border-radius: var(--radius-lg);
+    transition: box-shadow 0.4s var(--ease);
+  }
+  .ba-front { background: var(--paper); border: 1px solid var(--line); }
+  .ba-back { background: color-mix(in srgb, var(--sage) 18%, var(--paper)); border: 1px solid color-mix(in srgb, var(--sage) 40%, transparent); transform: rotateY(180deg); }
+  .ba-card:hover .ba-front { box-shadow: 0 20px 40px -28px rgba(58,50,43,0.5); }
+  .ba-card:hover:not([aria-pressed="true"]) .ba-inner { transform: translateY(-4px); }
+  .ba-card[aria-pressed="true"]:hover .ba-inner { transform: rotateY(180deg) translateY(-4px); }
+  .ba-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-faint); font-weight: 700; }
+  .ba-label--after { color: var(--sage-deep); }
+  .ba-text { flex: 1; font-size: 0.95rem; line-height: 1.85; color: var(--ink); }
+  .ba-hint { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: var(--brand); font-weight: 500; }
+  .ba-hint--back { color: var(--sage-deep); }
+  .ba-hint-icon { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; border: 1px solid currentColor; font-size: 0.9rem; line-height: 1; }
+  @media (prefers-reduced-motion: reduce) { .ba-inner { transition: none; } }
 
   /* subsidy */
   .subsidy { text-align: center; display: flex; flex-direction: column; align-items: center; background: var(--paper-2); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: clamp(2rem, 4vw, 3rem); }
@@ -292,3 +312,13 @@ const faqs = [
   .faq[open] .faq-mark::after { transform: scaleY(0); }
   .faq p { padding: 0 0.4rem 1.4rem; max-width: 60ch; }
 </style>
+
+<script>
+  // Before → After フリップ
+  document.querySelectorAll("[data-ba]").forEach((card) => {
+    card.addEventListener("click", () => {
+      const on = card.getAttribute("aria-pressed") === "true";
+      card.setAttribute("aria-pressed", String(!on));
+    });
+  });
+</script>

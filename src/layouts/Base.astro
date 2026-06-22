@@ -76,6 +76,19 @@ const jsonLd = {
     <MobileCTA />
 
     <script>
+      // 日本語の自然な改行（全ブラウザ対応）。文節境界に改行機会を挿入する。
+      // 子要素（<br>/<strong> 等）を持つ要素は手動改行を尊重してスキップ。
+      import { loadDefaultJapaneseParser } from "budoux";
+      const parser = loadDefaultJapaneseParser();
+      const sel = ".display,.h2,.h3,.lead,.eyebrow,main p,.section-head p";
+      document.querySelectorAll(sel).forEach((el) => {
+        if (el.children.length === 0 && el.textContent && el.textContent.trim()) {
+          parser.applyElement(el);
+        }
+      });
+    </script>
+
+    <script>
       const io = new IntersectionObserver(
         (entries) => {
           entries.forEach((e) => {
