@@ -52,9 +52,34 @@ const steps = [
 ];
 
 const changes = [
-  { before: "予約は電話とノート。営業中に手が止まり、ダブルブッキングも。", after: "スマホからWeb予約。電話対応が減り、接客に集中できる。" },
-  { before: "売上や顧客を紙・Excelに二重入力。集計に時間がかかる。", after: "入力は一度だけ。集計は自動になり、毎月の事務時間が減る。" },
-  { before: "発信したいのに、何を載せればいいか分からず手が回らない。", after: "AIで下書きを用意。無理なく続けられる発信の型ができる。" },
+  {
+    icon: "phone",
+    category: "予約・電話対応",
+    before: "予約は電話とノート。営業中に手が止まり、重複やかけ直しも起きていた。",
+    metric: "電話対応を約1/3に",
+    after: "スマホから24時間Web予約。電話の中断が減って接客に集中でき、空き枠も埋まりやすくなる。",
+  },
+  {
+    icon: "doc",
+    category: "事務・転記",
+    before: "売上や顧客を紙とExcelに二重入力。集計や転記に、毎日時間を取られていた。",
+    metric: "事務作業を月20時間削減",
+    after: "入力は一度だけ。集計・帳票は自動化。ミスも減り、確認の手間まで軽くなる。",
+  },
+  {
+    icon: "ai",
+    category: "集客・発信",
+    before: "発信したいのに何を出せばいいか分からず、新規の入口がないままだった。",
+    metric: "新規の問い合わせ経路が増加",
+    after: "AIで下書き→発信を習慣化。見込み客との接点が増え、新しい相談につながる。",
+  },
+  {
+    icon: "chart",
+    category: "コスト・ツール",
+    before: "使っていないツールや重複サービスに、毎月の固定費を払い続けていた。",
+    metric: "毎月の固定費を削減",
+    after: "ツールを棚卸し・統合してサブスク費を見直し。必要なものだけに整える。",
+  },
 ];
 
 const faqs = [
@@ -165,16 +190,18 @@ const faqs = [
         <p>カードをタップすると、Afterが見られます。</p>
       </div>
       <div class="ba-grid">
-        {changes.map((c, i) => (
-          <button type="button" class="ba-card reveal" data-ba aria-pressed="false" aria-label={`変化の例 ${i + 1}。タップでAfterを表示`}>
+        {changes.map((c) => (
+          <button type="button" class="ba-card reveal" data-ba aria-pressed="false" aria-label={`${c.category}の変化。タップでAfterを表示`}>
             <span class="ba-inner">
               <span class="ba-face ba-front">
+                <span class="ba-cat"><span class="ba-cat-icon"><Icon name={c.icon} size={20} /></span>{c.category}</span>
                 <span class="ba-label">Before</span>
                 <span class="ba-text">{c.before}</span>
                 <span class="ba-hint"><span class="ba-hint-icon">＋</span>タップでAfterを見る</span>
               </span>
               <span class="ba-face ba-back">
                 <span class="ba-label ba-label--after">After</span>
+                <span class="ba-metric"><span class="ba-metric-check" aria-hidden="true">✓</span>{c.metric}</span>
                 <span class="ba-text">{c.after}</span>
                 <span class="ba-hint ba-hint--back">↩ Beforeに戻す</span>
               </span>
@@ -182,6 +209,7 @@ const faqs = [
           </button>
         ))}
       </div>
+      <p class="ba-note reveal">※ 数値は導入による効果の一例です。成果は業種・規模・取り組み方によって異なります。</p>
     </div>
   </section>
 
@@ -249,14 +277,14 @@ const faqs = [
   @media (max-width: 820px) { .steps { grid-template-columns: 1fr; } }
 
   /* Before -> After（クリックで3Dフリップ） */
-  .ba-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2vw, 1.5rem); }
-  @media (max-width: 820px) { .ba-grid { grid-template-columns: 1fr; max-width: 460px; margin-inline: auto; } }
+  .ba-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(1rem, 2vw, 1.5rem); max-width: 920px; margin-inline: auto; }
+  @media (max-width: 720px) { .ba-grid { grid-template-columns: 1fr; max-width: 480px; } }
   .ba-card {
     appearance: none; border: 0; padding: 0; background: transparent; cursor: pointer;
-    perspective: 1400px; min-height: 240px; text-align: left; font: inherit; color: inherit;
+    perspective: 1600px; min-height: 248px; text-align: left; font: inherit; color: inherit;
   }
   .ba-inner {
-    position: relative; display: block; width: 100%; height: 100%; min-height: 240px;
+    position: relative; display: block; width: 100%; height: 100%; min-height: 248px;
     transition: transform 0.75s cubic-bezier(0.2, 0.75, 0.2, 1);
     transform-style: preserve-3d;
   }
@@ -264,20 +292,33 @@ const faqs = [
   .ba-face {
     position: absolute; inset: 0; -webkit-backface-visibility: hidden; backface-visibility: hidden;
     display: flex; flex-direction: column; gap: 0.7rem;
-    padding: clamp(1.4rem, 2.6vw, 1.8rem); border-radius: var(--radius-lg);
+    padding: clamp(1.5rem, 2.8vw, 2rem); border-radius: var(--radius-lg);
     transition: box-shadow 0.4s var(--ease);
   }
   .ba-front { background: var(--paper); border: 1px solid var(--line); }
-  .ba-back { background: color-mix(in srgb, var(--sage) 18%, var(--paper)); border: 1px solid color-mix(in srgb, var(--sage) 40%, transparent); transform: rotateY(180deg); }
+  .ba-back {
+    background: linear-gradient(155deg, color-mix(in srgb, var(--sage) 24%, var(--paper)), color-mix(in srgb, var(--sage) 12%, var(--paper)));
+    border: 1px solid color-mix(in srgb, var(--sage) 45%, transparent); transform: rotateY(180deg);
+  }
   .ba-card:hover .ba-front { box-shadow: 0 20px 40px -28px rgba(58,50,43,0.5); }
-  .ba-card:hover:not([aria-pressed="true"]) .ba-inner { transform: translateY(-4px); }
-  .ba-card[aria-pressed="true"]:hover .ba-inner { transform: rotateY(180deg) translateY(-4px); }
-  .ba-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-faint); font-weight: 700; }
+  .ba-card:hover:not([aria-pressed="true"]) .ba-inner { transform: translateY(-5px); }
+  .ba-card[aria-pressed="true"]:hover .ba-inner { transform: rotateY(180deg) translateY(-5px); }
+
+  .ba-cat { display: inline-flex; align-items: center; gap: 0.55rem; font-size: 0.78rem; font-weight: 700; color: var(--brand-deep); letter-spacing: 0.04em; }
+  .ba-cat-icon { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--paper-2); color: var(--brand-deep); }
+  .ba-label { font-size: 0.66rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-faint); font-weight: 700; }
   .ba-label--after { color: var(--sage-deep); }
-  .ba-text { flex: 1; font-size: 0.95rem; line-height: 1.85; color: var(--ink); }
+  .ba-text { flex: 1; font-size: 0.92rem; line-height: 1.85; color: var(--ink); }
+  .ba-metric {
+    display: flex; align-items: center; gap: 0.55rem; font-family: var(--font-round);
+    font-size: clamp(1.3rem, 2.3vw, 1.65rem); font-weight: 700; line-height: 1.35; color: var(--sage-deep);
+    letter-spacing: 0.01em;
+  }
+  .ba-metric-check { flex: none; display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--sage-deep); color: #fff; font-size: 0.85rem; }
   .ba-hint { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: var(--brand); font-weight: 500; }
   .ba-hint--back { color: var(--sage-deep); }
   .ba-hint-icon { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; border: 1px solid currentColor; font-size: 0.9rem; line-height: 1; }
+  .ba-note { text-align: center; margin-top: 1.6rem; font-size: 0.8rem; color: var(--ink-faint); }
   @media (prefers-reduced-motion: reduce) { .ba-inner { transition: none; } }
 
 
