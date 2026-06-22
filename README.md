@@ -46,7 +46,7 @@ Node.js 20 / 22 以上（確認済み環境：Node 24）。
 |---|---|---|
 | `/` | トップ | `src/pages/index.astro` |
 | `/about` | 会社について（理念・つくる そだてる つながる・代表・みや小屋ファーム・会社概要） | `src/pages/about.astro` |
-| `/services` | サービス（BUILD・メニュー・進め方・補助金・FAQ） | `src/pages/services.astro` |
+| `/services` | サービス（BUILD・メニュー・進め方・Before/After・FAQ） | `src/pages/services.astro` |
 | `/works` | 導入事例一覧 | `src/pages/works/index.astro` |
 | `/works/<slug>` | 事例記事 | `src/pages/works/[...slug].astro` |
 | `/members` | メンバー一覧 | `src/pages/members/index.astro` |

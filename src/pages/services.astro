@@ -60,13 +60,12 @@ const changes = [
 const faqs = [
   { q: "ITにまったく詳しくないのですが、大丈夫ですか？", a: "もちろんです。専門用語を使わず、現場の言葉で進めます。「何が分からないかも分からない」状態からのご相談が、いちばん多いです。" },
   { q: "費用はどのくらいかかりますか？", a: "内容によって変わりますが、業務整理の相談は5万円〜、サイト・EC・アプリ等の制作は30万円〜（規模に応じて）、月額の伴走は3万円〜／月が目安です。初回のご相談・お見積もりは無料。必要な範囲とおおよその費用感を先にお伝えします。" },
-  { q: "補助金は使えますか？", a: "IT導入補助金やものづくり補助金など、活用できる場合があります。対象になりそうかの確認から、申請のサポートまでご相談いただけます。" },
   { q: "小さな相談でも依頼できますか？", a: "はい。「Excelのこの作業だけ楽にしたい」といった一点のご相談から歓迎します。小さく始めて、必要に応じて広げていきましょう。" },
   { q: "対応エリアは？", a: "大阪・北摂を起点に、オンラインでも対応します。地域の事業者さまには、できるだけ直接お会いして進めます。" },
 ];
 ---
 
-<Base title="サービス" description="みや小屋のサービス（BUILD）。業務整理の相談、DX導入・開発、月額AI伴走サポート。料金の考え方・進め方・補助金活用・よくある質問。">
+<Base title="サービス" description="みや小屋のサービス（BUILD）。業務整理の相談、サイト・EC・アプリ・システム構築、月額AI伴走サポート。料金の考え方・進め方・よくある質問。">
   <!-- イントロ -->
   <section class="section page-intro">
     <div class="container narrow reveal">
@@ -186,19 +185,6 @@ const faqs = [
     </div>
   </section>
 
-  <!-- 補助金 -->
-  <section class="section">
-    <div class="container narrow subsidy reveal">
-      <span class="subsidy-icon"><Icon name="chart" size={30} /></span>
-      <h2 class="h3">補助金の活用も、一緒に。</h2>
-      <p>
-        IT導入補助金・ものづくり補助金など、デジタル化に使える補助金があります。
-        「自社が対象になるか分からない」段階から、確認・申請のサポートまでご相談いただけます。
-        負担を抑えて、必要な仕組みを導入しましょう。
-      </p>
-    </div>
-  </section>
-
   <!-- FAQ -->
   <section class="section">
     <div class="container narrow">
@@ -294,11 +280,6 @@ const faqs = [
   .ba-hint-icon { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; border: 1px solid currentColor; font-size: 0.9rem; line-height: 1; }
   @media (prefers-reduced-motion: reduce) { .ba-inner { transition: none; } }
 
-  /* subsidy */
-  .subsidy { text-align: center; display: flex; flex-direction: column; align-items: center; background: var(--paper-2); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: clamp(2rem, 4vw, 3rem); }
-  .subsidy-icon { display: inline-grid; place-items: center; width: 60px; height: 60px; border-radius: 50%; background: var(--paper); color: var(--brand-deep); margin-bottom: 1.2rem; }
-  .subsidy .h3 { margin-bottom: 0.8rem; }
-  .subsidy p { max-width: 54ch; }
 
   /* faq */
   .faq-list { border-top: 1px solid var(--line); }
