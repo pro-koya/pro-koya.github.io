@@ -24,7 +24,7 @@ console.log(`✓ portfolio/out → dist/${SUB}`);
 
 // 2) bare な絶対参照（プレーン <img src="/assets…"> 等）のためルートにも複製
 const rootDupDirs = ['assets', 'manual-images', 'work-style'];
-const rootDupFiles = ['toretabe-manual.html', 'toretabe-lp-standalone.html', 'toretabe-icon.png', 'app-ads.txt'];
+const rootDupFiles = ['toretabe-manual.html', 'toretabe-icon.png', 'app-ads.txt'];
 for (const d of rootDupDirs) {
   const s = join(out, d);
   if (existsSync(s)) { cpSync(s, join(dist, d), { recursive: true }); console.log(`✓ dup /${d}`); }

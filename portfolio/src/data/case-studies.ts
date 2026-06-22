@@ -69,9 +69,7 @@ export const CASE_STUDIES: Record<string, CaseStudy> = {
       { n: '02', label: 'Approach', bg: '', caption: 'UI · MAIN LOG SCREEN', image: '/assets/media/toretabe/home.png' },
       { n: '03', label: 'Credits', bg: 'dark', caption: 'DESK · BUILD NOTES', image: '/assets/media/toretabe/meal-ai.png' },
     ],
-    links: [
-      { label: 'Landing Page', href: '/toretabe/' },
-    ],
+    links: [],
     next: { slug: 'liftly-app', en: 'LIFTLY', no: '02', subtitle: '筋トレの積み重ねを見える化する' },
   },
   'liftly-app': {
