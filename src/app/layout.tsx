@@ -43,10 +43,14 @@ export const metadata: Metadata = {
     locale: 'ja_JP',
     type: 'website',
   },
+  // ブラウザアイコンは個人マーク（/icon.*）。/favicon.svg はナビのブランドマーク(mask)用に維持。
   icons: {
-    icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
-    shortcut: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
-    apple: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
+    icon: [
+      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/icon.png', type: 'image/png' },
+    ],
+    shortcut: [{ url: '/icon.svg', type: 'image/svg+xml' }],
+    apple: [{ url: '/icon.png' }],
   },
 };
 
