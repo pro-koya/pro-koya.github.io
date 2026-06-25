@@ -221,6 +221,44 @@ export const CASE_STUDIES: Record<string, CaseStudy> = {
       { label: 'Landing Page', href: '/forge/' },
       { label: 'App Store', href: 'https://apps.apple.com/app/id6766134975', external: true },
     ],
+    next: { slug: 'dogwalk-app', en: 'DOGWALK', no: '07', subtitle: '毎日の散歩を愛犬の健康記録に変える' },
+  },
+  'dogwalk-app': {
+    slug: 'dogwalk-app',
+    title: 'DogWalk',
+    en: 'DOGWALK',
+    no: '07',
+    oneline: '毎日の散歩が、うちの子の健康記録になるアプリ。',
+    problemTitle: '犬は不調を、',
+    problemTitleItalic: '言葉にできない。',
+    problem:
+      '犬は体調の変化を言葉で伝えられない。歩いた距離、うんちの状態、水を飲んだ回数——毎日の散歩には健康のサインが詰まっているのに、リードを持つ手はふさがっていて、その場で残すのは難しかった。',
+    approachTitle: 'リードを持つ手を、',
+    approachTitleItalic: '止めないで。',
+    approach:
+      '開始ボタンひとつでGPSがルートと距離を自動記録し、うんちや水分はワンタップ、または声で残せるようにした。記録はすべて端末内に保存。続けるほど、直近90日の運動量と健康ログを獣医さんに見せられるPDFになる、散歩のための健康記録アプリ。',
+    creditsTitle: 'つくった人と道具。',
+    credits: [
+      { role: 'Concept / Design / Development', name: 'Miyabayasi Koya' },
+      { role: 'Product', name: '自社プロダクト · 犬版Strava' },
+      { role: 'Stack', name: 'Flutter · Drift · Riverpod' },
+    ],
+    meta: [
+      { k: 'YEAR', v: '2026' },
+      { k: 'ROLE', v: 'Solo' },
+      { k: 'STATUS', v: 'Released' },
+      { k: 'DOMAIN', v: 'Pet / App' },
+    ],
+    panels: [
+      { n: '00', label: 'Hero', bg: 'green', caption: 'UI · HOME & STREAK', image: '/assets/media/dogwalk/shot-home.png' },
+      { n: '01', label: 'Problem', bg: '', caption: 'WALK · ROUTE TRACKING', image: '/assets/media/dogwalk/shot-walk.png' },
+      { n: '02', label: 'Approach', bg: 'green', caption: 'UI · WALK DETAIL', image: '/assets/media/dogwalk/shot-detail.png' },
+      { n: '03', label: 'Credits', bg: 'dark', caption: 'STATS · STREAK & GRAPH', image: '/assets/media/dogwalk/shot-stats.png' },
+    ],
+    links: [
+      { label: 'Landing Page', href: '/dogwalk/' },
+      { label: 'App Store', href: 'https://apps.apple.com/app/id6780091967', external: true },
+    ],
     next: { slug: 'toretabe-app', en: 'TORETABE', no: '01', subtitle: '家庭菜園の収穫を食卓へつなげる' },
   },
   'kusahachi-corporate-site': {
