@@ -23,7 +23,7 @@ export const SITE = {
   address: "大阪府摂津市（番地は要記入）",
 
   instagram: "https://www.instagram.com/", // ★要記入：実アカウントURL
-  line: "https://lin.ee/XXXXXXX", // ★要記入：LINE公式アカウントの友だち追加URL
+  line: "https://miya-koya-line.koya-306.workers.dev/auth/line?account=2010533859&ref=site-line-consult&utm_source=miya-koya.com&utm_medium=website&utm_campaign=line_consult",
   // ★任意：オンライン相談の予約ツール（TimeRex / Googleカレンダー予約 等）のURL。
   // 空文字 "" にすると、サイト上の「日程を予約」ボタンは表示されません。
   booking: "",
