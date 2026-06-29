@@ -5,7 +5,7 @@ export interface SocialLink {
 }
 
 export const LINE_CONSULT_URL =
-  'https://miya-koya-line.koya-306.workers.dev/auth/line?account=2010533859&ref=site-line-consult&utm_source=miya-koya.com&utm_medium=website&utm_campaign=line_consult';
+  'https://line.me/R/ti/p/@383iwiau';
 
 export const SOCIAL_LINKS: readonly SocialLink[] = [
   {
