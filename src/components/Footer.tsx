@@ -1,7 +1,9 @@
 import { BrandMark } from './BrandMark';
 import { TransitionLink } from './TransitionLink';
+import { LINE_CONSULT_URL } from '@/data/social';
 
 const FOOTER_LINKS = [
+  { label: 'LINE', href: LINE_CONSULT_URL },
   { label: 'Instagram', href: 'https://www.instagram.com/miyabayashi_koya' },
   { label: 'X', href: 'https://x.com/koya_1104' },
   { label: 'note', href: 'https://note.com/koyablog1104' },

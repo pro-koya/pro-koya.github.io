@@ -30,6 +30,10 @@ npm run build
 
 `next.config.ts` で `output: 'export'` を指定しているため、ビルド結果は `out/` に生成されます。GitHub Actions はこの `out/` を GitHub Pages にアップロードします。
 
+## LINE相談導線
+
+公式LINEへの相談入口は `src/data/social.ts` の `LINE_CONSULT_URL` を正本にします。トップページ、BUILDページ、フッターのLINE導線はこのURLを参照します。
+
 ## 公開アセット
 
 AdMob の検証用 `app-ads.txt` は `public/app-ads.txt` を正本にします。アプリ個別の検証ファイルが必要な場合は `public/<app-slug>/app-ads.txt` に置きます。
