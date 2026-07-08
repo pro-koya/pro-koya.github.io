@@ -3,7 +3,6 @@ import { TransitionLink as Link } from '@/components/TransitionLink';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import RevealObserver from '@/components/RevealObserver';
-import { LINE_CONSULT_URL } from '@/data/social';
 import { WORKS } from '@/data/works';
 
 export const metadata: Metadata = {
@@ -405,7 +404,7 @@ export default function BuildPage() {
             <div className="contact-cta-col">
               <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
                 <Link
-                  href="/booking"
+                  href="/contact?topic=build"
                   className="btn btn-fill"
                   style={{
                     padding: '20px 32px',
@@ -415,22 +414,8 @@ export default function BuildPage() {
                     borderColor: 'var(--paper)',
                   }}
                 >
-                  日程を予約する <span className="arrow" />
+                  フォームで相談する <span className="arrow" />
                 </Link>
-                <a
-                  href={LINE_CONSULT_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn"
-                  style={{
-                    padding: '20px 32px',
-                    fontSize: 13,
-                    color: 'var(--paper)',
-                    borderColor: 'var(--paper)',
-                  }}
-                >
-                  LINEで相談 <span className="arrow" />
-                </a>
               </div>
               <div
                 style={{

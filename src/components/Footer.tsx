@@ -8,7 +8,6 @@ const FOOTER_LINKS = [
   { label: 'X', href: 'https://x.com/koya_1104' },
   { label: 'note', href: 'https://note.com/koyablog1104' },
   { label: 'GitHub', href: 'https://github.com/pro-koya' },
-  { label: 'Booking', href: '/booking' },
   { label: 'Contact', href: '/contact' },
 ] as const;
 

@@ -16,7 +16,6 @@ interface SubpageHeaderProps {
 const DEFAULT_LINKS: NavLink[] = [
   { label: 'Top', href: '/' },
   { label: 'Works', href: '/works' },
-  { label: 'Booking', href: '/booking' },
   { label: 'Contact', href: '/contact' },
 ];
 

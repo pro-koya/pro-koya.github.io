@@ -5,7 +5,7 @@ import Ticker from '@/components/Ticker';
 import HumanLoop from '@/components/HumanLoop';
 import RevealObserver from '@/components/RevealObserver';
 import { WORKS } from '@/data/works';
-import { LINE_CONSULT_URL, SOCIAL_LINKS } from '@/data/social';
+import { SOCIAL_LINKS } from '@/data/social';
 
 function HeroSection() {
   return (
@@ -189,17 +189,14 @@ function ContactPreview() {
           <p className="contact-preview-text">
             制作、開発、協業、取材など、お気軽にご連絡ください。<br />
             関心が重なるテーマだと、特にうれしいです。<br />
-            <span style={{ color: 'var(--ink-3)' }}>直接話すなら「日程を予約」、文章で伝えるなら「LINEで相談」、どちらでもどうぞ。</span>
+            <span style={{ color: 'var(--ink-3)' }}>ご相談はContactフォームから受け付けています。内容を確認のうえ、返信します。</span>
           </p>
         </div>
         <div className="contact-cta-col">
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-            <Link href="/booking" className="btn btn-fill" style={{ padding: '20px 32px', fontSize: 13 }}>
-              日程を予約する <span className="arrow" />
+            <Link href="/contact" className="btn btn-fill" style={{ padding: '20px 32px', fontSize: 13 }}>
+              Contactフォームへ <span className="arrow" />
             </Link>
-            <a href={LINE_CONSULT_URL} target="_blank" rel="noopener noreferrer" className="btn" style={{ padding: '20px 32px', fontSize: 13 }}>
-              LINEで相談 <span className="arrow" />
-            </a>
           </div>
           <div style={{ fontFamily: 'var(--f-mono)', fontSize: 11, letterSpacing: '0.24em', color: 'var(--ink-3)', textTransform: 'uppercase', display: 'flex', gap: 18 }}>
             {SOCIAL_LINKS.map((link) => (

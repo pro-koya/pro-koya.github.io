@@ -143,7 +143,7 @@ export default function AboutPage() {
                     お仕事のご依頼は BUILD <span className="arrow" />
                   </Link>
                   <Link
-                    href="/booking"
+                    href="/contact"
                     className="btn"
                     style={{ color: 'var(--paper)', borderColor: 'var(--paper)' }}
                   >

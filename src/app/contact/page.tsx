@@ -138,7 +138,7 @@ function ContactPageInner() {
           </p>
           <p className="contact-page-desc" style={{ marginTop: 16 }}>
             <strong style={{ fontWeight: 600 }}>このフォームは、文章でのご連絡・ご相談用です。</strong><br />
-            日時を決めて直接お話ししたい場合は、こちらではなく <a href="/booking/" style={{ textDecoration: 'underline' }}>日程を予約する</a> から、Google Meet・対面の空き枠をその場でお選びいただけます。
+            ご相談内容を確認したうえで、必要に応じて返信時に進め方を調整します。
           </p>
         </section>
 
