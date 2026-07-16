@@ -1,0 +1,1033 @@
+/* ═══════════════════════════════════════════════════════════════
+   コエファーム 法人版 事前登録LP — スコープ専用スタイル
+   すべて .kfb- 接頭辞。グローバル汚染禁止。土と作物のパレット。
+   ═══════════════════════════════════════════════════════════════ */
+
+.kfb-root {
+  /* 土と作物のパレット */
+  --kf-paper: #f5f1e8;      /* 生成り・和紙（地） */
+  --kf-paper-lit: #faf7ef;  /* 明側（S6以降で前を向く） */
+  --kf-green: #2e8b4e;      /* コエファーム緑（下線・進捗・アクセント） */
+  --kf-green-d: #1e5e36;    /* 深緑（CTA背景・見出しアクセント） */
+  --kf-ink: #22201c;        /* 墨黒（本文） */
+  --kf-ink-soft: rgba(34, 32, 28, 0.72);
+  --kf-soil: #6e5a44;       /* 土色（補助線・注釈） */
+  --kf-soil-line: rgba(110, 90, 68, 0.28);
+  --kf-soil-faint: rgba(110, 90, 68, 0.16);
+  --kf-sheet: #fcfbf7;      /* 書類の紙（白・地から浮く） */
+  --kf-vermillion: #c0492e; /* 朱（判子・締切・今動く理由） */
+
+  --kf-serif: var(--font-kf-serif), "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --kf-sans: var(--font-kf-sans), "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+
+  --kf-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  position: relative;
+  background: var(--kf-paper);
+  color: var(--kf-ink);
+  font-family: var(--kf-sans);
+  font-size: 17px;
+  line-height: 1.9;
+  letter-spacing: 0.01em;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "palt";
+}
+
+/* 薄い紙テクスチャ（のっぺり感を殺す） */
+.kfb-root::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.035;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* 畦（あぜ）＝内容の左右に土色の細い境界線 */
+.kfb-rails {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  display: flex;
+  justify-content: center;
+}
+.kfb-rails > span {
+  width: 100%;
+  max-width: 900px;
+  height: 100%;
+  border-left: 1px solid var(--kf-soil-faint);
+  border-right: 1px solid var(--kf-soil-faint);
+}
+@media (max-width: 940px) {
+  .kfb-rails { display: none; }
+}
+
+.kfb-root * { box-sizing: border-box; }
+.kfb-root ::selection { background: rgba(46, 139, 78, 0.22); }
+
+.kfb-serif {
+  font-family: var(--kf-serif);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.kfb-wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* セクション余白（静けさ＝誠実さ） */
+.kfb-section {
+  position: relative;
+  z-index: 1;
+  padding: 118px 0;
+}
+@media (max-width: 768px) {
+  .kfb-section { padding: 78px 0; }
+  .kfb-root { font-size: 16px; }
+}
+
+/* ── 数字強調（根拠つき事実の大きな数字）───────────── */
+.kfb-bignum {
+  font-family: var(--kf-serif);
+  font-weight: 700;
+  color: var(--kf-green-d);
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── スクロールリビール（JS有効かつモーション許可時のみ動く）── */
+.kfb-reveal { will-change: opacity, transform; }
+.kfb-animate .kfb-reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.85s var(--kf-ease), transform 0.85s var(--kf-ease);
+}
+.kfb-animate .kfb-reveal.kfb-in {
+  opacity: 1;
+  transform: none;
+}
+.kfb-animate .kfb-reveal.kfb-d1 { transition-delay: 0.09s; }
+.kfb-animate .kfb-reveal.kfb-d2 { transition-delay: 0.18s; }
+.kfb-animate .kfb-reveal.kfb-d3 { transition-delay: 0.27s; }
+
+/* ══════════════════════ 開発中リボン ══════════════════════ */
+.kfb-ribbon {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 12px 20px;
+  font-size: 12.5px;
+  letter-spacing: 0.04em;
+  color: var(--kf-vermillion);
+  border-bottom: 1px solid var(--kf-soil-faint);
+}
+.kfb-ribbon b {
+  font-weight: 700;
+}
+
+/* ══════════════════════ S0 ファーストビュー ══════════════════════ */
+.kfb-hero {
+  position: relative;
+  z-index: 1;
+  padding: 92px 0 96px;
+  overflow: hidden;
+}
+.kfb-hero-field {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.5;
+}
+.kfb-hero-field svg { width: 100%; height: 100%; display: block; }
+.kfb-hero-inner { position: relative; z-index: 1; }
+
+.kfb-hero-h1 {
+  font-family: var(--kf-serif);
+  font-weight: 700;
+  /* 各行（最長12文字）が390px幅・左右24pxパディングでも1行に収まるサイズ */
+  font-size: clamp(21px, 7.2vw, 62px);
+  line-height: 1.28;
+  letter-spacing: -0.03em;
+  margin: 0 0 26px;
+}
+.kfb-hero-h1 .kfb-line { display: block; }
+.kfb-underline {
+  position: relative;
+  white-space: nowrap;
+}
+.kfb-underline::after {
+  content: "";
+  position: absolute;
+  left: -2px;
+  right: -2px;
+  bottom: 0.02em;
+  height: 0.14em;
+  background: var(--kf-green);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+.kfb-animate .kfb-underline::after {
+  transition: transform 0.42s var(--kf-ease) 0.55s;
+}
+.kfb-underline.kfb-drawn::after { transform: scaleX(1); }
+/* JS無効・reduced時は下線を表示 */
+.kfb-root:not(.kfb-animate) .kfb-underline::after { transform: scaleX(1); }
+
+.kfb-hero-sub {
+  font-size: clamp(15px, 4vw, 18px);
+  line-height: 1.95;
+  color: var(--kf-ink-soft);
+  max-width: 30em;
+  margin: 0 0 40px;
+}
+.kfb-hero-sub b {
+  font-weight: 700;
+  color: var(--kf-ink);
+}
+
+.kfb-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 22px;
+}
+.kfb-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 56px;
+  padding: 15px 34px;
+  background: var(--kf-green-d);
+  color: #ffffff;
+  font-family: var(--kf-sans);
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: 0.02em;
+  border-radius: 3px;
+  border: 1px solid var(--kf-green-d);
+  box-shadow: 0 6px 18px -10px rgba(30, 94, 54, 0.7);
+  transition: background 0.25s var(--kf-ease), transform 0.2s var(--kf-ease);
+  cursor: pointer;
+}
+.kfb-cta:hover { background: #17492a; }
+.kfb-cta:active { transform: translateY(1px); }
+.kfb-cta:focus-visible { outline: 3px solid rgba(46, 139, 78, 0.5); outline-offset: 3px; }
+.kfb-cta-note {
+  font-size: 13.5px;
+  color: var(--kf-soil);
+}
+
+/* 話し言葉の吹き出し（S0の種・S1の主役） */
+.kfb-bubble {
+  position: relative;
+  display: inline-block;
+  background: var(--kf-sheet);
+  border: 1px solid var(--kf-soil-line);
+  border-radius: 4px;
+  padding: 15px 20px;
+  font-size: 17px;
+  color: var(--kf-ink);
+  box-shadow: 3px 5px 0 -1px rgba(110, 90, 68, 0.1);
+}
+.kfb-bubble::after {
+  content: "";
+  position: absolute;
+  left: 30px;
+  bottom: -9px;
+  width: 16px;
+  height: 16px;
+  background: var(--kf-sheet);
+  border-right: 1px solid var(--kf-soil-line);
+  border-bottom: 1px solid var(--kf-soil-line);
+  transform: rotate(45deg);
+}
+.kfb-bubble .kfb-tok { position: relative; }
+.kfb-hero-bubble {
+  margin-top: 52px;
+  font-family: var(--kf-serif);
+}
+
+.kfb-scrollcue {
+  margin-top: 60px;
+  display: flex;
+  justify-content: center;
+  color: var(--kf-soil);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+}
+.kfb-scrollcue span {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.kfb-scrollcue svg { animation: kfb-bob 1.8s ease-in-out infinite; }
+@keyframes kfb-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(3px); }
+}
+
+/* ══════════════════════ S1 主役：1発話→4書類 ══════════════════════ */
+.kfb-s1 {
+  position: relative;
+  z-index: 1;
+  background: var(--kf-paper);
+}
+.kfb-s1-sticky {
+  padding: 60px 0 40px;
+}
+/* モーション許可時のみ sticky スクロールテリング化 */
+.kfb-animate .kfb-s1 { height: 280vh; }
+.kfb-animate .kfb-s1-sticky {
+  position: sticky;
+  top: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 24px 0;
+}
+
+.kfb-s1-head {
+  text-align: center;
+  /* 16文字が390px幅で1行に収まるサイズ */
+  font-size: clamp(19px, 5.4vw, 32px);
+  line-height: 1.5;
+  font-weight: 700;
+  margin: 0 auto 8px;
+  max-width: 17em;
+  text-wrap: balance;
+}
+
+/* 舞台（固定座標。紙と接続線をここで重ねる） */
+.kfb-s1-canvas {
+  position: relative;
+  width: 100%;
+  max-width: 820px;
+  margin: 8px auto 0;
+  aspect-ratio: 16 / 10;
+}
+.kfb-connectors {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  overflow: visible;
+}
+/* 細い実線。viewBox(160x100)がcanvas aspect(16/10)と一致し等倍スケールなので
+   stroke-width 0.4 は画面上約2pxのヘアラインになる。
+   dasharray:1 + pathLength=1 は「1本の実線が伸びる」ためのもので、描画後は継ぎ目のない実線 */
+.kfb-connectors path {
+  fill: none;
+  stroke: var(--kf-green);
+  stroke-width: 0.4;
+  stroke-linecap: round;
+  opacity: 0.35;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+.kfb-s1-bubble {
+  position: absolute;
+  left: 50%;
+  top: 12%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  max-width: 62%;
+  font-family: var(--kf-serif);
+  font-size: clamp(14px, 3.4vw, 19px);
+  white-space: nowrap;
+}
+.kfb-s1-bubble .kfb-tok { transition: color 0.3s var(--kf-ease); }
+.kfb-s1-bubble .kfb-tok-on { color: var(--kf-green-d); font-weight: 700; }
+
+/* 紙（外＝位置決め、内＝アニメ対象） */
+.kfb-paper {
+  position: absolute;
+  width: 19%;
+  aspect-ratio: 3 / 4;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+.kfb-paper[data-i="0"] { left: 16%;  top: 66%; }
+.kfb-paper[data-i="1"] { left: 38.7%; top: 66%; }
+.kfb-paper[data-i="2"] { left: 61.3%; top: 66%; }
+.kfb-paper[data-i="3"] { left: 84%;  top: 66%; }
+
+.kfb-paper-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--kf-sheet);
+  border: 1px solid var(--kf-soil-line);
+  border-radius: 3px;
+  box-shadow: 4px 7px 16px -8px rgba(60, 44, 28, 0.4);
+  overflow: hidden;
+}
+.kfb-paper-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.kfb-paper-svg .kfb-draw {
+  fill: none;
+  stroke: var(--kf-soil);
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+.kfb-paper-svg .kfb-draw-green { stroke: var(--kf-green); }
+.kfb-paper-tag {
+  position: absolute;
+  left: 8%;
+  top: 6%;
+  font-size: clamp(8px, 1.7vw, 11px);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--kf-ink);
+}
+.kfb-token {
+  position: absolute;
+  padding: 1px 5px;
+  font-size: clamp(7px, 1.5vw, 10px);
+  font-weight: 700;
+  color: var(--kf-green-d);
+  background: rgba(46, 139, 78, 0.12);
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+/* 紙の下のラベル（4枚そろって現れる） */
+.kfb-s1-labels {
+  max-width: 660px;
+  margin: 30px auto 0;
+  padding: 0 24px;
+  display: grid;
+  gap: 11px;
+}
+.kfb-s1-label {
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: var(--kf-ink-soft);
+  padding-left: 15px;
+  border-left: 2px solid var(--kf-green);
+}
+.kfb-s1-label b { color: var(--kf-ink); font-weight: 700; }
+.kfb-s1-label .kfb-no {
+  font-weight: 700;
+  color: var(--kf-green-d);
+  font-variant-numeric: tabular-nums;
+}
+.kfb-s1-close {
+  text-align: center;
+  font-size: clamp(18px, 4.6vw, 25px);
+  font-weight: 700;
+  margin: 34px auto 0;
+  max-width: 20em;
+}
+
+/* SP: 紙を 2×2、接続線は隠す、舞台を縦長に */
+@media (max-width: 768px) {
+  .kfb-s1-canvas { aspect-ratio: 4 / 5; }
+  .kfb-connectors { display: none; }
+  .kfb-s1-bubble { top: 9%; max-width: 82%; white-space: normal; text-align: center; }
+  .kfb-paper { width: 40%; }
+  .kfb-paper[data-i="0"] { left: 27%; top: 42%; }
+  .kfb-paper[data-i="1"] { left: 73%; top: 42%; }
+  .kfb-paper[data-i="2"] { left: 27%; top: 76%; }
+  .kfb-paper[data-i="3"] { left: 73%; top: 76%; }
+  .kfb-paper-tag { font-size: 11px; }
+  .kfb-token { font-size: 9px; }
+}
+
+/* ══════════════════════ S2 / S3 タイムライン ══════════════════════ */
+.kfb-tl-head {
+  font-family: var(--kf-serif);
+  font-weight: 700;
+  font-size: clamp(23px, 6vw, 36px);
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  margin: 0 0 48px;
+  text-wrap: balance;
+}
+.kfb-timeline {
+  position: relative;
+  display: grid;
+  gap: 34px;
+}
+.kfb-timeline::before {
+  content: "";
+  position: absolute;
+  left: 9px;
+  top: 6px;
+  bottom: 6px;
+  width: 1px;
+  background: var(--kf-soil-line);
+}
+.kfb-tl-node {
+  position: relative;
+  padding-left: 40px;
+}
+.kfb-tl-node::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 8px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: 2px solid var(--kf-soil);
+  background: var(--kf-paper);
+}
+.kfb-tl-time {
+  font-family: var(--kf-serif);
+  font-weight: 700;
+  font-size: 19px;
+  color: var(--kf-ink);
+  margin-bottom: 6px;
+}
+.kfb-tl-body {
+  font-size: 16px;
+  line-height: 1.9;
+  color: var(--kf-ink-soft);
+}
+.kfb-tl-foot {
+  margin-top: 34px;
+  font-size: 14px;
+  color: var(--kf-soil);
+}
+
+/* S2 は一段くすませ、左寄せ */
+.kfb-s2 {
+  background: linear-gradient(0deg, rgba(110, 90, 68, 0.05), rgba(110, 90, 68, 0.05)), var(--kf-paper);
+}
+/* S3 は解決＝整列。レール・ノードを右側に置く左右対称の構図（テキストは左揃えのまま） */
+.kfb-s3 .kfb-tl-node::before { border-color: var(--kf-green); }
+.kfb-s3 .kfb-tl-time { color: var(--kf-green-d); }
+@media (min-width: 720px) {
+  .kfb-s3 .kfb-timeline { justify-items: end; }
+  .kfb-s3 .kfb-timeline::before { left: auto; right: 9px; }
+  .kfb-s3 .kfb-tl-node { padding-left: 0; padding-right: 40px; max-width: 34em; }
+  .kfb-s3 .kfb-tl-node::before { left: auto; right: 4px; }
+}
+.kfb-tl-note {
+  margin-top: 40px;
+  font-family: var(--kf-serif);
+  font-weight: 600;
+  font-size: clamp(17px, 4.4vw, 21px);
+  line-height: 1.75;
+  letter-spacing: -0.015em;
+}
+
+/* 夜のWeb管理画面モック */
+.kfb-mock {
+  margin-top: 18px;
+  background: var(--kf-sheet);
+  border: 1px solid var(--kf-soil-line);
+  border-radius: 6px;
+  padding: 16px;
+  box-shadow: 4px 7px 18px -10px rgba(60, 44, 28, 0.45);
+  text-align: left;
+  max-width: 380px;
+}
+.kfb-s3 .kfb-mock { margin-left: auto; }
+.kfb-mock-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.kfb-mock-bar i {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--kf-soil-faint);
+  display: inline-block;
+}
+.kfb-mock-bar span {
+  margin-left: 6px;
+  font-size: 11px;
+  color: var(--kf-soil);
+  letter-spacing: 0.04em;
+}
+.kfb-mock-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+.kfb-mock-plot {
+  aspect-ratio: 1 / 1;
+  border: 1px solid var(--kf-soil-faint);
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+}
+.kfb-mock-plot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(46, 139, 78, var(--f, 0.15));
+}
+.kfb-mock-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 7px;
+  height: 46px;
+  margin-bottom: 12px;
+}
+.kfb-mock-bars i {
+  flex: 1;
+  background: var(--kf-green);
+  border-radius: 2px 2px 0 0;
+  display: block;
+}
+.kfb-mock-approve {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--kf-green-d);
+}
+.kfb-mock-check {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--kf-green-d);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ══════════════════════ S4 農業の労務 ══════════════════════ */
+.kfb-lead {
+  font-size: 17px;
+  line-height: 1.95;
+  color: var(--kf-ink-soft);
+  margin: 0 0 44px;
+  max-width: 34em;
+}
+.kfb-facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+@media (max-width: 620px) {
+  .kfb-facts { grid-template-columns: 1fr; }
+}
+.kfb-fact {
+  position: relative;
+  background: var(--kf-sheet);
+  border: 1px solid var(--kf-soil-line);
+  border-radius: 3px;
+  padding: 22px 22px 24px;
+  box-shadow: 3px 5px 14px -9px rgba(60, 44, 28, 0.4);
+}
+.kfb-fact-seal {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 26px;
+  height: 26px;
+  border: 1.4px solid var(--kf-vermillion);
+  border-radius: 50%;
+  color: var(--kf-vermillion);
+  font-size: 9px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transform: rotate(-8deg);
+  opacity: 0.85;
+}
+.kfb-fact-h {
+  font-family: var(--kf-serif);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  margin: 0 34px 12px 0;
+}
+.kfb-fact-b {
+  font-size: 14.5px;
+  line-height: 1.85;
+  color: var(--kf-ink-soft);
+}
+.kfb-fact-b .kfb-bignum { font-size: 1.3em; margin: 0 0.05em; }
+
+.kfb-foreign {
+  margin: 44px 0 0;
+  font-family: var(--kf-serif);
+  font-weight: 600;
+  font-size: clamp(18px, 4.6vw, 23px);
+  line-height: 1.75;
+  letter-spacing: -0.015em;
+}
+.kfb-foreign .kfb-bignum { font-size: 1.15em; }
+
+.kfb-han {
+  margin-top: 26px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.kfb-han .kfb-bubble { font-size: 15px; }
+.kfb-han-arrow {
+  color: var(--kf-green);
+  font-size: 20px;
+}
+.kfb-han-doc {
+  font-size: 13px;
+  color: var(--kf-soil);
+}
+
+.kfb-disclaimer {
+  margin-top: 40px;
+  padding: 16px 18px;
+  border: 1px solid var(--kf-soil-faint);
+  border-radius: 3px;
+  font-size: 13px;
+  line-height: 1.85;
+  color: var(--kf-soil);
+  background: rgba(110, 90, 68, 0.03);
+}
+
+/* ══════════════════════ S5 作った人 ══════════════════════ */
+.kfb-s5 {
+  background: var(--kf-paper);
+}
+.kfb-letter {
+  max-width: 30em;
+}
+.kfb-letter-sil {
+  margin-bottom: 30px;
+  color: var(--kf-soil);
+}
+.kfb-letter-body {
+  font-family: var(--kf-serif);
+  font-weight: 500;
+  font-size: clamp(16px, 4.2vw, 19px);
+  line-height: 2.05;
+  letter-spacing: -0.01em;
+}
+.kfb-letter-body p { margin: 0 0 1.05em; }
+.kfb-sign {
+  margin-top: 26px;
+  font-size: 13.5px;
+  color: var(--kf-soil);
+  letter-spacing: 0.03em;
+}
+
+/* ══════════════════════ S6 正直なところ ══════════════════════ */
+.kfb-s6 { background: var(--kf-paper-lit); }
+.kfb-honest {
+  background: var(--kf-sheet);
+  border: 1px solid var(--kf-soil-line);
+  border-radius: 4px;
+  padding: 28px 26px;
+  box-shadow: 4px 7px 18px -11px rgba(60, 44, 28, 0.4);
+}
+.kfb-honest-list {
+  display: grid;
+  gap: 16px;
+}
+.kfb-honest-item {
+  display: flex;
+  gap: 12px;
+  font-size: 15.5px;
+  line-height: 1.85;
+  color: var(--kf-ink-soft);
+}
+.kfb-check {
+  flex-shrink: 0;
+  margin-top: 4px;
+  width: 16px;
+  height: 16px;
+  color: var(--kf-green);
+}
+.kfb-promises {
+  margin-top: 26px;
+  display: grid;
+  gap: 14px;
+}
+.kfb-promise {
+  position: relative;
+  display: flex;
+  gap: 14px;
+  align-items: baseline;
+  padding: 14px 16px 14px 18px;
+  border-left: 3px solid var(--kf-green);
+  background: rgba(46, 139, 78, 0.055);
+  border-radius: 0 3px 3px 0;
+}
+.kfb-promise-no {
+  font-family: var(--kf-serif);
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--kf-green-d);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.kfb-promise-t {
+  font-size: 15.5px;
+  line-height: 1.7;
+}
+.kfb-promise-t b { font-weight: 700; color: var(--kf-ink); }
+.kfb-badge {
+  display: inline-block;
+  margin-left: 4px;
+  padding: 1px 7px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--kf-vermillion);
+  border-radius: 3px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+/* ══════════════════════ S7 フォーム ══════════════════════ */
+.kfb-s7 { background: var(--kf-paper-lit); }
+.kfb-form-lead {
+  font-size: 16px;
+  line-height: 1.9;
+  color: var(--kf-ink-soft);
+  margin: 0 0 36px;
+  max-width: 32em;
+}
+.kfb-form {
+  display: grid;
+  gap: 26px;
+}
+.kfb-field { display: grid; gap: 8px; }
+.kfb-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--kf-ink);
+}
+.kfb-label .kfb-req {
+  margin-left: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--kf-vermillion);
+}
+.kfb-label .kfb-opt {
+  margin-left: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--kf-soil);
+}
+.kfb-hint {
+  font-size: 12.5px;
+  color: var(--kf-soil);
+  line-height: 1.6;
+}
+.kfb-input,
+.kfb-textarea,
+.kfb-select {
+  width: 100%;
+  min-height: 50px;
+  padding: 13px 15px;
+  font-family: var(--kf-sans);
+  font-size: 16px;
+  color: var(--kf-ink);
+  background: var(--kf-sheet);
+  border: 1px solid var(--kf-soil-line);
+  border-radius: 4px;
+  transition: border-color 0.2s var(--kf-ease), box-shadow 0.2s var(--kf-ease);
+}
+.kfb-textarea { min-height: 92px; resize: vertical; line-height: 1.75; }
+.kfb-input:focus,
+.kfb-textarea:focus,
+.kfb-select:focus {
+  outline: none;
+  border-color: var(--kf-green);
+  box-shadow: 0 0 0 3px rgba(46, 139, 78, 0.16);
+}
+.kfb-input[aria-invalid="true"] {
+  border-color: var(--kf-vermillion);
+  box-shadow: 0 0 0 3px rgba(192, 73, 46, 0.14);
+}
+.kfb-fielderr {
+  font-size: 13px;
+  color: var(--kf-vermillion);
+}
+.kfb-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%236e5a44' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  padding-right: 38px;
+}
+
+/* honeypot（視覚的に隠す・aria非公開） */
+.kfb-hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.kfb-checkrow {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  cursor: pointer;
+  min-height: 44px;
+  padding: 6px 0;
+}
+.kfb-checkrow input {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  margin-top: 2px;
+  accent-color: var(--kf-green-d);
+  cursor: pointer;
+}
+.kfb-checkrow span {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--kf-ink);
+}
+.kfb-checkrow.kfb-invalid span { color: var(--kf-vermillion); }
+
+.kfb-submit {
+  margin-top: 6px;
+  width: 100%;
+  min-height: 60px;
+  border: 1px solid var(--kf-green-d);
+  background: var(--kf-green-d);
+  color: #fff;
+  font-family: var(--kf-sans);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.02em;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 8px 22px -12px rgba(30, 94, 54, 0.75);
+  transition: background 0.25s var(--kf-ease), transform 0.15s var(--kf-ease);
+}
+.kfb-submit:hover { background: #17492a; }
+.kfb-submit:active { transform: translateY(1px); }
+.kfb-submit:disabled { opacity: 0.6; cursor: default; }
+.kfb-submit:focus-visible { outline: 3px solid rgba(46, 139, 78, 0.5); outline-offset: 3px; }
+.kfb-submit-note {
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--kf-soil);
+  line-height: 1.6;
+}
+.kfb-formerr {
+  font-size: 14px;
+  color: var(--kf-vermillion);
+  line-height: 1.7;
+}
+
+/* サンクスカード */
+.kfb-thanks {
+  background: var(--kf-sheet);
+  border: 1px solid var(--kf-soil-line);
+  border-radius: 6px;
+  padding: 40px 30px;
+  text-align: center;
+  box-shadow: 4px 8px 22px -12px rgba(60, 44, 28, 0.45);
+}
+.kfb-thanks-check {
+  width: 54px;
+  height: 54px;
+  margin: 0 auto 22px;
+  border-radius: 50%;
+  background: var(--kf-green-d);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.kfb-animate .kfb-thanks-check {
+  animation: kfb-stamp 0.5s var(--kf-ease) both;
+}
+@keyframes kfb-stamp {
+  0% { transform: scale(0.4) rotate(-10deg); opacity: 0; }
+  60% { transform: scale(1.06) rotate(2deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+.kfb-thanks-body {
+  font-family: var(--kf-serif);
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.9;
+  letter-spacing: -0.01em;
+}
+.kfb-thanks-body .kfb-thanks-note {
+  display: block;
+  margin-top: 14px;
+  font-family: var(--kf-sans);
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--kf-soil);
+}
+
+/* ══════════════════════ S8 フッター ══════════════════════ */
+.kfb-footer {
+  position: relative;
+  z-index: 1;
+  padding: 70px 0 60px;
+  border-top: 1px solid var(--kf-soil-faint);
+  color: var(--kf-soil);
+  font-size: 13.5px;
+  line-height: 1.9;
+}
+.kfb-footer-brand {
+  font-family: var(--kf-serif);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--kf-ink);
+  margin-bottom: 16px;
+}
+.kfb-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-bottom: 18px;
+}
+.kfb-footer-links a {
+  color: var(--kf-green-d);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+.kfb-footer-links a:hover { border-bottom-color: var(--kf-green-d); }
+.kfb-footer-org { color: var(--kf-soil); }
+.kfb-footer-tag {
+  margin-top: 14px;
+  font-family: var(--kf-serif);
+  font-style: italic;
+  color: var(--kf-soil);
+}
+
+/* ── reduced-motion：全演出を静止・完成状態に ── */
+@media (prefers-reduced-motion: reduce) {
+  .kfb-scrollcue svg { animation: none; }
+  .kfb-thanks-check { animation: none; }
+}
