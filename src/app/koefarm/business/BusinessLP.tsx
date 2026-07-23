@@ -882,7 +882,7 @@ export default function BusinessLP() {
                     aria-invalid={consentErr ? 'true' : undefined}
                   />
                   <span>
-                    <a href="/koefarm/privacy/" target="_blank" rel="noopener" style={{ color: 'var(--kf-green-d)', textDecoration: 'underline' }}>
+                    <a href="https://koefarm.pages.dev/privacy" target="_blank" rel="noopener" style={{ color: 'var(--kf-green-d)', textDecoration: 'underline' }}>
                       プライバシーポリシー
                     </a>
                     に同意のうえ登録します
@@ -914,7 +914,7 @@ export default function BusinessLP() {
         <div className="kfb-wrap">
           <div className="kfb-footer-brand">コエファーム ／ 農業法人の、話す業務ソフト（開発中）</div>
           <div className="kfb-footer-links">
-            <a href="/koefarm/privacy/">プライバシーポリシー</a>
+            <a href="https://koefarm.pages.dev/privacy">プライバシーポリシー</a>
             <a href="mailto:koya@miya-koya.com">お問い合わせ</a>
             <a href="/koefarm/support/">個人向けアプリ「コエファーム」について</a>
           </div>

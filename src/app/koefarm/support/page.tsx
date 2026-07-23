@@ -11,9 +11,9 @@ export default function KoeFarmSupport() {
     <main className="kf-legal">
       <nav className="kf-nav">
         <a href="/koefarm/support/">サポート</a>
-        <a href="/koefarm/privacy/">プライバシーポリシー</a>
-        <a href="/koefarm/terms/">利用規約</a>
-        <a href="/koefarm/tokushoho/">特定商取引法</a>
+        <a href="https://koefarm.pages.dev/privacy">プライバシーポリシー</a>
+        <a href="https://koefarm.pages.dev/terms">利用規約</a>
+        <a href="https://koefarm.pages.dev/tokushoho">特定商取引法</a>
       </nav>
 
       <h1>コエファーム サポート</h1>
@@ -47,7 +47,7 @@ export default function KoeFarmSupport() {
 
       <h3>データはどこに保存されますか</h3>
       <p>
-        農作業記録・売上経費・圃場情報は、原則としてお使いの端末内にのみ保存されます。設定画面からCSV／JSON／標準形式（OCSM JSON-LD）でいつでも書き出せます。詳細は<a href="/koefarm/privacy/">プライバシーポリシー</a>をご覧ください。
+        農作業記録・売上経費・圃場情報は、原則としてお使いの端末内にのみ保存されます。設定画面からCSV／JSON／標準形式（OCSM JSON-LD）でいつでも書き出せます。詳細は<a href="https://koefarm.pages.dev/privacy">プライバシーポリシー</a>をご覧ください。
       </p>
 
       <h3>プレミアム（サブスクリプション）の解約方法</h3>
