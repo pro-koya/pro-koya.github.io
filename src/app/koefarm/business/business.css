@@ -108,16 +108,18 @@
 .kfb-reveal { will-change: opacity, transform; }
 .kfb-animate .kfb-reveal {
   opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 0.85s var(--kf-ease), transform 0.85s var(--kf-ease);
+  transform: translateY(14px);
+  /* 0.85s は長すぎて、スクロール中つねに半透明の要素が画面にある状態になっていた。
+     読める状態に早く到達させる。 */
+  transition: opacity 0.4s var(--kf-ease), transform 0.4s var(--kf-ease);
 }
 .kfb-animate .kfb-reveal.kfb-in {
   opacity: 1;
   transform: none;
 }
-.kfb-animate .kfb-reveal.kfb-d1 { transition-delay: 0.09s; }
-.kfb-animate .kfb-reveal.kfb-d2 { transition-delay: 0.18s; }
-.kfb-animate .kfb-reveal.kfb-d3 { transition-delay: 0.27s; }
+.kfb-animate .kfb-reveal.kfb-d1 { transition-delay: 0.05s; }
+.kfb-animate .kfb-reveal.kfb-d2 { transition-delay: 0.10s; }
+.kfb-animate .kfb-reveal.kfb-d3 { transition-delay: 0.15s; }
 
 /* ══════════════════════ 開発中リボン ══════════════════════ */
 .kfb-ribbon {

@@ -11,6 +11,93 @@ const SUPABASE_ANON =
 type WorkersBand = '1-4' | '5-9' | '10-29' | '30+';
 type Status = 'idle' | 'sending' | 'done' | 'error';
 
+/* ── 流入計測 ──────────────────────────────────────────────
+   「事前登録0件」が“誰も来ていない”のか“来たが登録しなかった”のかを
+   判別できないと打ち手が決まらない（LP-BUSINESS-DESIGN §9）。
+   個人を特定する情報は送らない。session_id は毎訪問の乱数で個人と紐付かない。 */
+type LpEvent =
+  | 'view' | 'scroll_25' | 'scroll_50' | 'scroll_75' | 'scroll_90'
+  | 'cta_click' | 'form_start' | 'form_submit' | 'form_success';
+
+type Attribution = {
+  utm_source: string;
+  utm_medium: string;
+  utm_campaign: string;
+  referrer: string;
+};
+
+const ATTRIBUTION_KEY = 'kf-lp-attr';
+const SESSION_KEY = 'kf-lp-sid';
+
+/** UTMは初回訪問時に確保し、回遊・再訪でも保持する（着地時のパラメータが真の流入元）。 */
+function readAttribution(): Attribution {
+  const fallback: Attribution = { utm_source: 'direct', utm_medium: '', utm_campaign: '', referrer: '' };
+  if (typeof window === 'undefined') return fallback;
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const fromUrl = params.get('utm_source');
+    if (fromUrl) {
+      const attr: Attribution = {
+        utm_source: fromUrl.slice(0, 60),
+        utm_medium: (params.get('utm_medium') ?? '').slice(0, 60),
+        utm_campaign: (params.get('utm_campaign') ?? '').slice(0, 100),
+        referrer: document.referrer.slice(0, 200),
+      };
+      sessionStorage.setItem(ATTRIBUTION_KEY, JSON.stringify(attr));
+      return attr;
+    }
+    const saved = sessionStorage.getItem(ATTRIBUTION_KEY);
+    if (saved) return { ...fallback, ...(JSON.parse(saved) as Partial<Attribution>) };
+    // パラメータ無し＝直接流入。外部リンク経由なら参照元だけ残す。
+    const attr: Attribution = { ...fallback, referrer: document.referrer.slice(0, 200) };
+    sessionStorage.setItem(ATTRIBUTION_KEY, JSON.stringify(attr));
+    return attr;
+  } catch {
+    return fallback;
+  }
+}
+
+function sessionId(): string {
+  if (typeof window === 'undefined') return '';
+  try {
+    const saved = sessionStorage.getItem(SESSION_KEY);
+    if (saved) return saved;
+    const sid = Math.random().toString(36).slice(2) + Date.now().toString(36);
+    sessionStorage.setItem(SESSION_KEY, sid);
+    return sid;
+  } catch {
+    return 'nostorage' + Date.now().toString(36);
+  }
+}
+
+/** 計測は最善努力。失敗してもLPの動作には一切影響させない。 */
+function track(event: LpEvent) {
+  if (typeof window === 'undefined') return;
+  try {
+    const attr = readAttribution();
+    const body = JSON.stringify({
+      session_id: sessionId(),
+      event,
+      path: window.location.pathname.slice(0, 200),
+      viewport_w: window.innerWidth,
+      ...attr,
+    });
+    void fetch(`${SUPABASE_URL}/rest/v1/koefarm_lp_events`, {
+      method: 'POST',
+      headers: {
+        apikey: SUPABASE_ANON,
+        Authorization: `Bearer ${SUPABASE_ANON}`,
+        'Content-Type': 'application/json',
+        Prefer: 'return=minimal',
+      },
+      body,
+      keepalive: true,
+    }).catch(() => {});
+  } catch {
+    /* noop */
+  }
+}
+
 const WORKER_BANDS: { value: WorkersBand; label: string }[] = [
   { value: '1-4', label: '〜4人' },
   { value: '5-9', label: '5〜9人' },
@@ -107,6 +194,9 @@ export default function BusinessLP() {
     cleanups.push(() => window.clearTimeout(t));
 
     // 汎用リビール（IntersectionObserver）
+    // threshold 0.16 は「要素の16%が入るまで出さない」ため、背の高いブロックや
+    // 小さい画面では画面内にあるのに読めない時間が長く続いていた。
+    // 少しでも入ったら出す（threshold 0）＋ 下端に余裕を持たせて先出しする。
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
@@ -116,10 +206,38 @@ export default function BusinessLP() {
           }
         });
       },
-      { threshold: 0.16, rootMargin: '0px 0px -8% 0px' }
+      { threshold: 0, rootMargin: '0px 0px 12% 0px' }
     );
     root.querySelectorAll('.kfb-reveal').forEach((el) => io.observe(el));
     cleanups.push(() => io.disconnect());
+
+    // ── 流入計測：表示とスクロール到達 ──
+    track('view');
+    const marks: { ratio: number; event: LpEvent; done: boolean }[] = [
+      { ratio: 0.25, event: 'scroll_25', done: false },
+      { ratio: 0.5, event: 'scroll_50', done: false },
+      { ratio: 0.75, event: 'scroll_75', done: false },
+      { ratio: 0.9, event: 'scroll_90', done: false },
+    ];
+    let scrollTicking = false;
+    const onScroll = () => {
+      if (scrollTicking) return;
+      scrollTicking = true;
+      window.requestAnimationFrame(() => {
+        scrollTicking = false;
+        const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+        if (scrollable <= 0) return;
+        const depth = window.scrollY / scrollable;
+        marks.forEach((m) => {
+          if (!m.done && depth >= m.ratio) {
+            m.done = true;
+            track(m.event);
+          }
+        });
+      });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    cleanups.push(() => window.removeEventListener('scroll', onScroll));
 
     // ── S1：gsap ScrollTrigger スクロールテリング ──
     let ctx: { revert: () => void } | null = null;
@@ -217,11 +335,18 @@ export default function BusinessLP() {
     }
 
     setStatus('sending');
+    track('form_submit');
 
+    // 流入元を登録レコードにも残す（どのチャネルが実際に登録に至ったかを見るため）。
+    const attr = readAttribution();
     const row: Record<string, unknown> = {
       email: email.trim(),
       source: 'lp-business',
       wants_pilot: wantsPilot,
+      utm_source: attr.utm_source,
+      utm_medium: attr.utm_medium || null,
+      utm_campaign: attr.utm_campaign || null,
+      referrer: attr.referrer || null,
     };
     if (contactName.trim()) row.contact_name = contactName.trim();
     if (orgName.trim()) row.org_name = orgName.trim();
@@ -242,6 +367,7 @@ export default function BusinessLP() {
       });
 
       if (res.ok) {
+        track('form_success');
         setStatus('done');
         return;
       }
@@ -254,6 +380,7 @@ export default function BusinessLP() {
         /* noop */
       }
       if (res.status === 409 || code === '23505') {
+        track('form_success');
         setStatus('done');
         return;
       }
@@ -306,7 +433,7 @@ export default function BusinessLP() {
             農業法人のための、話す業務ソフト<b>「コエファーム」</b>。
           </p>
           <div className="kfb-cta-row">
-            <a className="kfb-cta" href="#kfb-form">
+            <a className="kfb-cta" href="#kfb-form" onClick={() => track('cta_click')}>
               先行登録する（無料）
             </a>
             <span className="kfb-cta-note">メールアドレスだけ。1分で終わります。</span>
@@ -530,7 +657,7 @@ export default function BusinessLP() {
       {/* ══ S5 作った人 ══ */}
       <section className="kfb-section kfb-s5">
         <div className="kfb-wrap">
-          <h2 className="kfb-tl-head kfb-reveal">これは、自分の畑のために作りました。</h2>
+          <h2 className="kfb-tl-head kfb-reveal">農業修行中に直面した課題を、解決するために作りました。</h2>
           <div className="kfb-letter kfb-reveal">
             <div className="kfb-letter-sil" aria-hidden="true">
               <svg width="64" height="84" viewBox="0 0 46 60" fill="none" stroke="currentColor" strokeWidth="1.4">
@@ -541,13 +668,14 @@ export default function BusinessLP() {
               </svg>
             </div>
             <div className="kfb-letter-body">
-              <p>私はなすを作る農家で、プログラムも書きます。</p>
-              <p>雇う人が増えるほど、畑仕事より、日報と勤怠と記帳の紙仕事に夜がつぶれました。</p>
+              <p>私はいま、師匠の畑で農業を学んでいます。プログラムも書きます。</p>
+              <p>米を主軸に、地元の伝統野菜であるなす、それに季節の野菜をつくる畑です。</p>
+              <p>人手が増えるほど、畑仕事より、日報と勤怠と記帳の紙仕事に夜がつぶれていました。</p>
               <p>現場は忙しい。パソコンは苦手。だから「話すだけ」にしました。</p>
-              <p>まず自分の経営でずっと使い、個人向けのアプリとして形にしました。</p>
+              <p>まずこの畑でずっと使い、個人向けのアプリとして形にしました。</p>
               <p>その仕組みを、人を雇う農業法人のために作り直しているのが、これです。</p>
             </div>
-            <p className="kfb-sign">コエファーム開発 ／ 鳥飼のなす農家</p>
+            <p className="kfb-sign">コエファーム開発 ／ 米と伝統野菜の畑で修行中</p>
           </div>
         </div>
       </section>
