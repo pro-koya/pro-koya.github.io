@@ -25,7 +25,7 @@ export default function KoeFarmSupport() {
       </p>
       <p>
         みや小屋（宮林幸也）<br />
-        メール: <a href="mailto:koya@miya-koya.com">koya@miya-koya.com</a>
+        メール: <a href="mailto:koyablog.1104@gmail.com">koyablog.1104@gmail.com</a>
       </p>
       <p>
         不具合のご報告の際は、お使いの機種（例: iPhone 15）・iOSバージョン・発生した操作の順序を添えていただけると、調査がスムーズです。
@@ -65,7 +65,7 @@ export default function KoeFarmSupport() {
         設定画面のバックアップ（書き出し）機能でデータを書き出し、新しい端末で読み込んでください。iCloudバックアップからの復元でも移行できます。
       </p>
 
-      <p className="kf-foot">コエファーム（みや小屋） ／ <a href="mailto:koya@miya-koya.com">koya@miya-koya.com</a></p>
+      <p className="kf-foot">コエファーム（みや小屋） ／ <a href="mailto:koyablog.1104@gmail.com">koyablog.1104@gmail.com</a></p>
     </main>
   );
 }

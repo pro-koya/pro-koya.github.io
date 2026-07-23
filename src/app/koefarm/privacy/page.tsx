@@ -12,14 +12,17 @@ const CANONICAL = 'https://koefarm.pages.dev/privacy';
 export const metadata: Metadata = {
   title: 'コエファーム プライバシーポリシー — 最新版はコエファーム公式サイトへ',
   description: 'コエファームの法務文書の最新版は https://koefarm.pages.dev/ で公開しています。',
-  alternates: { canonical: CANONICAL },
-  robots: { index: false, follow: true },
 };
 
 export default function KoeFarmLegalRedirect() {
   return (
     <main className="kf-legal">
       <meta httpEquiv="refresh" content={`0; url=${CANONICAL}`} />
+      {/* canonical は metadata.alternates ではなくここで出す。
+          next.config の trailingSlash:true が alternates を `/privacy/` に正規化してしまい、
+          そのURLは koefarm.pages.dev 側で 308 になる（canonical がリダイレクト先を指す弱いシグナルになる）。
+          noindex は併用しない——noindex が勝って canonical が無視されるため。 */}
+      <link rel="canonical" href={CANONICAL} />
       <h1>ページが移動しました</h1>
       <p>
         コエファームの法務文書（プライバシーポリシー・利用規約・特定商取引法に基づく表記）は、

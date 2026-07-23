@@ -915,7 +915,7 @@ export default function BusinessLP() {
           <div className="kfb-footer-brand">コエファーム ／ 農業法人の、話す業務ソフト（開発中）</div>
           <div className="kfb-footer-links">
             <a href="https://koefarm.pages.dev/privacy">プライバシーポリシー</a>
-            <a href="mailto:koya@miya-koya.com">お問い合わせ</a>
+            <a href="mailto:koyablog.1104@gmail.com">お問い合わせ</a>
             <a href="/koefarm/support/">個人向けアプリ「コエファーム」について</a>
           </div>
           <div className="kfb-footer-org">運営：みや小屋（宮林幸也）</div>
