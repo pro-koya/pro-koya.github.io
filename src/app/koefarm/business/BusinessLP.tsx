@@ -107,57 +107,16 @@ const WORKER_BANDS: { value: WorkersBand; label: string }[] = [
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-/* ── SVG：紙ごとの罫線（pathLength=1 で描画量を正規化）── */
-function DocReport() {
-  return (
-    <svg className="kfb-paper-svg" viewBox="0 0 60 80" aria-hidden="true">
-      <line className="kfb-draw" x1="8" y1="26" x2="52" y2="26" pathLength={1} />
-      <line className="kfb-draw" x1="8" y1="38" x2="52" y2="38" pathLength={1} />
-      <line className="kfb-draw" x1="8" y1="50" x2="52" y2="50" pathLength={1} />
-      <line className="kfb-draw" x1="8" y1="62" x2="52" y2="62" pathLength={1} />
-      <line className="kfb-draw" x1="30" y1="26" x2="30" y2="62" pathLength={1} />
-    </svg>
-  );
-}
-function DocAttendance() {
-  return (
-    <svg className="kfb-paper-svg" viewBox="0 0 60 80" aria-hidden="true">
-      <circle className="kfb-draw" cx="30" cy="46" r="18" pathLength={1} />
-      <line className="kfb-draw" x1="30" y1="30" x2="30" y2="34" pathLength={1} />
-      <line className="kfb-draw" x1="30" y1="58" x2="30" y2="62" pathLength={1} />
-      <line className="kfb-draw" x1="14" y1="46" x2="18" y2="46" pathLength={1} />
-      <line className="kfb-draw" x1="42" y1="46" x2="46" y2="46" pathLength={1} />
-      <line className="kfb-draw kfb-draw-green" x1="30" y1="46" x2="30" y2="35" pathLength={1} />
-      <line className="kfb-draw kfb-draw-green" x1="30" y1="46" x2="40" y2="50" pathLength={1} />
-    </svg>
-  );
-}
-function DocLabor() {
-  return (
-    <svg className="kfb-paper-svg" viewBox="0 0 60 80" aria-hidden="true">
-      <circle className="kfb-draw" cx="30" cy="44" r="16" pathLength={1} />
-      <path className="kfb-draw kfb-draw-green" d="M30 44 L30 28 A16 16 0 0 1 44.8 37.9 Z" pathLength={1} />
-      <line className="kfb-draw" x1="10" y1="74" x2="50" y2="74" pathLength={1} />
-    </svg>
-  );
-}
-function DocLedger() {
-  return (
-    <svg className="kfb-paper-svg" viewBox="0 0 60 80" aria-hidden="true">
-      <line className="kfb-draw" x1="10" y1="30" x2="50" y2="30" pathLength={1} />
-      <line className="kfb-draw" x1="30" y1="30" x2="30" y2="66" pathLength={1} />
-      <line className="kfb-draw" x1="14" y1="42" x2="26" y2="42" pathLength={1} />
-      <line className="kfb-draw" x1="34" y1="42" x2="46" y2="42" pathLength={1} />
-      <line className="kfb-draw" x1="14" y1="52" x2="26" y2="52" pathLength={1} />
-    </svg>
-  );
-}
-
+/* ── 紙の絵（ChatGPT生成のフラットUIイラスト・文字は焼き込まず下のトークンで重ねる）──
+   素材と再生成手順は public/koefarm/business/README.md。
+   画像は正方形・背景が --kf-paper(#f5f1e8) と同色なので、地に溶けてカードだけが見える。
+   token の x/y は「カード内1本目のグレーバー」の左端・中心に合わせた画像座標
+   （実測: バー1は x 21.8%〜77.8%、y 43.2%〜46.6%）。CSS 側で translateY(-50%) している。 */
 const PAPERS = [
-  { tag: '1｜作業日報', Doc: DocReport, token: { text: 'トマト', x: '16%', y: '40%' } },
-  { tag: '2｜勤怠', Doc: DocAttendance, token: { text: '3時間', x: '14%', y: '20%' } },
-  { tag: '3｜労務費', Doc: DocLabor, token: { text: 'Aハウス', x: '10%', y: '79%' } },
-  { tag: '4｜仕訳', Doc: DocLedger, token: null },
+  { tag: '1｜作業日報', src: '/koefarm/business/doc-report.png', token: { text: 'トマト', x: '21.8%', y: '44.9%' } },
+  { tag: '2｜勤怠', src: '/koefarm/business/doc-attendance.png', token: { text: '3時間', x: '21.8%', y: '44.9%' } },
+  { tag: '3｜労務費', src: '/koefarm/business/doc-labor.png', token: { text: 'Aハウス', x: '21.8%', y: '44.9%' } },
+  { tag: '4｜仕訳', src: '/koefarm/business/doc-ledger.png', token: null },
 ];
 
 export default function BusinessLP() {
@@ -269,13 +228,6 @@ export default function BusinessLP() {
               { autoAlpha: 0, scale: 0.6, yPercent: 26, duration: 0.2 },
               at
             );
-            // 各紙の罫線が「書かれる」
-            const draws = card.querySelectorAll<SVGElement>('.kfb-draw');
-            tl.from(
-              draws,
-              { strokeDashoffset: 1, duration: 0.16, stagger: 0.015 },
-              at + 0.08
-            );
           });
 
           // 接続線が bubble から各紙へ引かれる
@@ -288,8 +240,9 @@ export default function BusinessLP() {
           // 発話の語が点る（同じ語が複数の紙へ）
           tl.to('.kfb-s1-bubble .kfb-tok', { className: 'kfb-tok kfb-tok-on', duration: 0.1, stagger: 0.08 }, 0.2);
 
-          // 各紙に語が入る
-          tl.from('.kfb-token', { autoAlpha: 0, y: 4, duration: 0.14, stagger: 0.08 }, 0.4);
+          // 各紙に語が入る（.kfb-token は CSS の translateY(-50%) で行に乗せているので
+          // gsap 側で y を動かさない。動かすと gsap が transform を上書きして行からずれる）
+          tl.from('.kfb-token', { autoAlpha: 0, duration: 0.14, stagger: 0.08 }, 0.4);
 
           // 4枚そろってラベル
           tl.from('.kfb-s1-label', { autoAlpha: 0, x: -10, duration: 0.16, stagger: 0.06 }, 0.66);
@@ -459,14 +412,16 @@ export default function BusinessLP() {
           <div className="kfb-s1-canvas">
             {/*
               等倍スケール（canvas aspect 16/10 = viewBox 160x100）で座標を実レイアウトに一致させる。
-              紙: 中心x 16/38.7/61.3/84% → 25.6/61.9/98.1/134.4、上端y = 66% − (19%×4/3÷0.625)/2 = 45.7 → 46
+              紙: 中心x 12.5/37.5/62.5/87.5% → 20/60/100/140。正方形の一辺は 25% = 40。
+              上端 y = 66 − 20 = 46。ただし 46 はまだ画像の余白で、白カードの上端は画像の11%＝
+              46 + 40×0.11 ≒ 50.4。ここまで引かないと不透明な画像に線が食われて浮いて見える。
               吹き出し: 中心(50%,12%) → 始点(80,16)は吹き出し(z-index:3)の背後に隠れる
             */}
             <svg className="kfb-connectors" viewBox="0 0 160 100" aria-hidden="true">
-              <path d="M80 16 C 72 30, 40 34, 25.6 46" pathLength={1} />
-              <path d="M80 16 C 77 30, 64 36, 61.9 46" pathLength={1} />
-              <path d="M80 16 C 83 30, 96 36, 98.1 46" pathLength={1} />
-              <path d="M80 16 C 88 30, 120 34, 134.4 46" pathLength={1} />
+              <path d="M80 16 C 72 32, 34 38, 20 50.4" pathLength={1} />
+              <path d="M80 16 C 77 32, 62 40, 60 50.4" pathLength={1} />
+              <path d="M80 16 C 83 32, 98 40, 100 50.4" pathLength={1} />
+              <path d="M80 16 C 88 32, 126 38, 140 50.4" pathLength={1} />
             </svg>
 
             <div className="kfb-bubble kfb-s1-bubble">
@@ -476,7 +431,8 @@ export default function BusinessLP() {
             {PAPERS.map((p, i) => (
               <div className="kfb-paper" data-i={i} key={i}>
                 <div className="kfb-paper-card">
-                  <p.Doc />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img className="kfb-paper-img" src={p.src} alt="" aria-hidden="true" />
                   <span className="kfb-paper-tag">{p.tag}</span>
                   {p.token && (
                     <span className="kfb-token" style={{ left: p.token.x, top: p.token.y }}>

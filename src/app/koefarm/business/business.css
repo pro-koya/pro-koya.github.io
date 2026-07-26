@@ -357,61 +357,63 @@
 .kfb-s1-bubble .kfb-tok { transition: color 0.3s var(--kf-ease); }
 .kfb-s1-bubble .kfb-tok-on { color: var(--kf-green-d); font-weight: 700; }
 
-/* 紙（外＝位置決め、内＝アニメ対象） */
+/* 紙（外＝位置決め、内＝アニメ対象）
+   中身は正方形の画像。画像内では白カードが 約15%〜85% を占め、外周は地と同色(#f5f1e8)。
+   なので枠の見た目上の幅は width の約7割になる。隣とバウンディングボックスが少し重なるが、
+   重なるのは地色の余白だけなのでカードにも焼き込み影にも掛からない。 */
 .kfb-paper {
   position: absolute;
-  width: 19%;
-  aspect-ratio: 3 / 4;
+  width: 25%;
+  aspect-ratio: 1 / 1;
   transform: translate(-50%, -50%);
   z-index: 1;
 }
-.kfb-paper[data-i="0"] { left: 16%;  top: 66%; }
-.kfb-paper[data-i="1"] { left: 38.7%; top: 66%; }
-.kfb-paper[data-i="2"] { left: 61.3%; top: 66%; }
-.kfb-paper[data-i="3"] { left: 84%;  top: 66%; }
+/* 25%幅の正方形を 25%間隔で置く＝隣とちょうど接する（重ならない）。
+   画像は不透明なので重ねると隣の焼き込み影を削ってしまう */
+.kfb-paper[data-i="0"] { left: 12.5%; top: 66%; }
+.kfb-paper[data-i="1"] { left: 37.5%; top: 66%; }
+.kfb-paper[data-i="2"] { left: 62.5%; top: 66%; }
+.kfb-paper[data-i="3"] { left: 87.5%; top: 66%; }
 
+/* 枠・影・地色はすべて画像に焼き込み済み。ここでは足さない（二重の影を避ける） */
 .kfb-paper-card {
   position: relative;
   width: 100%;
   height: 100%;
-  background: var(--kf-sheet);
-  border: 1px solid var(--kf-soil-line);
-  border-radius: 3px;
-  box-shadow: 4px 7px 16px -8px rgba(60, 44, 28, 0.4);
-  overflow: hidden;
 }
-.kfb-paper-svg {
-  position: absolute;
-  inset: 0;
+.kfb-paper-img {
+  display: block;
   width: 100%;
   height: 100%;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
 }
-.kfb-paper-svg .kfb-draw {
-  fill: none;
-  stroke: var(--kf-soil);
-  stroke-width: 1;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 0;
-}
-.kfb-paper-svg .kfb-draw-green { stroke: var(--kf-green); }
+/* 以下 % は「正方形画像の座標」基準。カードは 約15%〜85%（縦は 11%〜89%）。
+   見出しはカードの外（下の余白）に置く。カード内の上部はアイコンで埋まっている */
 .kfb-paper-tag {
   position: absolute;
-  left: 8%;
-  top: 6%;
+  left: 50%;
+  top: 94%;
+  transform: translateX(-50%);
   font-size: clamp(8px, 1.7vw, 11px);
+  line-height: 1;
   font-weight: 700;
   letter-spacing: 0.02em;
+  white-space: nowrap;
   color: var(--kf-ink);
 }
+/* カード内1本目のグレーバーに重なって「その欄が埋まった」ように見せるため、
+   下地を透かさない不透明の淡緑にする */
 .kfb-token {
   position: absolute;
+  transform: translateY(-50%);
   padding: 1px 5px;
   font-size: clamp(7px, 1.5vw, 10px);
+  line-height: 1.5;
   font-weight: 700;
   color: var(--kf-green-d);
-  background: rgba(46, 139, 78, 0.12);
+  background: #e4f1e9;
   border-radius: 3px;
   white-space: nowrap;
 }
@@ -450,11 +452,12 @@
   .kfb-s1-canvas { aspect-ratio: 4 / 5; }
   .kfb-connectors { display: none; }
   .kfb-s1-bubble { top: 9%; max-width: 82%; white-space: normal; text-align: center; }
-  .kfb-paper { width: 40%; }
-  .kfb-paper[data-i="0"] { left: 27%; top: 42%; }
-  .kfb-paper[data-i="1"] { left: 73%; top: 42%; }
-  .kfb-paper[data-i="2"] { left: 27%; top: 76%; }
-  .kfb-paper[data-i="3"] { left: 73%; top: 76%; }
+  /* 幅44%の正方形＝canvas高さの35.2%。行間隔40%を空けて上下も重ねない */
+  .kfb-paper { width: 44%; }
+  .kfb-paper[data-i="0"] { left: 27%; top: 40%; }
+  .kfb-paper[data-i="1"] { left: 73%; top: 40%; }
+  .kfb-paper[data-i="2"] { left: 27%; top: 80%; }
+  .kfb-paper[data-i="3"] { left: 73%; top: 80%; }
   .kfb-paper-tag { font-size: 11px; }
   .kfb-token { font-size: 9px; }
 }
